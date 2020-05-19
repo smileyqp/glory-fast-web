@@ -319,6 +319,11 @@ export default [
             name: 'permissionlist',
             component: './SystemManagement/PermissionList',
           },
+          {
+            path: '/sysmanagement/rolemanagement',
+            name: 'rolemanagement',
+            component: './SystemManagement/RoleManagement',
+          },
         ],
       },
       

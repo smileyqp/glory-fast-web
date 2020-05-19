@@ -46,5 +46,6 @@ export default {
   'menu.usermanagement.list':'User List',
   'menu.sysmanagement':'System Management',
   'menu.sysmanagement.usermanagement':'User Management',
-  'menu.sysmanagement.permissionlist':'PermissionList Management'
+  'menu.sysmanagement.permissionlist':'PermissionList Management',
+  'menu.sysmanagement.rolemanagement':'Role Management'
 };
