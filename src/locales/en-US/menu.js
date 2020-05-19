@@ -42,4 +42,9 @@ export default {
   'menu.editor.flow': 'Flow Editor',
   'menu.editor.mind': 'Mind Editor',
   'menu.editor.koni': 'Koni Editor',
+  'menu.usermanagement':'User Management',
+  'menu.usermanagement.list':'User List',
+  'menu.sysmanagement':'System Management',
+  'menu.sysmanagement.usermanagement':'User Management',
+  'menu.sysmanagement.permissionlist':'PermissionList Management'
 };

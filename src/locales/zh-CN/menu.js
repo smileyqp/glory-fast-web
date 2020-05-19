@@ -42,4 +42,9 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+  'menu.usermanagement':'用户管理',
+  'menu.usermanagement.list':'用户列表',
+  'menu.sysmanagement':'系统管理',
+  'menu.sysmanagement.usermanagement':'用户管理',
+  'menu.sysmanagement.permissionlist':'菜单管理'
 };

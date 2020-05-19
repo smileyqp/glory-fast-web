@@ -290,6 +290,39 @@ export default [
         ],
       },
       {
+        name: 'usermanagement',
+        icon: 'user',
+        path: '/usermanagement',
+        routes: [
+          // result
+          {
+            path: '/usermanagement/list',
+            name: 'list',
+            component: './UserManagement/UserList',
+          },
+          // { path: '/result/fail', name: 'fail', component: './Result/Error' },
+        ],
+      },
+      {
+        name: 'sysmanagement',
+        icon: 'tool',
+        path: '/sysmanagement',
+        routes: [
+          // result
+          {
+            path: '/sysmanagement/usermanagement',
+            name: 'usermanagement',
+            component: './SystemManagement/UserManagement',
+          },
+          {
+            path: '/sysmanagement/permissionlist',
+            name: 'permissionlist',
+            component: './SystemManagement/PermissionList',
+          },
+        ],
+      },
+      
+      {
         component: '404',
       },
     ],
