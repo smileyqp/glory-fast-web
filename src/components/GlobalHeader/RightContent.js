@@ -119,7 +119,7 @@ export default class GlobalHeaderRight extends PureComponent {
         <Tooltip title={formatMessage({ id: 'component.globalHeader.help' })}>
           <a
             target="_blank"
-            href="https://pro.ant.design/docs/getting-started"
+            href="https://github.com/smileyqp/glory-fast-web"
             rel="noopener noreferrer"
             className={styles.action}
           >
