@@ -250,17 +250,19 @@ class UserManagement extends PureComponent {
                         </span>
                     )} */}
             </div>
-            <StandardTable
-              scroll={{ x: 1500, y: 300 }}
-              selectedRows={selectedRows}
-              loading={loading}
-              //   pagination = {total}
-              dataSource={userlist.records}
-              columns={this.columns(menu)}
-              onSelectRow={this.handleSelectRows}
-              onChange={this.handleStandardTableChange}
-              rowKey="id"
-            />
+            {userlist && (
+              <StandardTable
+                scroll={{ x: 1500, y: 300 }}
+                selectedRows={selectedRows}
+                loading={loading}
+                //   pagination = {total}
+                dataSource={userlist.records}
+                columns={this.columns(menu)}
+                onSelectRow={this.handleSelectRows}
+                onChange={this.handleStandardTableChange}
+                rowKey="id"
+              />
+            )}
           </div>
         </Card>
       </PageHeaderWrapper>
