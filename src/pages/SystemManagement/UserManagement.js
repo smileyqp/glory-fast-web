@@ -158,7 +158,7 @@ class UserManagement extends PureComponent {
   };
 
   render() {
-    const { selectedRows } = this.state;
+    const { selectedRows, detailDrawervisible } = this.state;
     const { userlist, loading } = this.props;
 
     const menu = (
@@ -199,36 +199,20 @@ class UserManagement extends PureComponent {
         </Menu.Item>
       </Menu>
     );
-    const detailDrawer = () => {
-      const { detailDrawervisible } = this.state;
-      return (
-        <Drawer
-          title="详情"
-          placement="right"
-          closable={false}
-          onClose={this.closeDetaildrawer}
-          visible={detailDrawervisible}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Drawer>
-      );
-    };
 
-    // const detailDrawer = (
-    //   <Drawer
-    //     title="详情"
-    //     placement="right"
-    //     closable={false}
-    //     onClose={this.closeDetaildrawer}
-    //     visible={this.state.detailDrawervisible}
-    //   >
-    //     <p>Some contents...</p>
-    //     <p>Some contents...</p>
-    //     <p>Some contents...</p>
-    //   </Drawer>
-    // );
+    const detailDrawer = (
+      <Drawer
+        title="详情"
+        placement="right"
+        closable={false}
+        onClose={this.closeDetaildrawer}
+        visible={detailDrawervisible}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+    );
 
     return (
       <PageHeaderWrapper title="用户管理">
