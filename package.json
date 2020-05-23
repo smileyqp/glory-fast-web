@@ -34,7 +34,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged"
     }
   },
   "lint-staged": {
@@ -76,7 +75,7 @@
     "react-container-query": "^0.11.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-document-title": "^2.0.3",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.13.1",
     "react-fittext": "^1.0.0",
     "react-media": "^1.9.2",
     "resize-observer-polyfill": "^1.5.1",
