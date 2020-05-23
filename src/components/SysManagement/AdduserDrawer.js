@@ -1,107 +1,84 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React, { PureComponent } from 'react';
 import {
-  Card,
   Icon,
-  Dropdown,
-  Menu,
-  Button,
   Drawer,
   Form,
-  Col,
-  Row,
-  Input,
   Select,
   DatePicker,
   Tooltip,
   Cascader,
   AutoComplete,
   Checkbox,
+  Upload,
+  message,
+  Input,
+  Row,
+  Col,
+  Button,
 } from 'antd';
+import classNames from 'classnames';
 
-import styles from './index.less';
-
-class AdduserDrawer extends Component {
-  static propTypes = {
-    actionsText: PropTypes.object,
-    hideCheckAll: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    hideCheckAll: false,
-    actionsText: {
-      expandText: 'Expand',
-      collapseText: 'Collapse',
-      selectAllText: 'All',
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 8 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 16 },
+  },
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
     },
-  };
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      expand: false,
-      value: props.value || props.defaultValue || [],
-    };
-  }
-
+export default class AdduserDrawer extends PureComponent {
   render() {
-    const { userlist, loading, form, addDrawervisible } = this.props;
+    const {
+      closeAdddrawer,
+      addDrawervisible,
+      form,
+      handleCancel,
+      handleSubmit,
+      handleChange,
+      beforeUpload,
+      imageUrl,
+      photoloading,
+      fileData,
+    } = this.props;
     const { getFieldDecorator } = form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-      },
-    };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 8,
-        },
-      },
-    };
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '86',
     })(
       <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+        <Select.Option value="86">+86</Select.Option>
+        <Select.Option value="87">+87</Select.Option>
       </Select>
     );
-
+    const uploadButton = (
+      <div>
+        <Icon type={photoloading ? 'loading' : 'plus'} />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
     return (
       <Drawer
         title="新增"
         width={720}
-        onClose={this.closeAdddrawer}
+        onClose={closeAdddrawer}
         visible={addDrawervisible}
         bodyStyle={{ paddingBottom: 80 }}
-        footer={
-          <div
-            style={{
-              textAlign: 'right',
-            }}
-          >
-            <Button onClick={this.closeAdddrawer} style={{ marginRight: 8 }}>
-              Cancel
-            </Button>
-            <Button onClick={this.closeAdddrawer} type="primary">
-              Submit
-            </Button>
-          </div>
-        }
       >
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        <Form {...formItemLayout} onSubmit={handleSubmit}>
           <Form.Item
             label={
               <span>
@@ -158,7 +135,6 @@ class AdduserDrawer extends Component {
               ],
             })(<Input.Password />)}
           </Form.Item>
-
           <Form.Item label="确认密码" hasFeedback>
             {getFieldDecorator('confirm', {
               rules: [
@@ -171,6 +147,28 @@ class AdduserDrawer extends Component {
                 },
               ],
             })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+          </Form.Item>
+
+          <Form.Item label="头像">
+            {getFieldDecorator('photo', {
+              rules: [{ required: true, message: '请选择头像!' }],
+            })(
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                fileList={fileData}
+                beforeUpload={beforeUpload}
+                onChange={handleChange}
+              >
+                {imageUrl ? (
+                  <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+                ) : (
+                  uploadButton
+                )}
+              </Upload>
+            )}
           </Form.Item>
 
           <Form.Item label="生日" rules={[{ required: true, message: '请选择日期' }]}>
@@ -189,8 +187,8 @@ class AdduserDrawer extends Component {
               rules: [{ required: true, message: '请选择您的性别!' }],
             })(
               <Select placeholder="请选择性别">
-                <Option value={0}>男</Option>
-                <Option value={1}>女</Option>
+                <Select.Option value={0}>男</Select.Option>
+                <Select.Option value={1}>女</Select.Option>
               </Select>
             )}
           </Form.Item>
@@ -201,15 +199,19 @@ class AdduserDrawer extends Component {
             })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              创建
-            </Button>
-            <Button>取消</Button>
+            <Row gutter={16}>
+              <Col span={6}>
+                <Button type="primary" htmlType="submit">
+                  创建
+                </Button>
+              </Col>
+              <Col span={6}>
+                <Button onClick={handleCancel}>取消</Button>
+              </Col>
+            </Row>
           </Form.Item>
         </Form>
       </Drawer>
     );
   }
 }
-
-export default AdduserDrawer;

@@ -23,8 +23,11 @@ export default {
         payload: response.result,
       });
     },
-    *addUser({ payload: { data, callback } }, { call, put }) {
-      const response = yield call(addUser, data);
+    *addUser(_, { call, put }) {
+      const { payload } = _;
+      console.log(_);
+      console.log(payload);
+      const response = yield call(addUser, payload);
       if (response.ok === true) {
         if (callback) callback(response.result);
       }

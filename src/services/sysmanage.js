@@ -9,7 +9,8 @@ export async function queryUserList(data) {
 }
 
 export async function addUser(data) {
-  return request('/api/user/list', {
+  console.log(data);
+  return request('/api/user/insert', {
     method: 'POST',
     data,
   });
