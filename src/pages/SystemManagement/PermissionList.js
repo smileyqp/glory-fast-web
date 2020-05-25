@@ -78,6 +78,7 @@ class PermissionList extends PureComponent {
     ]
     return (
       <PageHeaderWrapper>
+        <Card bordered={false}>
         <StandardTable 
           size="middle"
           scroll={{ x: 1500, y: 300 }}
@@ -87,6 +88,7 @@ class PermissionList extends PureComponent {
           loading = {loading}
           columns = {columns}
         />
+        </Card>
       </PageHeaderWrapper>
    
     );

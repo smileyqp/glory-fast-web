@@ -59,6 +59,7 @@ class RoleManagement extends PureComponent {
       },
     ]
     return <PageHeaderWrapper>
+      <Card bordered={false}>
        <StandardTable 
           size="middle"
           scroll={{ x: 1500, y: 300 }}
@@ -69,6 +70,7 @@ class RoleManagement extends PureComponent {
           columns = {columns}
           rowKey = {'roleName'}
         />
+      </Card>
     </PageHeaderWrapper>;
   }
 }
