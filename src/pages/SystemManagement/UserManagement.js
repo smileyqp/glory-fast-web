@@ -119,12 +119,11 @@ class UserManagement extends PureComponent {
   closeDetaildrawer = () => {
     this.setState({ detailDrawervisible: false });
   };
+
   openDetailDrawer = () => {
     this.setState({ detailDrawervisible: true });
   };
-  closeAdddrawer = () => {
-    this.setState({ addDrawervisible: false });
-  };
+
   openAddDrawer = () => {
     this.setState({ addDrawervisible: true });
   };
@@ -170,6 +169,7 @@ class UserManagement extends PureComponent {
       }
     });
   };
+  
   handleCancel = () => {
     this.setState({ addDrawervisible: false });
   };
@@ -194,7 +194,6 @@ class UserManagement extends PureComponent {
         />
         <AdduserDrawer
           {...this.props}
-          closeAdddrawer={this.closeAdddrawer}
           beforeUpload={this.beforeUpload}
           handleCancel={this.handleCancel}
           handleSubmit={this.handleSubmit}
