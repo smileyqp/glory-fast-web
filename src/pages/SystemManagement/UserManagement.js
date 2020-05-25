@@ -18,6 +18,7 @@ import {
   Checkbox,
   Upload,
   message,
+  Pagination
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -57,7 +58,10 @@ class UserManagement extends PureComponent {
     detailDrawervisible: false,
     addDrawervisible: false,
     photoloading: false,
-    pagination: {},
+    pagination: {
+        pageSize:10,
+        total:0
+    },
   };
 
   componentDidMount() {
@@ -72,13 +76,11 @@ class UserManagement extends PureComponent {
     dispatch({
       type: 'sysmanage/fetchUserList',
       payload: {
-        data: {
-          pageSize: 10,
-          pageNo: 1,
-        },
+        data:{...this.state.pagination},
         callback: res => {
           const pagination = { ...this.state.pagination };
           pagination.total = res.total;
+          pagination.pageSize = res.pageSize;
           this.setState({ pagination: pagination });
         },
       },
@@ -92,6 +94,7 @@ class UserManagement extends PureComponent {
   };
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
+      console.log(pagination)
     const { dispatch } = this.props;
     console.log(pagination, filtersArg, sorter);
     const data = {
@@ -105,6 +108,7 @@ class UserManagement extends PureComponent {
         callback: res => {
           const pagination = { ...this.state.pagination };
           pagination.total = res.total;
+          pagination.pageSize = res.pageSize;
           this.setState({ pagination: pagination });
         },
       },
@@ -151,14 +155,14 @@ class UserManagement extends PureComponent {
         const formData = new FormData();
         formData.append('file', values.photo.file);
         const data = { ...values };
-        data.photo = formData;
+        data.photo = '';
         data.birthday = values.birthday._d;
         console.log(data);
         const { dispatch } = this.props;
         dispatch({
           type: 'sysmanage/addUser',
           payload: {
-            data,
+            ...data,
           },
         });
       }

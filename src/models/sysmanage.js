@@ -1,10 +1,12 @@
-import { queryUserList, addUser } from '@/services/sysmanage';
+import { queryUserList, addUser,queryPermissionList,queryRoleList } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
 
   state: {
     usermanage: {},
+    permissionlistmanage:{},
+    rolemanage:{}
   },
 
   effects: {
@@ -32,6 +34,35 @@ export default {
         if (callback) callback(response.result);
       }
     },
+    *fetchPermissionList(_, { call, put }) {
+     
+      const response = yield call(queryPermissionList);
+      console.log(response);
+      // if (response.ok === true) {
+      //   console.log(response.result);
+      //   if (callback) callback(response.result);
+      // }
+      console.log(put)
+      yield put({
+        type: 'savePermissionList',
+        payload: response.result,
+      });
+    },
+    *fetchRoleList(_, { call, put }) {
+     
+      const response = yield call(queryRoleList);
+      yield put({
+        type: 'saveRoleList',
+        payload: response.result,
+      });
+      console.log(response);
+      // if (response.ok === true) {
+      //   console.log(response.result);
+      //   if (callback) callback(response.result);
+      // }
+     
+   
+    },
   },
 
   reducers: {
@@ -45,5 +76,25 @@ export default {
         },
       };
     },
+    savePermissionList(state, action){
+      console.log(action);
+      return {
+        ...state,
+        permissionlistmanage: {
+          ...state.permissionlistmanage,
+          permissionlist: action.payload,
+        },
+      };
+    },
+    saveRoleList(state, action){
+      console.log(action);
+      return {
+        ...state,
+        rolemanage: {
+          ...state.rolemanage,
+          rolelist: action.payload,
+        },
+      };
+    }
   },
 };

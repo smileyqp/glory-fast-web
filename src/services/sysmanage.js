@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { func } from 'prop-types';
 
 export async function queryUserList(data) {
   console.log(data);
@@ -14,4 +15,14 @@ export async function addUser(data) {
     method: 'POST',
     data,
   });
+}
+
+export async function queryPermissionList() {
+    return request('/api/menu/list', {
+        method: 'GET'
+      });
+}
+
+export async function queryRoleList() {
+    return request('/api/role/list',{ method: 'POST'})
 }
