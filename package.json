@@ -33,8 +33,7 @@
     "tslint:fix": "tslint --fix 'src/**/*.ts*'"
   },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
@@ -61,6 +60,7 @@
     "gg-editor": "^2.0.2",
     "lodash": "^4.17.11",
     "lodash-decorators": "^6.0.1",
+    "md5": "^2.2.1",
     "memoize-one": "^5.0.0",
     "moment": "^2.24.0",
     "netlify-lambda": "^1.4.3",

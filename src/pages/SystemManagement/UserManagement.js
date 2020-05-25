@@ -28,6 +28,7 @@ import UserdetailDrawer from '@/components/SysManagement/UserdetailDrawer';
 import AdduserDrawer from '@/components/SysManagement/AdduserDrawer';
 import DetailMenu from '@/components/SysManagement/DetailMenu';
 import UserlistColumn from '@/components/SysManagement/UserlistColumn';
+import md5 from'md5';
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -157,6 +158,7 @@ class UserManagement extends PureComponent {
         const data = { ...values };
         data.photo = '';
         data.birthday = values.birthday._d;
+        data.password = md5(data.password)
         console.log(data);
         const { dispatch } = this.props;
         dispatch({
