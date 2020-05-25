@@ -4,7 +4,7 @@
 
 # 项目介绍
 
-![G](../img/G.png)
+![G](https://img-blog.csdnimg.cn/20200525161050351.png)
 
 
 
