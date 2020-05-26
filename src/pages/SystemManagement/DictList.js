@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent,Fragment } from 'react';
 import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form} from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
@@ -7,6 +7,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
+import styles from './UserManagement.less';
 
 @connect(({ sysmanage,loading }) => ({
     dictlist:sysmanage.dictmanage.dictlist,
@@ -40,6 +41,9 @@ class DictList extends PureComponent {
         });
       };
 
+    addDict = () => {
+        
+    }
    
 
 
@@ -50,7 +54,7 @@ class DictList extends PureComponent {
             {
               title: '字典名称',
               dataIndex: 'dictName',
-              width: 200,
+              width: 100,
               fixed: 'left',
             },
             {
@@ -88,6 +92,18 @@ class DictList extends PureComponent {
                 dataIndex: 'updateTime',
                 width: 200,
             },
+            {
+                title:'操作',
+                width:100,
+                fixed:'right',
+                render:()=>{
+                    return <Fragment>
+                        <a>编辑</a>
+                        <span className="ant-divider" />
+                        <a>删除</a>
+                    </Fragment>
+                }
+            }
          
         ]
    
@@ -95,16 +111,24 @@ class DictList extends PureComponent {
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
-                <StandardTable 
-                    size="middle"
-                    scroll={{ x: 1500, y: 300 }}
-                    selectedRows={selectedRows}
-                    onSelectRow={this.handleSelectRows}
-                    dataSource = {dictlist&&dictlist.records}
-                    loading = {loading}
-                    columns = {columns}
-                    rowKey = {'dictName'}
-                />
+            <div className={styles.tableList}>
+                <div className={styles.tableListOperator}>
+                    <Button icon="plus" type="primary" onClick = {this.addDict}>
+                    添加
+                    </Button>
+                </div>
+                    <StandardTable 
+                        size="middle"
+                        scroll={{ x: 1500, y: 300 }}
+                        selectedRows={selectedRows}
+                        onSelectRow={this.handleSelectRows}
+                        dataSource = {dictlist&&dictlist.records}
+                        loading = {loading}
+                        columns = {columns}
+                        rowKey = {'dictName'}
+                    />
+                </div>
+                
             
             </Card>
         </PageHeaderWrapper>

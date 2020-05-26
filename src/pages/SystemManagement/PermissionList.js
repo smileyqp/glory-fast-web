@@ -7,6 +7,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
+import styles from './UserManagement.less';
 
 @connect(({ sysmanage,loading }) => ({
     permissionlist:sysmanage.permissionlistmanage.permissionlist,
@@ -114,19 +115,25 @@ class PermissionList extends PureComponent {
            handleCancel = {this.handleCancel}
         />
         <Card bordered={false}>
-        <Button icon="plus" type="primary" onClick = {this.openAddDrawer}>
-          新建
-        </Button>
-        <StandardTable 
-          size="middle"
-          scroll={{ x: 1500, y: 300 }}
-          selectedRows={selectedRows}
-          onSelectRow={this.handleSelectRows}
-          dataSource = {permissionlist&&permissionlist}
-          loading = {loading}
-          columns = {columns}
-          rowKey = {'title'}
-        />
+          <div className={styles.tableList}>
+              <div className={styles.tableListOperator}>
+                <Button icon="plus" type="primary" onClick = {this.openAddDrawer}>
+                  新建
+                </Button>
+              </div>
+              <StandardTable 
+                size="middle"
+                scroll={{ x: 1500, y: 300 }}
+                selectedRows={selectedRows}
+                onSelectRow={this.handleSelectRows}
+                dataSource = {permissionlist&&permissionlist}
+                loading = {loading}
+                columns = {columns}
+                rowKey = {'title'}
+              />
+          </div>
+        
+       
         </Card>
       </PageHeaderWrapper>
    
