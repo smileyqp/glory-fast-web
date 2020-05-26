@@ -61,7 +61,8 @@ class UserManagement extends PureComponent {
     photoloading: false,
     pagination: {
         pageSize:10,
-        total:0
+        total:0,
+        pageNo:1
     },
   };
 
@@ -169,7 +170,7 @@ class UserManagement extends PureComponent {
       }
     });
   };
-  
+
   handleCancel = () => {
     this.setState({ addDrawervisible: false });
   };

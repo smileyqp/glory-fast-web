@@ -324,6 +324,11 @@ export default [
             name: 'rolemanagement',
             component: './SystemManagement/RoleManagement',
           },
+          {
+            path: '/sysmanagement/dictlist',
+            name: 'dictlist',
+            component: './SystemManagement/DictList',
+          },
         ],
       },
       

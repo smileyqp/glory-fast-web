@@ -47,5 +47,6 @@ export default {
   'menu.sysmanagement':'系统管理',
   'menu.sysmanagement.usermanagement':'用户管理',
   'menu.sysmanagement.permissionlist':'菜单管理',
-  'menu.sysmanagement.rolemanagement':'角色管理'
+  'menu.sysmanagement.rolemanagement':'角色管理',
+  'menu.sysmanagement.dictlist':'数据字典'
 };

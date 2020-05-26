@@ -56,7 +56,7 @@ class PermissionList extends PureComponent {
       {
         title: '菜单名称',
         dataIndex: 'title',
-        width: 200,
+        width: 100,
         fixed: 'left',
       },
       {
@@ -125,6 +125,7 @@ class PermissionList extends PureComponent {
           dataSource = {permissionlist&&permissionlist}
           loading = {loading}
           columns = {columns}
+          rowKey = {'title'}
         />
         </Card>
       </PageHeaderWrapper>

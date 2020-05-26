@@ -26,3 +26,10 @@ export async function queryPermissionList() {
 export async function queryRoleList() {
     return request('/api/role/list',{ method: 'POST'})
 }
+
+export async function queryDictList(data){
+    return request('/api/dict/list',{
+        method:'POST',
+        data
+    })
+}

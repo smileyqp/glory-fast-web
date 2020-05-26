@@ -1,4 +1,4 @@
-import { queryUserList, addUser,queryPermissionList,queryRoleList } from '@/services/sysmanage';
+import { queryUserList, addUser,queryPermissionList,queryRoleList,queryDictList } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -6,7 +6,8 @@ export default {
   state: {
     usermanage: {},
     permissionlistmanage:{},
-    rolemanage:{}
+    rolemanage:{},
+    dictmanage:{}
   },
 
   effects: {
@@ -63,6 +64,15 @@ export default {
      
    
     },
+    *fetchDictList(_, { call, put }){
+      console.log(_)
+      const {payload} = _;
+      const response = yield call(queryDictList, payload);
+      yield put({
+        type: 'saveDictList',
+        payload: response.result,
+      });
+    }
   },
 
   reducers: {
@@ -95,6 +105,16 @@ export default {
           rolelist: action.payload,
         },
       };
+    },
+    saveDictList(state,action){
+      console.log(action)
+      return {
+        ...state,
+        dictmanage:{
+          ...state.dictmanage,
+          dictlist:action.payload
+        }
+      }
     }
   },
 };
