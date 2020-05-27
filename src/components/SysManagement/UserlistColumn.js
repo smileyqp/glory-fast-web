@@ -42,10 +42,10 @@ export default function UserlistColumn(styles, openDetailDrawer) {
     },
     {
       title: '性别',
-      dataIndex: 'sex',
-      render: data => {
-        return data === 0 ? '男' : '女';
-      },
+      dataIndex: 'sex_text',
+      // render: data => {
+      //   return data === 0 ? '男' : '女';
+      // },
       width: 100,
     },
     {
@@ -63,27 +63,27 @@ export default function UserlistColumn(styles, openDetailDrawer) {
       dataIndex: 'email',
       width: 220,
     },
-    {
-      title: '机构编码',
-      dataIndex: 'orgCode',
-      width: 100,
-    },
+    // {
+    //   title: '机构编码',
+    //   dataIndex: 'orgCode',
+    //   width: 100,
+    // },
     {
       title: '用户状态',
-      dataIndex: 'status',
-      render: data => {
-        return data === 1 ? '启用' : '禁用';
-      },
+      dataIndex: 'status_text',
+      // render: data => {
+      //   return data === 1 ? '启用' : '禁用';
+      // },
       width: 100,
     },
-    {
-      title: '删除状态',
-      dataIndex: 'delFlag',
-      render: data => {
-        return data === 1 ? '正常使用' : '已删除';
-      },
-      width: 100,
-    },
+    // {
+    //   title: '删除状态',
+    //   dataIndex: 'delFlag',
+    //   render: data => {
+    //     return data === 1 ? '正常使用' : '已删除';
+    //   },
+    //   width: 100,
+    // },
     {
       title: '工号',
       dataIndex: 'empNo',
@@ -91,7 +91,7 @@ export default function UserlistColumn(styles, openDetailDrawer) {
     },
     {
       title: '创建人',
-      dataIndex: 'createBy',
+      dataIndex: 'createBy_text',
       width: 100,
     },
     {
@@ -101,7 +101,7 @@ export default function UserlistColumn(styles, openDetailDrawer) {
     },
     {
       title: '更新人',
-      dataIndex: 'updateBy',
+      dataIndex: 'updateBy_text',
       width: 100,
     },
     {
@@ -114,11 +114,11 @@ export default function UserlistColumn(styles, openDetailDrawer) {
       dataIndex: 'remarks',
       width: 200,
     },
-    {
-      title: '删除时间',
-      dataIndex: 'deleteTime',
-      width: 100,
-    },
+    // {
+    //   title: '删除时间',
+    //   dataIndex: 'deleteTime',
+    //   width: 100,
+    // },
     {
       title: '操作',
       render: () => (

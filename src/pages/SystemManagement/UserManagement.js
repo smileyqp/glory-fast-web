@@ -129,6 +129,65 @@ class UserManagement extends PureComponent {
     this.setState({ addDrawervisible: true });
   };
 
+  enableUser = () => {
+    const { selectedRows } = this.state;
+    if (selectedRows.length === 0){
+      message.error("请选择一条信息");
+      return;
+    }
+    let row = selectedRows[0]
+    const data = { id:row.id ,status : 1 };
+    console.log(data);
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'sysmanage/disableUser',
+      payload: {
+        ...data,
+      },
+    });
+    dispatch({
+      type: 'sysmanage/fetchUserList',
+      payload: {
+        data:{...this.state.pagination},
+        callback: res => {
+          const pagination = { ...this.state.pagination };
+          pagination.total = res.total;
+          pagination.pageSize = res.pageSize;
+          this.setState({ pagination: pagination });
+        },
+      },
+    });
+  }
+  disableUser = () => {
+    const { selectedRows } = this.state;
+    if (selectedRows.length === 0){
+      message.error("请选择一条信息");
+      return;
+    }
+    let row = selectedRows[0]
+    const data = { id:row.id ,status : 2 };
+    console.log(data);
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'sysmanage/disableUser',
+      payload: {
+        ...data,
+      },
+    });
+    dispatch({
+      type: 'sysmanage/fetchUserList',
+      payload: {
+        data:{...this.state.pagination},
+        callback: res => {
+          const pagination = { ...this.state.pagination };
+          pagination.total = res.total;
+          pagination.pageSize = res.pageSize;
+          this.setState({ pagination: pagination });
+        },
+      },
+    });
+  }
+
   handleChange = info => {
     this.setState({ photoloading: true });
     getBase64(info.file.originFileObj, imageUrl =>
@@ -211,6 +270,16 @@ class UserManagement extends PureComponent {
               <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
                 新建
               </Button>
+              <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
+                修改密码
+              </Button>
+              <Button icon="plus" type="primary" onClick={this.enableUser}>
+                启用
+              </Button>
+              <Button icon="plus" type="primary" onClick={this.disableUser}>
+                禁用
+              </Button>
+              
               {/* {selectedRows.length > 0 && (
                         <span>
                         <Button>批量操作</Button>

@@ -17,6 +17,15 @@ export async function addUser(data) {
   });
 }
 
+export async function disableUser(data) {
+  console.log(data);
+  return request('/api/user/disable', {
+    method: 'PUT',
+    data,
+  });
+}
+
+
 export async function queryPermissionList() {
     return request('/api/menu/list', {
         method: 'GET'
