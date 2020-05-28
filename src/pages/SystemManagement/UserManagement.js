@@ -75,18 +75,37 @@ class UserManagement extends PureComponent {
     dispatch({
       type: 'user/fetchCurrent',
     });
-    dispatch({
-      type: 'sysmanage/fetchUserList',
-      payload: {
-        data:{...this.state.pagination},
-        callback: res => {
-          const pagination = { ...this.state.pagination };
-          pagination.total = res.total;
-          pagination.pageSize = res.pageSize;
-          this.setState({ pagination: pagination });
+    // dispatch({
+    //   type: 'sysmanage/fetchUserList',
+    //   payload: {
+    //     data:{...this.state.pagination},
+    //     callback: res => {
+    //       const pagination = { ...this.state.pagination };
+    //       pagination.total = res.total;
+    //       pagination.pageSize = res.pageSize;
+    //       this.setState({ pagination: pagination });
+    //     },
+    //   },
+    // });
+    this.refreshTable()
+  }
+
+
+  refreshTable = (paginationdata) => {
+      const {dispatch} = this.props;
+      const data = {...paginationdata}||{...this.state.pagination}
+      dispatch({
+        type: 'sysmanage/fetchUserList',
+        payload: {
+            ...data,
+            callback: res => {
+                const pagination = { ...this.state.pagination };
+                pagination.total = res.total;
+                pagination.pageSize = res.pageSize;
+                this.setState({ pagination: pagination });
+            },
         },
-      },
-    });
+      });
   }
 
   handleSelectRows = rows => {
@@ -96,25 +115,12 @@ class UserManagement extends PureComponent {
   };
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
-      console.log(pagination)
     const { dispatch } = this.props;
-    console.log(pagination, filtersArg, sorter);
     const data = {
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
     };
-    dispatch({
-      type: 'sysmanage/fetchUserList',
-      payload: {
-        ...data,
-        callback: res => {
-          const pagination = { ...this.state.pagination };
-          pagination.total = res.total;
-          pagination.pageSize = res.pageSize;
-          this.setState({ pagination: pagination });
-        },
-      },
-    });
+    this.refreshTable(data)
   };
 
   closeDetaildrawer = () => {
@@ -137,24 +143,16 @@ class UserManagement extends PureComponent {
     }
     let row = selectedRows[0]
     const data = { id:row.id ,status : 1 };
-    console.log(data);
     const { dispatch } = this.props;
     dispatch({
       type: 'sysmanage/disableUser',
       payload: {
         ...data,
-      },
-    });
-    dispatch({
-      type: 'sysmanage/fetchUserList',
-      payload: {
-        data:{...this.state.pagination},
-        callback: res => {
-          const pagination = { ...this.state.pagination };
-          pagination.total = res.total;
-          pagination.pageSize = res.pageSize;
-          this.setState({ pagination: pagination });
-        },
+        callback:(res)=>{
+            if(res.ok == true){
+                this.refreshTable()
+            }
+        }
       },
     });
   }
@@ -166,26 +164,19 @@ class UserManagement extends PureComponent {
     }
     let row = selectedRows[0]
     const data = { id:row.id ,status : 2 };
-    console.log(data);
     const { dispatch } = this.props;
     dispatch({
       type: 'sysmanage/disableUser',
       payload: {
         ...data,
+        callback:(res)=>{
+            if(res.ok == true){
+                this.refreshTable()
+            }
+        }
       },
     });
-    dispatch({
-      type: 'sysmanage/fetchUserList',
-      payload: {
-        data:{...this.state.pagination},
-        callback: res => {
-          const pagination = { ...this.state.pagination };
-          pagination.total = res.total;
-          pagination.pageSize = res.pageSize;
-          this.setState({ pagination: pagination });
-        },
-      },
-    });
+    
   }
 
   handleChange = info => {
@@ -218,7 +209,6 @@ class UserManagement extends PureComponent {
         data.photo = '';
         data.birthday = values.birthday._d;
         data.password = md5(data.password)
-        console.log(data);
         const { dispatch } = this.props;
         dispatch({
           type: 'sysmanage/addUser',

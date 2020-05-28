@@ -12,13 +12,10 @@ export default {
 
   effects: {
     *fetchUserList(_, { call, put }) {
-      console.log(_);
       const { payload } = _;
       const { callback } = payload;
       const response = yield call(queryUserList, payload);
-      console.log(response);
       if (response.ok === true) {
-        console.log(response.result);
         if (callback) callback(response.result);
       }
       yield put({
@@ -28,8 +25,6 @@ export default {
     },
     *addUser(_, { call, put }) {
       const { payload } = _;
-      console.log(_);
-      console.log(payload);
       const response = yield call(addUser, payload);
       if (response.ok === true) {
         if (callback) callback(response.result);
@@ -37,22 +32,20 @@ export default {
     },
     *disableUser(_, { call, put }) {
       const { payload } = _;
-      console.log(_);
-      console.log(payload);
+      const { callback } = payload;
       const response = yield call(disableUser, payload);
       if (response.ok === true) {
-        if (callback) callback(response.result);
+        console.log(response)
+        if (callback) callback(response);
       }
     },
     *fetchPermissionList(_, { call, put }) {
      
       const response = yield call(queryPermissionList);
-      console.log(response);
       // if (response.ok === true) {
       //   console.log(response.result);
       //   if (callback) callback(response.result);
       // }
-      console.log(put)
       yield put({
         type: 'savePermissionList',
         payload: response.result,
@@ -74,7 +67,6 @@ export default {
    
     },
     *fetchDictList(_, { call, put }){
-      console.log(_)
       const {payload} = _;
       const response = yield call(queryDictList, payload);
       yield put({
@@ -86,7 +78,6 @@ export default {
 
   reducers: {
     saveUserList(state, action) {
-      console.log(action);
       return {
         ...state,
         usermanage: {
@@ -96,7 +87,6 @@ export default {
       };
     },
     savePermissionList(state, action){
-      console.log(action);
       return {
         ...state,
         permissionlistmanage: {
@@ -106,7 +96,6 @@ export default {
       };
     },
     saveRoleList(state, action){
-      console.log(action);
       return {
         ...state,
         rolemanage: {
@@ -116,7 +105,6 @@ export default {
       };
     },
     saveDictList(state,action){
-      console.log(action)
       return {
         ...state,
         dictmanage:{
