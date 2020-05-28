@@ -80,8 +80,9 @@ export default {
   },
   proxy: {
     '/api': {
-      // target: 'http://192.168.253.1:9898/glory-fast/',
-      target: 'http://47.104.190.138:9898/glory-fast',
+      // target: 'http://192.168.253.1:9898/glory-fast/', //本地调试本地后台
+      target: 'http://47.104.190.138:9898/glory-fast', //本地调试远程后台
+      // target: 'http://119.3.187.13/glory-fast', //部署nginx
       changeOrigin: true,
       pathRewrite: { '^/server': '' },
     },

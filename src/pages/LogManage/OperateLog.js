@@ -112,6 +112,11 @@ class OperateLog extends PureComponent {
               dataIndex: 'urlPath',
               width: 200,
             },
+            {
+                title: '操作时间',
+                dataIndex: 'createTime',
+                width: 200,
+            },
            
          
         ]

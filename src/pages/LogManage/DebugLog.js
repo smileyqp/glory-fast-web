@@ -86,6 +86,7 @@ class DebugLog extends PureComponent {
             pagination
         } = this.state;
         const columns = [
+            //TODO 表格加上每行序号
             {
               title: '登录名',
               dataIndex: 'loginName',
@@ -98,20 +99,26 @@ class DebugLog extends PureComponent {
               width: 200,
             },
             {
-                title: '登录地址',
-                dataIndex: 'loginAddr',
+                title: '异常类名',
+                dataIndex: 'clazzName',
                 width: 200,
             },
             {
-                title: '登录时间',
-                dataIndex: 'loginTime',
+                title: '异常方法名',
+                dataIndex: 'postMethod',
                 width: 200,
             },
             {
-              title: '登录IP',
-              dataIndex: 'loginIp',
-              width: 200,
+                title: '操作时间',
+                dataIndex: 'createTime',
+                width: 200,
             },
+            // TODO 内容过长，需要处理
+            // {
+            //   title: '异常详情',
+            //   dataIndex: 'errorData',
+            //   width: 200,
+            // },
            
          
         ]
