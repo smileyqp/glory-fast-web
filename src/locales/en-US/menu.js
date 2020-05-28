@@ -48,5 +48,9 @@ export default {
   'menu.sysmanagement.usermanagement':'User Management',
   'menu.sysmanagement.permissionlist':'PermissionList Management',
   'menu.sysmanagement.rolemanagement':'Role Management',
-  'menu.sysmanagement.dictlist':'Data Dictionary'
+  'menu.sysmanagement.dictlist':'Data Dictionary',
+  'menu.logmanagement':'Log Management',
+  'menu.logmanagement.loginlog':'Login Log',
+  'menu.logmanagement.operatelog':'Operation Log',
+  'menu.logmanagement.debuglog':'Debug Log',
 };

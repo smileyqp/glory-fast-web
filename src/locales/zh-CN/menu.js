@@ -48,5 +48,9 @@ export default {
   'menu.sysmanagement.usermanagement':'用户管理',
   'menu.sysmanagement.permissionlist':'菜单管理',
   'menu.sysmanagement.rolemanagement':'角色管理',
-  'menu.sysmanagement.dictlist':'数据字典'
+  'menu.sysmanagement.dictlist':'数据字典',
+  'menu.logmanagement':'日志管理',
+  'menu.logmanagement.loginlog':'登陆日志',
+  'menu.logmanagement.operatelog':'操作日志',
+  'menu.logmanagement.debuglog':'调试日志',
 };

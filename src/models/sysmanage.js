@@ -25,9 +25,10 @@ export default {
     },
     *addUser(_, { call, put }) {
       const { payload } = _;
+      const {callback} = payload;
       const response = yield call(addUser, payload);
       if (response.ok === true) {
-        if (callback) callback(response.result);
+        if (callback) callback(response);
       }
     },
     *disableUser(_, { call, put }) {

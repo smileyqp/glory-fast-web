@@ -331,6 +331,30 @@ export default [
           },
         ],
       },
+      {
+        name: 'logmanagement',
+        icon: 'tool',
+        path: '/logmanagement',
+        routes: [
+          // result
+          {
+            path: '/logmanagement/loginlog',
+            name: 'loginlog',
+            component: './LogManage/LoginLog',
+          },
+          {
+            path: '/logmanagement/operatelog',
+            name: 'operatelog',
+            component: './LogManage/OperateLog',
+          },
+          {
+            path: '/logmanagement/debuglog',
+            name: 'debuglog',
+            component: './LogManage/DebugLog',
+          },
+        
+        ],
+      },
       
       {
         component: '404',

@@ -214,6 +214,12 @@ class UserManagement extends PureComponent {
           type: 'sysmanage/addUser',
           payload: {
             ...data,
+            callback:(res) => {
+                if(res.ok == true){
+                    this.setState({addDrawervisible:false})
+                    this.props.form.resetFields();
+                }
+            }
           },
         });
       }
@@ -253,6 +259,8 @@ class UserManagement extends PureComponent {
           addDrawervisible={addDrawervisible}
           fileData={fileData}
         />
+
+
 
         <Card bordered={false}>
           <div className={styles.tableList}>
