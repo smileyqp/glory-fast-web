@@ -74,6 +74,10 @@ export default {
         type: 'saveDictList',
         payload: response.result,
       });
+    },
+    *detchLoginloglist(_, { call, put }){
+      const {payload} = _;
+      const response = yield call(queryLoginLog,payload)
     }
   },
 

@@ -8,9 +8,9 @@ import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
 
-@connect(({ sysmanage,loading }) => ({
-    dictlist:sysmanage.dictmanage.dictlist,
-    loading:loading.effects['sysmanage/fetchDictList']
+@connect(({ logmanage,loading }) => ({
+    loginloglist:logmanage.loginlog.loginloglist,
+    loading:loading.effects['logmanage/fetchLoginloglist']
 }))
 @Form.create()
 class LoginLog extends PureComponent {
@@ -27,11 +27,29 @@ class LoginLog extends PureComponent {
         dispatch({
           type: 'user/fetchCurrent',
         });
-        const {pageSize,pageNo} = this.state.pagination;
+        // const {pageSize,pageNo} = this.state.pagination;
+        // dispatch({
+        //   type:'logmanage/fetchLoginloglist',
+        //   payload:{pageSize,pageNo}
+        // })
+        this.refreshTable()
+    }
+
+    refreshTable = (paginationdata) => {
+        const {dispatch} = this.props;
+        const data = {...paginationdata}||{...this.state.pagination}
         dispatch({
-          type:'sysmanage/fetchDictList',
-          payload:{pageSize,pageNo}
-        })
+          type: 'logmanage/fetchLoginloglist',
+          payload: {
+              ...data,
+              callback: res => {
+                  const pagination = { ...this.state.pagination };
+                  pagination.total = res.total;
+                  pagination.pageSize = res.pageSize;
+                  this.setState({ pagination: pagination });
+              },
+          },
+        });
     }
 
     handleSelectRows = rows => {
@@ -43,75 +61,78 @@ class LoginLog extends PureComponent {
     addDict = () => {
         
     }
+    handleSelectRows = rows => {
+        this.setState({
+          selectedRows: rows,
+        });
+      };
+
+    handleStandardTableChange = (pagination, filtersArg, sorter) => {
+        const { dispatch } = this.props;
+        const data = {
+            pageNo: pagination.current,
+            pageSize: pagination.pageSize,
+        };
+        this.refreshTable(data)
+    };
+    
    
 
 
     render() {
-        const {dictlist,loading} = this.props;
-        const {selectedRows} = this.state;
+        const {loginloglist,loading} = this.props;
+        const {
+            selectedRows,
+            pagination
+        } = this.state;
         const columns = [
             {
-              title: '字典名称',
-              dataIndex: 'dictName',
+              title: '登录名',
+              dataIndex: 'loginName',
               width: 100,
               fixed: 'left',
             },
             {
-              title: '字典代码',
-              dataIndex: 'dictCode',
+              title: '用户名',
+              dataIndex: 'username',
               width: 200,
             },
             {
-                title: '描述',
-                dataIndex: 'description',
+                title: '登录地址',
+                dataIndex: 'loginAddr',
                 width: 200,
             },
             {
-                title: '备注',
-                dataIndex: 'remarks',
+                title: '登录时间',
+                dataIndex: 'loginTime',
                 width: 200,
             },
             {
-              title: '创建人',
-              dataIndex: 'createBy',
+              title: '登录IP',
+              dataIndex: 'loginIp',
               width: 200,
             },
-            {
-                title: '创建时间',
-                dataIndex: 'createTime',
-                width: 200,
-            },
-            {
-                title: '更新人',
-                dataIndex: 'updateBy',
-                width: 200,
-            },
-            {
-                title: '更新时间',
-                dataIndex: 'updateTime',
-                width: 200,
-            },
-            {
-                title:'操作',
-                width:100,
-                fixed:'right',
-                render:()=>{
-                    return <Fragment>
-                        <a>编辑</a>
-                        <span className="ant-divider" />
-                        <a>删除</a>
-                    </Fragment>
-                }
-            }
+           
          
         ]
+        console.log(loginloglist)
    
         
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
-           
-            
+                <StandardTable
+                    scroll={{ x: 1500, y: 300 }}
+                    selectedRows={selectedRows}
+                    loading={loading}
+                    pagination={pagination}
+                    dataSource={loginloglist && loginloglist.records}
+                    columns={columns}
+                    onSelectRow={this.handleSelectRows}
+                    onChange={this.handleStandardTableChange}
+                    rowKey="id"
+                />
+
             </Card>
         </PageHeaderWrapper>
     

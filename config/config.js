@@ -78,6 +78,14 @@ export default {
   theme: {
     'primary-color': primaryColor,
   },
+  proxy: {
+    '/api': {
+      // target: 'http://192.168.253.1:9898/glory-fast/',
+      target: 'http://47.104.190.138:9898/glory-fast',
+      changeOrigin: true,
+      pathRewrite: { '^/server': '' },
+    },
+  },
   // proxy: {
   //   '/server/api/': {
   //     target: 'https://preview.pro.ant.design/',

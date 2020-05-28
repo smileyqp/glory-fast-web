@@ -112,8 +112,7 @@ export default function request(url, option) {
   }
 
   return (
-    axios('http://47.104.190.138:9898/glory-fast'+url, newOptions)
-    // axios('http://127.0.0.1:9898/glory-fast'+url, newOptions)
+    axios(url, newOptions)
       .then(checkStatus)
       // .then(response => cachedSave(response, hashcode))
       .then(response => {
