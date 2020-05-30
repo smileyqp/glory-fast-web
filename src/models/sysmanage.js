@@ -1,4 +1,4 @@
-import { queryUserList, addUser,disableUser,queryPermissionList,queryRoleList,queryDictList } from '@/services/sysmanage';
+import { queryUserList, addUser,disableUser,queryPermissionList,queryRoleList,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -75,6 +75,43 @@ export default {
         payload: response.result,
       });
     },
+    *addDict(_, { call, put }){
+      const { payload } = _;
+      const {callback} = payload;
+      console.log(payload)
+      const response = yield call(dictAdd, payload);
+      if (response.ok === true) {
+        console.log(response)
+        if (callback) callback(response);
+      }
+    },
+    *updateDict(_, { call, put }){
+      const {payload} = _;
+      const response = yield call(dictUpdate, payload);
+    },
+    *deleteDict(_, { call, put }){
+      const {payload} = _;
+      console.log(payload)
+      const {data} = payload
+      console.log(data)
+      console.log(payload)
+      const response = yield call(dictDelete, payload);
+    },
+    *addChildDict(_, { call, put }){
+      const {payload} = _;
+      const response = yield call(childDictAdd, payload);
+    },
+    *updateChildDict(_, { call, put }){
+      const {payload} = _;
+      const response = yield call(childDictUpdate, payload);
+    },
+    *deleteChildDict(_, { call, put }){
+      const {payload} = _;
+      const response = yield call(childDictDelete, payload);
+    },
+
+
+
     *detchLoginloglist(_, { call, put }){
       const {payload} = _;
       const response = yield call(queryLoginLog,payload)

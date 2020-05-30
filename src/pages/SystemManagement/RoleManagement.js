@@ -32,6 +32,13 @@ class RoleManagement extends PureComponent {
     const {selectedRows} = this.state;
     const columns = [
       {
+        title: '序号',
+        dataIndex: 'title',
+        width: 80,
+        render:(text,record,index)=>`${index+1}`,
+        fixed: 'left',
+      },
+      {
         title: '角色名称',
         dataIndex: 'roleName',
         width: 200,
@@ -62,7 +69,7 @@ class RoleManagement extends PureComponent {
       <Card bordered={false}>
        <StandardTable 
           size="middle"
-          scroll={{ x: 1500, y: 300 }}
+          scroll={{ x: 1500, y: 700 }}
           selectedRows={selectedRows}
           onSelectRow={this.handleSelectRows}
           dataSource = {rolelist&&rolelist.records}

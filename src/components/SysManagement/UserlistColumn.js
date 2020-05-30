@@ -23,6 +23,13 @@ import DetailMenu from '@/components/SysManagement/DetailMenu';
 export default function UserlistColumn(styles, openDetailDrawer) {
   return [
     {
+      title: '序号',
+      dataIndex: 'title',
+      width: 80,
+      render:(text,record,index)=>`${index+1}`,
+      fixed: 'left',
+    },
+    {
       title: '用户姓名',
       dataIndex: 'username',
       width: 100,

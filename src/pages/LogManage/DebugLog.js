@@ -86,7 +86,13 @@ class DebugLog extends PureComponent {
             pagination
         } = this.state;
         const columns = [
-            //TODO 表格加上每行序号
+            {
+                title: '序号',
+                dataIndex: 'title',
+                width: 80,
+                render:(text,record,index)=>`${index+1}`,
+                fixed: 'left',
+              },
             {
               title: '登录名',
               dataIndex: 'loginName',
@@ -128,7 +134,8 @@ class DebugLog extends PureComponent {
         <PageHeaderWrapper>
             <Card bordered={false}>
                 <StandardTable
-                    scroll={{ x: 1500, y: 300 }}
+                    size="middle"
+                    scroll={{ x: 1500, y: 700 }}
                     selectedRows={selectedRows}
                     loading={loading}
                     pagination={pagination}

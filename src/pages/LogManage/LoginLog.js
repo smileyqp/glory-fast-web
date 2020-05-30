@@ -87,6 +87,13 @@ class LoginLog extends PureComponent {
         } = this.state;
         const columns = [
             {
+                title: '序号',
+                dataIndex: 'title',
+                width: 80,
+                render:(text,record,index)=>`${index+1}`,
+                fixed: 'left',
+              },
+            {
               title: '登录名',
               dataIndex: 'loginName',
               width: 100,
@@ -122,7 +129,8 @@ class LoginLog extends PureComponent {
         <PageHeaderWrapper>
             <Card bordered={false}>
                 <StandardTable
-                    scroll={{ x: 1500, y: 300 }}
+                    size="middle"
+                    scroll={{ x: 1500, y: 700 }}
                     selectedRows={selectedRows}
                     loading={loading}
                     pagination={pagination}

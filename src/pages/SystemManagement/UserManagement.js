@@ -26,7 +26,6 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './UserManagement.less';
 import UserdetailDrawer from '@/components/SysManagement/UserdetailDrawer';
 import AdduserDrawer from '@/components/SysManagement/AdduserDrawer';
-import DetailMenu from '@/components/SysManagement/DetailMenu';
 import UserlistColumn from '@/components/SysManagement/UserlistColumn';
 import md5 from'md5';
 
@@ -290,7 +289,7 @@ class UserManagement extends PureComponent {
                     )} */}
             </div>
             <StandardTable
-              scroll={{ x: 1500, y: 300 }}
+              scroll={{ x: 1500, y: 600 }}
               selectedRows={selectedRows}
               loading={loading}
               pagination={pagination}

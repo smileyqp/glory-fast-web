@@ -55,9 +55,16 @@ class PermissionList extends PureComponent {
     const {permissionlist,loading} = this.props;
     const columns = [
       {
+        title: '序号',
+        dataIndex: 'title',
+        width: 80,
+        render:(text,record,index)=>`${index+1}`,
+        fixed: 'left',
+      },
+      {
         title: '菜单名称',
         dataIndex: 'title',
-        width: 100,
+        width: 200,
         fixed: 'left',
       },
       {
@@ -73,17 +80,17 @@ class PermissionList extends PureComponent {
       {
         title: '路径',
         dataIndex: 'url',
-        width: 200,
+        width: 300,
       },
       {
         title: '菜单类型',
         dataIndex: 'menuType',
-        width: 200,
+        width: 100,
       },
       {
         title: '排序',
         dataIndex: 'sortNo',
-        width: 200,
+        width: 100,
       },
       {
         title: '创建人',
@@ -93,7 +100,7 @@ class PermissionList extends PureComponent {
       {
         title: '创建时间',
         dataIndex: 'createTime',
-        width: 100,
+        width: 200,
       },
       {
         title: '更新人',
@@ -103,7 +110,7 @@ class PermissionList extends PureComponent {
       {
         title: '更新时间',
         dataIndex: 'updateTime',
-        width: 100,
+        width: 200,
       },
     ]
     return (
@@ -123,7 +130,7 @@ class PermissionList extends PureComponent {
               </div>
               <StandardTable 
                 size="middle"
-                scroll={{ x: 1500, y: 300 }}
+                scroll={{ x: 1500, y: 700 }}
                 selectedRows={selectedRows}
                 onSelectRow={this.handleSelectRows}
                 dataSource = {permissionlist&&permissionlist}
