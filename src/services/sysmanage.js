@@ -32,9 +32,30 @@ export async function queryPermissionList() {
       });
 }
 
-export async function queryRoleList() {
-    return request('/api/role/list',{ method: 'POST'})
+export async function queryRoleList(data) {
+    return request('/api/role/list',{ 
+      method: 'POST',
+      data
+    })
 }
+
+export async function roleAdd(data){
+  console.log(data)
+  debugger
+  return request('/api/role/insert',{
+      method:'POST',
+      data
+  })
+}
+
+export async function roleDelete(data){
+  let param = data.data
+  return request('/api/role/delete',{
+      method:'DELETE',
+      data:param
+  })
+}
+
 
 export async function queryDictList(data){
     return request('/api/dict/list',{
@@ -67,9 +88,12 @@ export async function dictUpdate(data){
 export async function dictDelete(data){
   console.log(typeof data)
   console.log(data)
+
+  let param = data.data
+  
   return request('/api/dict/delete',{
       method:'DELETE',
-      data:data
+      data:param
   })
 }
 

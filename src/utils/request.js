@@ -105,10 +105,10 @@ export default function request(url, option) {
     // newOptions.data = qs.stringify(newOptions.body || newOptions.data, {
     //   allowDots: true,
     // });
-    newOptions.data = {
-      ...newOptions.data,
-      // timestamp: Date.parse(new Date()) / 1000,
-    };
+    // newOptions.data = {
+    //   ...newOptions.data,
+    //   // timestamp: Date.parse(new Date()) / 1000,
+    // };
   }
 
   return (

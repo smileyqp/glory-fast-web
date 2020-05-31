@@ -86,7 +86,7 @@ class UserManagement extends PureComponent {
     //     },
     //   },
     // });
-    this.refreshTable()
+    this.refreshTable(data)
   }
 
 
