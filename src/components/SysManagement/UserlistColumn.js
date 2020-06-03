@@ -18,8 +18,12 @@ import {
   Checkbox,
   Upload,
   message,
+  Badge
 } from 'antd';
 import DetailMenu from '@/components/SysManagement/DetailMenu';
+
+const statusMap = {'启用':'green','禁用': 'red'}
+
 export default function UserlistColumn(styles, openDetailDrawer) {
   return [
     {
@@ -78,9 +82,9 @@ export default function UserlistColumn(styles, openDetailDrawer) {
     {
       title: '用户状态',
       dataIndex: 'status_text',
-      // render: data => {
-      //   return data === 1 ? '启用' : '禁用';
-      // },
+      render:(data)=>{
+        return <Badge text={data} color={statusMap[`${data}`]}/>;
+      },
       width: 100,
     },
     // {

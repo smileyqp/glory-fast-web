@@ -47,6 +47,8 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt2M;
 }
 
+
+
 @connect(({ sysmanage, loading }) => ({
   userlist: sysmanage.usermanage.userlist,
   loading: loading.effects['sysmanage/fetchUserList'],
