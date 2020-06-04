@@ -1,4 +1,4 @@
-import { queryUserList, addUser,disableUser,queryPermissionList,queryRoleList,roleAdd,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete } from '@/services/sysmanage';
+import { queryUserList, addUser,disableUser,queryPermissionList,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -62,10 +62,18 @@ export default {
     },
     *addRole(_, { call, put }){
       const { payload } = _;
-      debugger
       const {callback} = payload;
       console.log(payload)
       const response = yield call(roleAdd, payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
+    },
+    *editRole(_, { call, put }){
+      const { payload } = _;
+      const {callback} = payload;
+      console.log(payload)
+      const response = yield call(roleEdit, payload);
       if (response.ok === true) {
         if (callback) callback(response);
       }

@@ -41,9 +41,16 @@ export async function queryRoleList(data) {
 
 export async function roleAdd(data){
   console.log(data)
-  debugger
   return request('/api/role/insert',{
       method:'POST',
+      data
+  })
+}
+
+export async function roleEdit(data){
+  console.log(data)
+  return request('/api/role/update',{
+      method:'PUT',
       data
   })
 }

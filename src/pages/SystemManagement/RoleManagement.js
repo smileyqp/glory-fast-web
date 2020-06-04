@@ -8,6 +8,7 @@ import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
 import styles from './UserManagement.less';
+import RoleModal from '@/components/SysManagement/RoleModal'
 
 const formItemLayout = {
   labelCol: {
@@ -46,6 +47,7 @@ class RoleManagement extends PureComponent {
     },
     selectedRows:[],
     addRoleVisible:false,
+    editRoleVisible:false
   }
   componentDidMount() {
     const { dispatch } = this.props;
@@ -87,14 +89,14 @@ class RoleManagement extends PureComponent {
     this.setState({addRoleVisible:true})
   }
   cancelAddRole = () => {
-      this.setState({addRoleVisible:false})
+    this.setState({addRoleVisible:false})
+    this.resetRoleForm()
   }
 
   handleSubmit = (e) => {
       const {dispatch} = this.props;
       e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
-          console.log('Received values of form: ', values);
           const data = {...values}
           if (!err) {
               dispatch({
@@ -102,7 +104,6 @@ class RoleManagement extends PureComponent {
                   payload:{
                       ...values,
                       callback:(res)=>{
-                          console.log(res)
                           this.setState({addRoleVisible:false})
                           const data = {
                             pageSize: 10,
@@ -112,7 +113,6 @@ class RoleManagement extends PureComponent {
                       }
                   }
               })
-
         }
       })
   }
@@ -147,6 +147,51 @@ class RoleManagement extends PureComponent {
     })
   }
 
+  editRole = (record) => {
+    const { form } = this.props;
+    this.setState({editRoleVisible:true})
+    form.setFieldsValue({
+      roleCode: record.roleCode,
+      roleName: record.roleName,
+      description: record.description,
+      remarks: record.remarks
+    })
+    this.setState({editRoleid:record.id})
+  }
+  
+  cancalEditRole = () => {
+    this.setState({editRoleVisible:false})
+    this.resetRoleForm()
+  }
+
+  handleEdit = (e) => {
+    const { dispatch , form } = this.props;
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+        const data = {...values,id:this.state.editRoleid}
+        if (!err) {
+            dispatch({
+                type:'sysmanage/editRole',
+                payload:{
+                    ...data,
+                    callback:(res)=>{
+                        this.setState({editRoleVisible:false})
+                        const data = {
+                          pageSize: 10,
+                          pageNo: 1,
+                        };
+                        this.refreshTable(data)
+                    }
+                }
+            })
+      }
+    })
+  }
+
+  resetRoleForm = () => {
+    const { form } = this.props;
+    form.resetFields()
+  }
 
   render() {
     const {loading,rolelist,form} = this.props;
@@ -196,95 +241,42 @@ class RoleManagement extends PureComponent {
         title:'操作',
         width:100,
         fixed:'right',
-        render:()=>{
+        render:(_,record)=>{
             return <Fragment>
-                <a>编辑</a>
+                <a onClick= {()=>{this.editRole(record)}}>编辑</a>
                 {/* <span className="ant-divider" />
                 <a >删除</a> */}
             </Fragment>
         }
       }
     ]
-  //   return <PageHeaderWrapper>
-  //     <Card bordered={false}>
-  //      <StandardTable 
-  //         size="middle"
-  //         scroll={{ x: 1500, y: 700 }}
-  //         selectedRows={selectedRows}
-  //         onSelectRow={this.handleSelectRows}
-  //         dataSource = {rolelist&&rolelist.records}
-  //         loading = {loading}
-  //         columns = {columns}
-  //         rowKey = {'id'}
-  //       />
-  //     </Card>
-  //   </PageHeaderWrapper>;
+
 
   const addRoleModal = (
-        <Modal
-        title="新增角色"
-        visible={this.state.addRoleVisible}
-        onCancel={this.cancelAddRole}
-        onOk={this.handleSubmit}
-      >
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-            <Form.Item
-            label={
-                <span>
-                角色名称&nbsp;
-                <Tooltip title="请输入角色名称">
-                    <Icon type="question-circle-o" />
-                </Tooltip>
-                </span>
-            }
-            >
-            {getFieldDecorator('roleName', {
-                rules: [{ required: true, message: '请输入角色名称!', whitespace: true }],
-            })(<Input />)}
-            </Form.Item>
-            <Form.Item
-            label={
-                <span>
-                角色编码&nbsp;
-                <Tooltip title="请输入角色编码，不能重复">
-                    <Icon type="question-circle-o" />
-                </Tooltip>
-                </span>
-            }
-            >
-            {getFieldDecorator('roleCode', {
-                rules: [{ required: true, message: '请输入角色编码!', whitespace: true }],
-            })(<Input />)}
-            </Form.Item>
+    <RoleModal
+      visible = {this.state.addRoleVisible}
+      cancleSubmit = {this.cancelAddRole}
+      handleSubmit = {this.handleSubmit}
+      form = {form}
+      title = {'新增角色'}
+    />
+  )
 
-            <Form.Item label="角色描述">
-            {getFieldDecorator('description', {
-                rules: [
-                {
-                    required: true,
-                    message: '请输入您的描述!',
-                },
-                ],
-            })(<Input />)}
-            </Form.Item>
-            <Form.Item label="备注" >
-            {getFieldDecorator('remarks', {
-                rules: [
-                {
-                    required: true,
-                    message: '请输入角色备注!',
-                },
-                ],
-            })(<Input />)}
-            </Form.Item>
-        </Form>
-      </Modal>
-    )
+  const editeRoleModal = (
+    <RoleModal
+      visible = {this.state.editRoleVisible}
+      cancleSubmit = {this.cancalEditRole}
+      handleSubmit = {this.handleEdit}
+      title = {'修改角色'}
+      form = {form}
+    />
+  )
 
 
   return (
     <PageHeaderWrapper>
         {addRoleModal}
+        {editeRoleModal}
         <Card bordered={false}>
         <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
