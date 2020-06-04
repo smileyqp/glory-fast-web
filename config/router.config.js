@@ -333,7 +333,7 @@ export default [
       },
       {
         name: 'logmanagement',
-        icon: 'tool',
+        icon: 'folder',
         path: '/logmanagement',
         routes: [
           // result

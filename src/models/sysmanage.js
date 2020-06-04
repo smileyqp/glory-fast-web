@@ -80,7 +80,11 @@ export default {
     },
     *deleteRole(_, { call, put }){
       const {payload} = _;
+      const {callback} = payload;
       const response = yield call(roleDelete, payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
     },
     *fetchDictList(_, { call, put }){
       const {payload} = _;
