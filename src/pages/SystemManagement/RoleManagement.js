@@ -149,14 +149,13 @@ class RoleManagement extends PureComponent {
 
   editRole = (record) => {
     const { form } = this.props;
-    this.setState({editRoleVisible:true})
+    this.setState({editRoleVisible:true,editRoleid:record.id})
     form.setFieldsValue({
       roleCode: record.roleCode,
       roleName: record.roleName,
       description: record.description,
       remarks: record.remarks
     })
-    this.setState({editRoleid:record.id})
   }
   
   cancalEditRole = () => {
@@ -208,14 +207,13 @@ class RoleManagement extends PureComponent {
       {
         title: '角色名称',
         dataIndex: 'roleName',
-        width: 200,
+        width: 100,
         fixed: 'left',
       },
       {
         title: '角色编码',
         dataIndex: 'roleCode',
         width: 200,
-        fixed: 'left',
       },
       {
         title: '角色描述',

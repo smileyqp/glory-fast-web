@@ -56,7 +56,6 @@ class PermissionList extends PureComponent {
     const columns = [
       {
         title: '序号',
-        dataIndex: 'title',
         width: 80,
         render:(text,record,index)=>`${index+1}`,
         fixed: 'left',

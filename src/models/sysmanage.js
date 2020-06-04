@@ -1,4 +1,4 @@
-import { queryUserList, addUser,disableUser,queryPermissionList,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete } from '@/services/sysmanage';
+import { queryUserList, addUser,disableUser,queryPermissionList,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -97,28 +97,43 @@ export default {
     *addDict(_, { call, put }){
       const { payload } = _;
       const {callback} = payload;
-      console.log(payload)
       const response = yield call(dictAdd, payload);
       if (response.ok === true) {
-        console.log(response)
         if (callback) callback(response);
       }
     },
     *updateDict(_, { call, put }){
       const {payload} = _;
+      const {callback} = payload;
       const response = yield call(dictUpdate, payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
     },
     *deleteDict(_, { call, put }){
       const {payload} = _;
-      console.log(payload)
-      const {data} = payload
-      console.log(data)
-      console.log(payload)
+      const {callback} = payload
       const response = yield call(dictDelete, payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
     },
+    *fetchChildDictList(_, { call, put }){
+      const {payload} = _;
+      const response = yield call(queryChildDictList, payload);
+      yield put({
+        type: 'saveChildDictList',
+        payload: response.result,
+      });
+    },
+
     *addChildDict(_, { call, put }){
       const {payload} = _;
+      const { callback } = payload;
       const response = yield call(childDictAdd, payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
     },
     *updateChildDict(_, { call, put }){
       const {payload} = _;
@@ -126,7 +141,11 @@ export default {
     },
     *deleteChildDict(_, { call, put }){
       const {payload} = _;
+      const {callback } = payload; 
       const response = yield call(childDictDelete, payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
     },
 
 
@@ -171,6 +190,15 @@ export default {
         dictmanage:{
           ...state.dictmanage,
           dictlist:action.payload
+        }
+      }
+    },
+    saveChildDictList(state,action){
+      return {
+        ...state,
+        dictmanage:{
+          ...state.dictmanage,
+          dictlistchild:action.payload
         }
       }
     }

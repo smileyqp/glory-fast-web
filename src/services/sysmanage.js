@@ -87,7 +87,7 @@ export async function dictAdd(data){
 }
 export async function dictUpdate(data){
   return request('/api/dict/update',{
-      method:'POST',
+      method:'PUT',
       data
   })
 }
@@ -122,8 +122,10 @@ export async function childDictUpdate(data){
 
 
 export async function childDictDelete(data){
+  console.log(data)
+  let param = data.data
   return request('/api/dict/deleteItem',{
       method:'DELETE',
-      data
+      data:param
   })
 }
