@@ -17,7 +17,8 @@ import {
   Button,
   Radio,
   Card,
-  Modal
+  Modal,
+  TreeSelect
 } from 'antd';
 import classNames from 'classnames';
 import { SettingOutlined } from '@ant-design/icons';
@@ -60,7 +61,7 @@ const formItemLayout = {
         this.setState({iconChooseVisible:true})
     }
     render(){
-        const {addDrawervisible ,handleCancel,handleSubmit,form} = this.props;
+        const {addDrawervisible ,handleCancel,handleSubmit,form,treeData} = this.props;
         const { getFieldDecorator } = form;
 
     const IconModal = (
@@ -109,7 +110,7 @@ const formItemLayout = {
                 >
                 {getFieldDecorator('loginName', {
                     rules: [{  message: '请输入登陆账号!', whitespace: true }],
-                })(<Input />)}
+                })(<TreeSelect   treeData={treeData}   style={{ width: '100%' }}/>)}
             </Form.Item>
 
             <Form.Item

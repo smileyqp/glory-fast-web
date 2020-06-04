@@ -1,4 +1,4 @@
-import { queryUserList, addUser,disableUser,queryPermissionList,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
+import { queryUserList, addUser,disableUser,queryPermissionList,permissionListAdd,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -41,16 +41,19 @@ export default {
       }
     },
     *fetchPermissionList(_, { call, put }) {
-     
       const response = yield call(queryPermissionList);
-      // if (response.ok === true) {
-      //   console.log(response.result);
-      //   if (callback) callback(response.result);
-      // }
       yield put({
         type: 'savePermissionList',
         payload: response.result,
       });
+    },
+    *addPermissionList(_, { call, put }) {
+      const { payload } = _;
+      const {callback} = payload;
+      const response = yield call(permissionListAdd,payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
     },
     *fetchRoleList(_, { call, put }) {
       const {payload} = _;
@@ -63,7 +66,6 @@ export default {
     *addRole(_, { call, put }){
       const { payload } = _;
       const {callback} = payload;
-      console.log(payload)
       const response = yield call(roleAdd, payload);
       if (response.ok === true) {
         if (callback) callback(response);

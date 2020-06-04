@@ -32,6 +32,13 @@ export async function queryPermissionList() {
       });
 }
 
+export async function permissionListAdd(data) {
+  return request('/api/menu/insert',{
+    method:'POST',
+    data
+  })
+}
+
 export async function queryRoleList(data) {
     return request('/api/role/list',{ 
       method: 'POST',

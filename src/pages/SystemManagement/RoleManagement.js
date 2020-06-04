@@ -6,7 +6,6 @@ import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
-import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
 import styles from './UserManagement.less';
 import RoleModal from '@/components/SysManagement/RoleModal'
 

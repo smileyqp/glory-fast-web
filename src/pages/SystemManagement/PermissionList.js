@@ -44,15 +44,58 @@ class PermissionList extends PureComponent {
     };
 
     openAddDrawer = () => {
-      console.log('00000')
       this.setState({ addDrawervisible: true });
     };
+
+    handleSubmit = (e) => {
+      e.preventDefault();
+      const { dispatch } = this.props;
+      const { form } = this.props;
+      form.validateFieldsAndScroll((err, values) => {
+        console.log(values)
+        dispatch({
+          type:'sysmanage/addPermissionList',
+          payload:{
+            ...values,
+            callback:(res)=>{
+              console.log(res)
+            }
+          }
+        })
+      })
+      
+    }
 
 
 
   render() {
     const {selectedRows ,addDrawervisible} = this.state;
     const {permissionlist,loading} = this.props;
+    console.log(permissionlist)
+    const treelist = permissionlist&&permissionlist.map((item)=>{
+      if(!item.children){
+        return {
+          title: item.name,
+          value: item.id,
+          key: item.key,
+        }
+      }else{
+        const children = item.children.map((i)=>{
+          return {
+            title: i.name,
+            value: i.id,
+            key: i.key,
+          }
+        })
+        return {
+          title: item.name,
+          value: item.id,
+          key: item.key,
+          children:children
+        }
+      }
+    })
+    console.log(treelist)
     const columns = [
       {
         title: '序号',
@@ -119,6 +162,8 @@ class PermissionList extends PureComponent {
            closeAdddrawer={this.closeAdddrawer}
            addDrawervisible = {addDrawervisible}
            handleCancel = {this.handleCancel}
+           handleSubmit = {this.handleSubmit}
+            treeData = {treelist}
         />
         <Card bordered={false}>
           <div className={styles.tableList}>
