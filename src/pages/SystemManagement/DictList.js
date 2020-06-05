@@ -86,9 +86,8 @@ class DictList extends PureComponent {
         });
     }
 
-    refreshChildTable = () => {
+    refreshChildTable = (selectedRowid) => {
         const { dispatch } = this.props;
-        const {selectedRowid } = this.state;
         const data = {...this.state.childpagination,dictId:selectedRowid}
         dispatch({
             type:'sysmanage/fetchChildDictList',
@@ -110,9 +109,7 @@ class DictList extends PureComponent {
           childbtnDisabled:false,
           selectedRowdata:rows
         });
-        console.log(rows)
-        console.log('ok')
-        this.refreshChildTable()
+        this.refreshChildTable(rows.id)
       };
     handleSelectChildRows = (row) => {
         this.setState({selectedChildRowid:row.id,selectedChildRowdata:row})
@@ -288,71 +285,6 @@ class DictList extends PureComponent {
         const {dictlist,loading,form,dictlistchild,childloading} = this.props;
         const {getFieldDecorator} = form;
         const {selectedRows} = this.state;
-        const columns = [
-            {
-                title: '序号',
-                dataIndex: 'title',
-                width: 80,
-                render:(text,record,index)=>`${index+1}`,
-                fixed: 'left',
-              },
-            {
-              title: '字典名称',
-              dataIndex: 'dictName',
-              width: 100,
-              fixed: 'left',
-            },
-            {
-              title: '字典代码',
-              dataIndex: 'dictCode',
-              width: 200,
-            },
-            {
-                title: '描述',
-                dataIndex: 'description',
-                width: 200,
-            },
-            {
-                title: '备注',
-                dataIndex: 'remarks',
-                width: 200,
-            },
-            {
-              title: '创建人',
-              dataIndex: 'createBy',
-              width: 200,
-            },
-            {
-                title: '创建时间',
-                dataIndex: 'createTime',
-                width: 200,
-            },
-            {
-                title: '更新人',
-                dataIndex: 'updateBy',
-                width: 200,
-            },
-            {
-                title: '更新时间',
-                dataIndex: 'updateTime',
-                width: 200,
-            },
-            {
-                title:'操作',
-                width:100,
-                fixed:'right',
-                render:(_,record)=>{
-                    return <Fragment>
-                        <a onClick = {()=> {this.editDictlist(record)}}>编辑</a>
-                        {/* <span className="ant-divider" />
-                        <a >删除</a> */}
-                    </Fragment>
-                }
-            }
-         
-        ]
-
-
         const addDictModal = (
             <DictListModal
                 visible = { this.state.addDictVisible }
@@ -416,7 +348,6 @@ class DictList extends PureComponent {
                     <DictTable
                         dataSource = {dictlist&&dictlist.records}
                         loading = {loading}
-                        columns = {columns}
                         handleSelect = {this.handleSelectRows}
                         type='parent'
                     />
@@ -429,7 +360,6 @@ class DictList extends PureComponent {
                     <DictTable
                         dataSource = {dictlistchild&&dictlistchild.records}
                         loading = {childloading}
-                        columns = {columns}
                         handleSelect = {this.handleSelectChildRows}
                         type='child'
                     />
