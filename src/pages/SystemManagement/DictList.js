@@ -139,28 +139,39 @@ class DictList extends PureComponent {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             console.log('Received values of form: ', values);
-            const data = {...values,dictId:id}||{...values}
-            console.log(data)
-            console.log(id)
+  
             if (!err) {
-                dispatch({
-                    type,
-                    payload:{
-                        ...data,
-                        callback:(res)=>{
-                            console.log(res)
-                            this.resetDictlistModal();
-                            if(type === 'sysmanage/addDict'){
+                if(type === 'sysmanage/addDict'){
+                    const data = {...values}
+                    dispatch({
+                        type,
+                        payload:{
+                            ...data,
+                            callback:(res)=>{
+                                console.log(res)
+                                this.resetDictlistModal();
                                 this.refreshTable()
                                 this.setState({addDictVisible:false})
-                            }else{
-                                this.refreshChildTable()
-                                this.setState({addChildDictVisible:false})
                             }
-                            
                         }
-                    }
-                })
+                    })
+                }else if(type === 'sysmanage/addChildDict'){
+                    const data = {dictId:id,itemText:values.dictName,itemValue:values.dictCode,remarks:values.remarks,description:values.description}
+                    dispatch({
+                        type,
+                        payload:{
+                            ...data,
+                            callback:(res)=>{
+                                console.log(res)
+                                this.resetDictlistModal();
+                                console.log('bbb')
+                                this.refreshChildTable(this.state.selectedRowid)
+                                this.setState({addChildDictVisible:false})
+                                
+                            }
+                        }
+                    })
+                }
           }
         })
     }
@@ -203,7 +214,7 @@ class DictList extends PureComponent {
                 callback:(res)=>{
                     console.log(res)
                     message.success()
-                    this.refreshChildTable()
+                    this.refreshChildTable(this.state.selectedRowid)
                 }
             }
         })
