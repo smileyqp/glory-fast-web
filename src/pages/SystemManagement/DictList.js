@@ -133,13 +133,10 @@ class DictList extends PureComponent {
     }
    
     handleSubmit = (e,type,id) => {
-        console.log(type)
-        console.log(id)
         const {dispatch} = this.props;
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             console.log('Received values of form: ', values);
-  
             if (!err) {
                 if(type === 'sysmanage/addDict'){
                     const data = {...values}
@@ -148,7 +145,6 @@ class DictList extends PureComponent {
                         payload:{
                             ...data,
                             callback:(res)=>{
-                                console.log(res)
                                 this.resetDictlistModal();
                                 this.refreshTable()
                                 this.setState({addDictVisible:false})
