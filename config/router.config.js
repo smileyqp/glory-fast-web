@@ -355,6 +355,19 @@ export default [
         
         ],
       },
+      {
+        name: 'codemanage',
+        icon: 'folder',
+        path: '/codemanage',
+        routes: [
+          // result
+          {
+            path: '/codemanage/codelist',
+            name: 'codelist',
+            component: './CodeManage/CodeList',
+          },
+        ],
+      },
       
       {
         component: '404',

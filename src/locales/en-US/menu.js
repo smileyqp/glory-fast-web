@@ -53,4 +53,6 @@ export default {
   'menu.logmanagement.loginlog':'Login Log',
   'menu.logmanagement.operatelog':'Operation Log',
   'menu.logmanagement.debuglog':'Debug Log',
+  'menu.codemanage':'Online Code',
+  'menu.codemanage.codelist':'Online Code List'
 };

@@ -50,7 +50,7 @@ export default {
         return {
           ...state,
           operatelog: {
-            ...state.loginlog,
+            ...state.operatelog,
             operateloglist: action.payload,
           },
         };
@@ -59,7 +59,7 @@ export default {
         return {
           ...state,
           debuglog: {
-            ...state.loginlog,
+            ...state.debuglog,
             debugloglist: action.payload,
           },
         };
