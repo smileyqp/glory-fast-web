@@ -54,5 +54,6 @@ export default {
   'menu.logmanagement.operatelog':'操作日志',
   'menu.logmanagement.debuglog':'调试日志',
   'menu.codemanage':'在线开发',
-  'menu.codemanage.codelist':'在线表单开发'
+  'menu.codemanage.codelist':'在线表单开发',
+  'menu.codemanage.codeRecordlist':'代码生成'
 };

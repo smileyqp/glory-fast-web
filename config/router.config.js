@@ -366,6 +366,11 @@ export default [
             name: 'codelist',
             component: './CodeManage/CodeList',
           },
+          {
+            path: '/codemanage/codeRecordlist',
+            name: 'codeRecordlist',
+            component: './CodeManage/codeRecordlist',
+          },
         ],
       },
       

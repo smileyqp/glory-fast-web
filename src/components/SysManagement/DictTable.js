@@ -39,7 +39,7 @@ export default class DictTable extends PureComponent {
         },
         {
           title: '创建人',
-          dataIndex: 'createBy',
+          dataIndex: 'createBy_text',
           width: 200,
         },
         {
@@ -49,7 +49,7 @@ export default class DictTable extends PureComponent {
         },
         {
             title: '更新人',
-            dataIndex: 'updateBy',
+            dataIndex: 'updateBy_text',
             width: 200,
         },
         {
