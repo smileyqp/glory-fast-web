@@ -237,7 +237,7 @@ class CodeList extends PureComponent {
                 width: 200,
             },
             {
-                title: '是否是子表',
+                title: '是否子表',
                 dataIndex: 'ifSon',
                 width: 200,
             },
