@@ -96,7 +96,7 @@ class CodeRecordList extends PureComponent {
   }
   cancelAddCodeRecord = () => {
     this.setState({addCodeRecordVisible:false})
-    this.resetRoleForm()
+    this.resetCodeRecordForm()
   }
 
   handleSubmit = (e) => {
@@ -135,11 +135,10 @@ class CodeRecordList extends PureComponent {
     })
 
     dispatch({
-        type:'codemanage/deleteRole',
+        type:'codemanage/deleteCodeRecord',
         payload:{
             data,
             callback:(res)=>{
-              debugger
               if(res.ok == true){
                 message.success()
                 const data = {
@@ -185,7 +184,7 @@ class CodeRecordList extends PureComponent {
   
   cancalEditCodeRecord = () => {
     this.setState({editCodeRecordVisible:false})
-    this.resetRoleForm()
+    this.resetCodeRecordForm()
   }
 
   handleEdit = (e) => {
@@ -195,7 +194,7 @@ class CodeRecordList extends PureComponent {
         const data = {...values,id:this.state.editCodeRecordId}
         if (!err) {
             dispatch({
-                type:'codemanage/editRole',
+                type:'codemanage/editCodeRecord',
                 payload:{
                     ...data,
                     callback:(res)=>{
@@ -212,7 +211,7 @@ class CodeRecordList extends PureComponent {
     })
   }
 
-  resetRoleForm = () => {
+  resetCodeRecordForm = () => {
     const { form } = this.props;
     form.resetFields()
   }
