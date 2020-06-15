@@ -44,7 +44,7 @@ const tailFormItemLayout = {
 
 
 @Form.create()
-class CodeRecordManagement extends PureComponent {
+class CodeRecordList extends PureComponent {
   state = {
     pagination: {
       pageSize:10,
@@ -346,4 +346,4 @@ class CodeRecordManagement extends PureComponent {
   }
 }
 
-export default CodeRecordManagement;
+export default CodeRecordList;
