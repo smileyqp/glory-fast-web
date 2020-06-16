@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form ,message} from 'antd';
+import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form ,message } from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -9,6 +9,7 @@ import codemanage from '@/models/codemanage';
 import styles from './CodeManage.less';
 // import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
 import CodeModal from '@/components/CodeManagement/CodeModal'
+import CodeConfigModal from '@/components/CodeManagement/CodeConfigModal'
 
 const formItemLayout = {
     labelCol: {
@@ -47,7 +48,8 @@ class CodeList extends PureComponent {
         },
         selectedRows: [],
         addCodeVisible: false,
-        editCodeVisible: false
+        editCodeVisible: false,
+        codeconfigVisible:false
     }
     componentDidMount() {
         const { dispatch } = this.props;
@@ -197,8 +199,25 @@ class CodeList extends PureComponent {
 
     createCode = (record) => {
         console.log(record)
+        this.setState({codeconfigVisible:true})
+        const {dispatch} = this.props;
+        dispatch({
+            type: 'codemanage/gencodelist',
+            payload: {
+                id:record.id,
+                callback: (res) => {
+                   
+                }
+            }
+        })
     }
 
+    cancelConfig = () => {
+        this.setState({codeconfigVisible:false})
+    }
+    handleConfig = () => {
+        this.setState({codeconfigVisible:false})
+    }
     render() {
         const { loading, codelist, form } = this.props;
         const { getFieldDecorator } = form;
@@ -295,10 +314,19 @@ class CodeList extends PureComponent {
             />
         )
 
+        const codeconfigModal = (
+            <CodeConfigModal
+                title = {'字段配置'}
+                visible = {this.state.codeconfigVisible}
+                cancleSubmit = {this.cancelConfig}
+                handleSubmit = {this.handleConfig}
+            />
+        )
         return (
             <PageHeaderWrapper>
                 {addCodeModal}
                 {editeCodeModal}
+                {codeconfigModal}
                 <Card bordered={false}>
                     <div className={styles.tableList}>
                         <div className={styles.tableListOperator}>
