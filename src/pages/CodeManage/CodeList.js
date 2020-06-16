@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form } from 'antd';
+import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form ,message} from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -123,7 +123,7 @@ class CodeList extends PureComponent {
     }
 
 
-    deleteRole = () => {
+    deleteCode = () => {
         const { dispatch } = this.props;
         const { selectedRows } = this.state;
         if (selectedRows.length === 0) {
@@ -192,9 +192,6 @@ class CodeList extends PureComponent {
             parentTable: record.parentTable,
             parentTableFk:record.parentTableFk,
             remarks:record.remarks,
-            callback:(res)=>{
-                this.setState({editCodeVisible:false})
-            }
           })
     }
 
@@ -308,7 +305,7 @@ class CodeList extends PureComponent {
                             <Button icon="plus" type="primary" onClick={this.addCode}>
                                 添加
                             </Button>
-                            <Button icon="plus" type="primary" onClick={this.deleteRole}>
+                            <Button icon="plus" type="primary" onClick={this.deleteCode}>
                                 批量删除
                             </Button>
                         </div>

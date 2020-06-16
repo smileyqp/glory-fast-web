@@ -25,6 +25,15 @@ export async function editCode(data) {
     });
   }
 
+export async function deleteCode(data) {
+    console.log(data);
+    let param = data.data
+    return request('/api/genCodeTable/delete', {
+        method: 'DELETE',
+        data:param
+    });
+}
+
 export async function queryCodeRecordlist(data) {
   console.log(data);
   return request('/api/genCodeRecord/list', {

@@ -1,4 +1,4 @@
-import { queryCodelist,addCode,editCode,queryCodeRecordlist,createCodeFile } from '@/services/codemanage';
+import { queryCodelist,addCode,editCode,queryCodeRecordlist,createCodeFile,deleteCode } from '@/services/codemanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'codemanage',
@@ -31,6 +31,14 @@ export default {
         const { payload } = _;
         const {callback} = payload;
         const response = yield call(editCode, payload);
+        if (response.ok === true) {
+          if (callback) callback(response);
+        }
+      },
+    *deleteCode(_, { call, put }) {
+        const { payload } = _;
+        const {callback} = payload;
+        const response = yield call(deleteCode, payload);
         if (response.ok === true) {
           if (callback) callback(response);
         }
