@@ -17,6 +17,7 @@ export async function addCode(data) {
   });
 }
 
+
 export async function editCode(data) {
     console.log(data);
     return request('/api/genCodeTable/update', {
@@ -37,6 +38,13 @@ export async function deleteCode(data) {
 export async function queryCodeRecordlist(data) {
   console.log(data);
   return request('/api/genCodeRecord/list', {
+    method: 'POST',
+    data,
+  });
+}
+export async function addCodeRecord(data) {
+  console.log(data);
+  return request('/api/genCodeRecord/insert', {
     method: 'POST',
     data,
   });

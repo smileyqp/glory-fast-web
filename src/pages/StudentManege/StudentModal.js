@@ -32,7 +32,7 @@ const formItemLayout = {
     },
   };
 
-export default class RoleModal extends PureComponent {
+export default class CodeModal extends PureComponent {
   render() {
     const { form ,handleSubmit ,visible ,cancleSubmit ,title} = this.props;
     const { getFieldDecorator } = form; 
@@ -44,49 +44,34 @@ export default class RoleModal extends PureComponent {
         onOk={handleSubmit}
       >
         <Form {...formItemLayout} onSubmit={handleSubmit}>
+
             <Form.Item
             label={
                 <span>
-                记录名称&nbsp;
-                <Tooltip title="请输入记录名称">
+                学生姓名&nbsp;
+                <Tooltip title="请输入学生姓名">
                     <Icon type="question-circle-o" />
                 </Tooltip>
                 </span>
             }
             >
-            {getFieldDecorator('recordName', {
-                rules: [{ required: true, message: '请输入记录名称!', whitespace: true }],
+            {getFieldDecorator('studentName', {
+                rules: [{ required: true, message: '请输入学生姓名!', whitespace: true }],
             })(<Input />)}
             </Form.Item>
 
             <Form.Item
             label={
                 <span>
-                分类&nbsp;
-                <Tooltip title="请选择分类">
+                学生编号&nbsp;
+                <Tooltip title="请输入学生编号">
                     <Icon type="question-circle-o" />
                 </Tooltip>
                 </span>
             }
             >
-            {getFieldDecorator('genType', {
-                rules: [{ required: true, message: '请选择分类!', whitespace: true }],
-            })(<Input />)}
-            </Form.Item>
-
-
-            <Form.Item
-            label={
-                <span>
-                生成包路径&nbsp;
-                <Tooltip title="请输入生成包路径">
-                    <Icon type="question-circle-o" />
-                </Tooltip>
-                </span>
-            }
-            >
-            {getFieldDecorator('packageName', {
-                rules: [{ required: true, message: '请输入生成包路径!', whitespace: true }],
+            {getFieldDecorator('studentNo', {
+                rules: [{ required: true, message: '请输入学生编号!', whitespace: true }],
             })(<Input />)}
             </Form.Item>
 
@@ -94,15 +79,101 @@ export default class RoleModal extends PureComponent {
             <Form.Item
             label={
                 <span>
-                生成模块名&nbsp;
-                <Tooltip title="请输入生成模块名">
+                身份证&nbsp;
+                <Tooltip title="请输入身份证">
                     <Icon type="question-circle-o" />
                 </Tooltip>
                 </span>
             }
             >
-            {getFieldDecorator('moduleName', {
-                rules: [{ required: true, message: '请输入生成模块名!', whitespace: true }],
+            {getFieldDecorator('idCard', {
+                rules: [{ required: true, message: '请输入身份证!', whitespace: true }],
+            })(<Input />)}
+            </Form.Item>
+
+            <Form.Item
+            label={
+                <span>
+                生日&nbsp;
+                <Tooltip title="请选择生日">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            }
+            >
+            {getFieldDecorator('birthday', {
+                rules: [{ required: true, message: '请选择生日!', whitespace: true }],
+            })(<Input />)}
+            </Form.Item>
+
+
+
+
+
+
+
+
+
+
+
+
+            <Form.Item
+            label={
+                <span>
+                性别&nbsp;
+                <Tooltip title="请选择性别">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            }
+            >
+            {getFieldDecorator('sex', {
+                rules: [{ required: false, message: '请选择性别!', whitespace: true }],
+            })(<Input />)}
+            </Form.Item>
+
+            <Form.Item
+            label={
+                <span>
+                爱好&nbsp;
+                <Tooltip title="请选择爱好">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            }
+            >
+            {getFieldDecorator('hobby', {
+                rules: [{ required: false, message: '请选择爱好!', whitespace: true }],
+            })(<Input />)}
+            </Form.Item>
+
+            <Form.Item
+            label={
+                <span>
+                电话&nbsp;
+                <Tooltip title="请输入电话">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            }
+            >
+            {getFieldDecorator('phone', {
+                rules: [{ required: false, message: '请输入电话!', whitespace: true }],
+            })(<Input />)}
+            </Form.Item>
+
+            <Form.Item
+            label={
+                <span>
+                介绍&nbsp;
+                <Tooltip title="请输入介绍">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            }
+            >
+            {getFieldDecorator('description', {
+                rules: [{ required: false, message: '请输入介绍!', whitespace: true }],
             })(<Input />)}
             </Form.Item>
 
@@ -110,55 +181,25 @@ export default class RoleModal extends PureComponent {
             <Form.Item
             label={
                 <span>
-                功能名称&nbsp;
-                <Tooltip title="请输入功能名称">
+                最后登录时间&nbsp;
+                <Tooltip title="请选择最后登录时间">
                     <Icon type="question-circle-o" />
                 </Tooltip>
                 </span>
             }
             >
-            {getFieldDecorator('moduleDesc', {
-                rules: [{ required: true, message: '请输入功能名称!', whitespace: true }],
+            {getFieldDecorator('lastLoginTime', {
+                rules: [{ required: false, message: '请选择最后登录时间!', whitespace: true }],
             })(<Input />)}
             </Form.Item>
 
 
-            <Form.Item
-            label={
-                <span>
-                生成功能作者&nbsp;
-                <Tooltip title="请输入生成功能作者">
-                    <Icon type="question-circle-o" />
-                </Tooltip>
-                </span>
-            }
-            >
-            {getFieldDecorator('moduleAuthor', {
-                rules: [{ required: true, message: '请输入生成功能作者!', whitespace: true }],
-            })(<Input />)}
-            </Form.Item>
-
-
-            <Form.Item
-            label={
-                <span>
-                生成表&nbsp;
-                <Tooltip title="请选择表(主子表只选择主表)">
-                    <Icon type="question-circle-o" />
-                </Tooltip>
-                </span>
-            }
-            >
-            {getFieldDecorator('genTableInfoId', {
-                rules: [{ required: true, message: '请选择表(主子表只选择主表)!', whitespace: true }],
-            })(<Input />)}
-            </Form.Item>
-
+            
             <Form.Item label="备注" >
             {getFieldDecorator('remarks', {
                 rules: [
                 {
-                    required: true,
+                    required: false,
                     message: '请输入备注!',
                 },
                 ],

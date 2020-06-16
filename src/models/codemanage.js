@@ -1,4 +1,4 @@
-import { queryCodelist,addCode,editCode,queryCodeRecordlist,createCodeFile,deleteCode } from '@/services/codemanage';
+import { queryCodelist,addCode,editCode,queryCodeRecordlist,addCodeRecord,createCodeFile,deleteCode } from '@/services/codemanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'codemanage',
@@ -52,6 +52,15 @@ export default {
         type: 'saveCodeRecordlist',
         payload: response.result,
       });
+    },
+    /* 新增代码记录 */
+    *addCodeRecord(_, { call, put }) {
+      const { payload } = _;
+      const {callback} = payload;
+      const response = yield call(addCodeRecord, payload);
+      if (response.ok === true) {
+        if (callback) callback(response);
+      }
     },
     
     /* 生成代码 */

@@ -100,6 +100,7 @@ class UserManagement extends PureComponent {
         payload: {
             ...data,
             callback: res => {
+                console.log("------"+res)
                 const pagination = { ...this.state.pagination };
                 pagination.total = res.total;
                 pagination.pageSize = res.pageSize;

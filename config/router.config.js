@@ -373,6 +373,19 @@ export default [
           },
         ],
       },
+      {
+        name: '学生管理',
+        icon: 'folder',
+        path: '/student',
+        routes: [
+          // result
+          {
+            path: '/student/studentlist',
+            name: '学生信息',
+            component: './StudentManege/StudentList',
+          },
+        ],
+      },
       
       {
         component: '404',
