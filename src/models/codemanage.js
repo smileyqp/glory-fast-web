@@ -1,4 +1,4 @@
-import { queryCodelist,addCode,queryCodeRecordlist,createCodeFile } from '@/services/codemanage';
+import { queryCodelist,addCode,editCode,queryCodeRecordlist,createCodeFile } from '@/services/codemanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'codemanage',
@@ -7,6 +7,7 @@ export default {
   },
 
   effects: {
+    /* 获取数据库表列表 */
     *fetchCodelist(_, { call, put }){
       const {payload} = _;
       const response = yield call(queryCodelist,payload)
@@ -25,6 +26,15 @@ export default {
         if (callback) callback(response);
       }
     },
+    /* 编辑数据库表 */
+    *editCode(_, { call, put }) {
+        const { payload } = _;
+        const {callback} = payload;
+        const response = yield call(editCode, payload);
+        if (response.ok === true) {
+          if (callback) callback(response);
+        }
+      },
     /* 生成代码记录列表 */
     *fetchCodeRecordlist(_, { call, put }){
       const {payload} = _;

@@ -114,11 +114,7 @@ class CodeList extends PureComponent {
                         ...values,
                         callback: (res) => {
                             this.setState({ addCodeVisible: false })
-                            const data = {
-                                pageSize: 10,
-                                pageNo: 1,
-                            };
-                            this.refreshTable(data)
+                            this.refreshTable()
                         }
                     }
                 })
@@ -146,28 +142,13 @@ class CodeList extends PureComponent {
                     debugger
                     if (res.ok == true) {
                         message.success()
-                        const data = {
-                            pageSize: 10,
-                            pageNo: 1,
-                        };
-                        this.refreshTable(data)
+                        this.refreshTable()
                     }
                 }
             }
         })
     }
 
-
-    editRole = (record) => {
-        const { form } = this.props;
-        this.setState({ editCodeVisible: true, editCodeId: record.id })
-        form.setFieldsValue({
-            roleCode: record.roleCode,
-            roleName: record.roleName,
-            description: record.description,
-            remarks: record.remarks
-        })
-    }
 
 
     cancalEditCode = () => {
@@ -187,11 +168,7 @@ class CodeList extends PureComponent {
                         ...data,
                         callback: (res) => {
                             this.setState({ editCodeVisible: false })
-                            const data = {
-                                pageSize: 10,
-                                pageNo: 1,
-                            };
-                            this.refreshTable(data)
+                            this.refreshTable()
                         }
                     }
                 })
@@ -204,6 +181,26 @@ class CodeList extends PureComponent {
         form.resetFields()
     }
 
+    editCode = (record) => {
+        console.log(record)
+        const { form } = this.props;
+        this.setState({editCodeVisible:true,editCodeId:record.id})
+        form.setFieldsValue({
+            tableName: record.tableName,
+            tableComment: record.tableComment,
+            ifSon: record.ifSon,
+            parentTable: record.parentTable,
+            parentTableFk:record.parentTableFk,
+            remarks:record.remarks,
+            callback:(res)=>{
+                this.setState({editCodeVisible:false})
+            }
+          })
+    }
+
+    createCode = (record) => {
+        console.log(record)
+    }
 
     render() {
         const { loading, codelist, form } = this.props;

@@ -17,6 +17,14 @@ export async function addCode(data) {
   });
 }
 
+export async function editCode(data) {
+    console.log(data);
+    return request('/api/genCodeTable/update', {
+      method: 'PUT',
+      data,
+    });
+  }
+
 export async function queryCodeRecordlist(data) {
   console.log(data);
   return request('/api/genCodeRecord/list', {
