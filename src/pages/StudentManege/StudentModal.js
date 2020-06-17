@@ -129,7 +129,14 @@ export default class CodeModal extends PureComponent {
             >
             {getFieldDecorator('sex', {
                 rules: [{ required: false, message: '请选择性别!', whitespace: true }],
-            })(<Input />)}
+            })( <Select
+                placeholder="选择性别"
+                allowClear
+              >
+                <Option value="男">男</Option>
+                <Option value="女">女</Option>
+                <Option value="其他">其他</Option>
+              </Select>)}
             </Form.Item>
 
             <Form.Item
@@ -158,7 +165,7 @@ export default class CodeModal extends PureComponent {
             }
             >
             {getFieldDecorator('phone', {
-                rules: [{ required: false, message: '请输入电话!', whitespace: true }],
+                rules: [{ required: false, message: '请输入电话!', whitespace: false }],
             })(<Input />)}
             </Form.Item>
 

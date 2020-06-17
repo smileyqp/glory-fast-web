@@ -37,6 +37,7 @@ const tailFormItemLayout = {
     loading: loading.effects['studentmanage/fetchStudentList']
 }))
 @Form.create()
+
 class StudentList extends PureComponent {
     state = {
         pagination: {
