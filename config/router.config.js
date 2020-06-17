@@ -374,14 +374,14 @@ export default [
         ],
       },
       {
-        name: '学生管理',
+        name: 'studentmanage',
         icon: 'folder',
         path: '/student',
         routes: [
           // result
           {
             path: '/student/studentlist',
-            name: '学生信息',
+            name: 'studentinfo',
             component: './StudentManege/StudentList',
           },
         ],

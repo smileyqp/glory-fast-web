@@ -55,5 +55,7 @@ export default {
   'menu.logmanagement.debuglog':'调试日志',
   'menu.codemanage':'在线开发',
   'menu.codemanage.codelist':'在线表单开发',
-  'menu.codemanage.codeRecordlist':'代码生成'
+  'menu.codemanage.codeRecordlist':'代码生成',
+  'menu.studentmanage':'学生管理',
+  'menu.studentmanage.studentinfo':'学生信息'
 };

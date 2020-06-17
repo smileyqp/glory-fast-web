@@ -55,5 +55,7 @@ export default {
   'menu.logmanagement.debuglog':'Debug Log',
   'menu.codemanage':'Online Code',
   'menu.codemanage.codelist':'Online Code List',
-  'menu.codemanage.codeRecordlist':'Code Gen'
+  'menu.codemanage.codeRecordlist':'Code Gen',
+  'menu.studentmanage':'Student Manage',
+  'menu.studentmanage.studentinfo':'Student Info'
 };

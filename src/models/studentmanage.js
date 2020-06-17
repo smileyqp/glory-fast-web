@@ -12,7 +12,6 @@ export default {
       const {payload} = _;
       const { callback } = payload;
       const response = yield call(queryStudentList,payload)
-      debugger
       if (response.status === 200) {
         if (callback) callback(response.result);
       }
