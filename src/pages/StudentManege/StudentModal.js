@@ -19,6 +19,7 @@ import {
   Icon
 } from 'antd';
 import classNames from 'classnames';
+import moment from 'moment'
 
 
 const formItemLayout = {
@@ -91,7 +92,26 @@ export default class CodeModal extends PureComponent {
             })(<Input />)}
             </Form.Item>
 
-            <Form.Item
+            <Form.Item label={
+                <span>
+                生日&nbsp;
+                <Tooltip title="请选择生日">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            }
+            rules={[{ required: true, message: '请选择日期' }]}>
+            {getFieldDecorator('birthday', {
+                rules: [{ required: true, message: '请选择您的生日!' }],
+            })(
+                <DatePicker
+                style={{ width: '100%' }}
+                getPopupContainer={trigger => trigger.parentNode}
+                />
+            )}
+            </Form.Item>
+
+            {/* <Form.Item
             label={
                 <span>
                 生日&nbsp;
@@ -103,8 +123,11 @@ export default class CodeModal extends PureComponent {
             >
             {getFieldDecorator('birthday', {
                 rules: [{ required: true, message: '请选择生日!', whitespace: true }],
-            })(<Input />)}
-            </Form.Item>
+            })(<DatePicker
+                style={{ width: '100%' }}
+                getPopupContainer={trigger => trigger.parentNode}
+                />)}
+            </Form.Item> */}
 
 
 
@@ -185,7 +208,7 @@ export default class CodeModal extends PureComponent {
             </Form.Item>
 
 
-            <Form.Item
+            {/* <Form.Item
             label={
                 <span>
                 最后登录时间&nbsp;
@@ -198,6 +221,27 @@ export default class CodeModal extends PureComponent {
             {getFieldDecorator('lastLoginTime', {
                 rules: [{ required: false, message: '请选择最后登录时间!', whitespace: true }],
             })(<Input />)}
+            </Form.Item> */}
+
+            <Form.Item label={
+                <span>
+                最后登录时间&nbsp;
+                <Tooltip title="请选择最后登录时间">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            } 
+            rules={[{ required: true, message: '请选择最后登录时间' }]}>
+            {getFieldDecorator('lastLoginTime', {
+                rules: [{ required: true, message: '请选择最后登录时间!' }],
+            })(
+                <DatePicker
+                showTime
+                format="YYYY-MM-DD HH:mm:ss"
+                style={{ width: '100%' }}
+                getPopupContainer={trigger => trigger.parentNode}
+                />
+            )}
             </Form.Item>
 
 
