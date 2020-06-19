@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form ,message } from 'antd';
+import { Row,Col,List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form ,Select,message , InputNumber,Input, DatePicker, } from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -32,6 +32,14 @@ const tailFormItemLayout = {
     },
 };
 
+const FormItem = Form.Item;
+const { Option } = Select;
+const getValue = obj =>
+  Object.keys(obj)
+    .map(key => obj[key])
+    .join(',');
+
+
 @connect(({ studentmanage, loading }) => ({
     studentlist: studentmanage.studentlist,
     loading: loading.effects['studentmanage/fetchStudentList']
@@ -48,6 +56,7 @@ class StudentList extends PureComponent {
         selectedRows: [],
         addStudentVisible: false,
         editStudentVisible: false,
+        formValues: {},
     }
     componentDidMount() {
         const { dispatch } = this.props;
@@ -78,11 +87,57 @@ class StudentList extends PureComponent {
         });
     }
 
+    toggleForm = () => {
+        const { expandForm } = this.state;
+        this.setState({
+          expandForm: !expandForm,
+        });
+      };
+
+      handleFormReset = () => {
+        const { form, dispatch } = this.props;
+        form.resetFields();
+        this.setState({
+          formValues: {},
+        });
+        dispatch({
+          type: 'rule1/fetch',
+          payload: {},
+        });
+      };
+
     handleSelectRows = rows => {
         this.setState({
             selectedRows: rows,
         });
     };
+
+    handleSearch = e => {
+        e.preventDefault();
+    
+        const { dispatch, form } = this.props;
+    
+        form.validateFields((err, fieldsValue) => {
+            debugger
+        //   if (err) return;
+    
+          const values = {
+            ...fieldsValue,
+            updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
+          };
+    
+          this.setState({
+            formValues: values,
+          });
+          debugger
+          this.refreshTable(values)
+        //   dispatch({
+        //     type: 'admin/list',
+        //     payload: values,
+        //   });
+        });
+      };
+
 
     addStudent = () => {
         this.setState({ addStudentVisible: true })
@@ -95,9 +150,11 @@ class StudentList extends PureComponent {
 
     handleStandardTableChange = (pagination, filtersArg, sorter) => {
         const { dispatch } = this.props;
+        const { formValues } = this.state;
         const data = {
             pageNo: pagination.current,
             pageSize: pagination.pageSize,
+            ...formValues,
         };
         this.refreshTable(data)
     };
@@ -199,6 +256,109 @@ class StudentList extends PureComponent {
           })
     }
 
+    renderSimpleForm() {
+        const {
+          form: { getFieldDecorator },
+        } = this.props;
+        return (
+          <Form onSubmit={this.handleSearch} layout="inline">
+            <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+              <Col md={8} sm={24}>
+                <FormItem label="学生名称">
+                  {getFieldDecorator('studentName')(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              <Col md={8} sm={24}>
+                <FormItem label="姓名">
+                  {getFieldDecorator('username')(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              
+              <Col md={8} sm={24}>
+                <FormItem label="电子邮件">
+                  {getFieldDecorator('email')(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              
+              <Col md={8} sm={24}>
+                <span className={styles.submitButtons}>
+                  <Button type="primary" htmlType="submit">
+                    查询
+                  </Button>
+                  <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                    重置
+                  </Button>
+                  <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+                    展开 <Icon type="down" />
+                  </a>
+                </span>
+              </Col>
+            </Row>
+          </Form>
+        );
+      }
+    
+      renderAdvancedForm() {
+        const {
+          form: { getFieldDecorator },
+        } = this.props;
+        return (
+          <Form onSubmit={this.handleSearch} layout="inline">
+            <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+            <Col md={8} sm={24}>
+                <FormItem label="学生名称">
+                  {getFieldDecorator('studentName')(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              <Col md={8} sm={24}>
+                <FormItem label="姓名">
+                  {getFieldDecorator('username')(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              
+              <Col md={8} sm={24}>
+                <FormItem label="电子邮件">
+                  {getFieldDecorator('email')(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              <Col md={8} sm={24}>
+                <FormItem label="电话">
+                  {getFieldDecorator('phone')(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              <Col md={8} sm={24}>
+                <FormItem label="性别">
+                  {getFieldDecorator('sex')(
+                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                      <Option value="1">男</Option>
+                      <Option value="2">女</Option>
+                    </Select>
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+            <div style={{ overflow: 'hidden' }}>
+              <div style={{ marginBottom: 24 }}>
+                <Button type="primary" htmlType="submit">
+                  查询
+                </Button>
+                <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                  重置
+                </Button>
+                <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+                  收起 <Icon type="up" />
+                </a>
+              </div>
+            </div>
+          </Form>
+        );
+      }
+
+    renderForm() {
+        const { expandForm } = this.state;
+        return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
+    }
+
     render() {
         const { loading, studentlist, form } = this.props;
         const { getFieldDecorator } = form;
@@ -289,6 +449,7 @@ class StudentList extends PureComponent {
             }
         ]
 
+        
         const addStudentModal = (
             <StudentModal
                 visible={this.state.addStudentVisible}
@@ -315,6 +476,7 @@ class StudentList extends PureComponent {
                 {editeStudentModal}
                 <Card bordered={false}>
                     <div className={styles.tableList}>
+                        <div className={styles.tableListForm}>{this.renderForm()}</div>
                         <div className={styles.tableListOperator}>
                             <Button icon="plus" type="primary" onClick={this.addStudent}>
                                 添加
