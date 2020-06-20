@@ -1,4 +1,4 @@
-import { queryCodelist,addCode,editCode,queryCodeRecordlist,addCodeRecord,createCodeFile,deleteCode } from '@/services/codemanage';
+import { queryCodelist,addCode,editCode,queryCodeRecordlist,addCodeRecord,createCodeFile,deleteCode,queryGencodelist,updateGencodelist } from '@/services/codemanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'codemanage',
@@ -43,6 +43,28 @@ export default {
           if (callback) callback(response);
         }
       },
+
+
+    /* 配置-业务表字段列表 */
+    *fetchGencodelist(_, { call, put }){
+        const {payload} = _;
+        const response = yield call(queryGencodelist,payload)
+        console.log(response)
+        yield put({
+          type: 'saveGenCodelist',
+          payload: response.result,
+        });
+      },
+    
+    /* 配置-批量保存业务表字段列表 */
+    *saveGencodelist(_, { call, put }){
+        const {payload} = _;
+        const response = yield call(updateGencodelist,payload)
+        console.log(response)
+      },
+
+
+
     /* 生成代码记录列表 */
     *fetchCodeRecordlist(_, { call, put }){
       const {payload} = _;
@@ -90,6 +112,12 @@ export default {
         codeRecordlist: action.payload
       };
     },
+    saveGenCodelist(state, action){
+        return {
+          ...state,
+          genCodelist: action.payload
+        };
+      },
   
   },
 };

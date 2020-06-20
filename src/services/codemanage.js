@@ -35,6 +35,25 @@ export async function deleteCode(data) {
     });
 }
 
+
+
+export async function queryGencodelist(data) {
+    console.log(data);
+    return request('/api/genCodeField/list', {
+      method: 'POST',
+      data,
+    });
+  }
+
+export async function updateGencodelist(data) {
+    console.log(data);
+    return request('/api/genCodeField/updateBatch', {
+      method: 'POST',
+      data,
+    });
+}
+
+
 export async function queryCodeRecordlist(data) {
   console.log(data);
   return request('/api/genCodeRecord/list', {
