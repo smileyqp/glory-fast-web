@@ -36,7 +36,9 @@ const tailFormItemLayout = {
 
 @connect(({ codemanage, loading }) => ({
     codelist: codemanage.codelist,
-    loading: loading.effects['codemanage/fetchCodelist']
+    loading: loading.effects['codemanage/fetchCodelist'],
+    genCodelist:codemanage.genCodelist,
+    codeconfigloading:loading.effects['codemanage/fetchGencodelist']
 }))
 @Form.create()
 class CodeList extends PureComponent {
@@ -49,7 +51,8 @@ class CodeList extends PureComponent {
         selectedRows: [],
         addCodeVisible: false,
         editCodeVisible: false,
-        codeconfigVisible:false
+        codeconfigVisible:false,
+        genCodelist:this.props.genCodelist
     }
     componentDidMount() {
         const { dispatch } = this.props;
@@ -197,16 +200,16 @@ class CodeList extends PureComponent {
           })
     }
 
-    createCode = (record) => {
+    configCode = (record) => {
         console.log(record)
         this.setState({codeconfigVisible:true})
         const {dispatch} = this.props;
         dispatch({
-            type: 'codemanage/gencodelist',
+            type: 'codemanage/fetchGencodelist',
             payload: {
-                id:record.id,
+                genTableInfoId:record.id,
                 callback: (res) => {
-                   
+                console.log(res)
                 }
             }
         })
@@ -218,8 +221,35 @@ class CodeList extends PureComponent {
     handleConfig = () => {
         this.setState({codeconfigVisible:false})
     }
+
+
+    saveGencodelist = (row) => {
+        console.log(row)
+        const newData = [...this.state.genCodelist];
+        console.log(newData)
+        const index = newData.forEach((item,index)=>{
+            console.log(item)
+            if(item.id === row.id){
+                console.log(index)
+                return index
+            }
+        })
+      //  const index = newData.findIndex(item => row.id === item.id);
+        console.log(index)
+        // const item = newData[index];
+        // newData.splice(index, 1, {
+        //   ...item,
+        //   ...row,
+        // });
+        // this.setState({ dataSource: newData });
+    }
+
+
+
+
+
     render() {
-        const { loading, codelist, form } = this.props;
+        const { loading, codelist, form ,codeconfigloading} = this.props;
         const { getFieldDecorator } = form;
         const {
             selectedRows,
@@ -287,7 +317,7 @@ class CodeList extends PureComponent {
                     return <Fragment>
                         <a onClick={() => { this.editCode(record) }}>编辑</a>
                         <span className="ant-divider" />
-                        <a onClick={() => { this.createCode(record) }}>字段配置</a>
+                        <a onClick={() => { this.configCode(record) }}>字段配置</a>
                         {/* <a >删除</a> */}
                     </Fragment>
                 }
@@ -320,6 +350,9 @@ class CodeList extends PureComponent {
                 visible = {this.state.codeconfigVisible}
                 cancleSubmit = {this.cancelConfig}
                 handleSubmit = {this.handleConfig}
+                genCodelist = {this.state.genCodelist}
+                loading={codeconfigloading}
+                saveGencodelist = {this.saveGencodelist}
             />
         )
         return (
