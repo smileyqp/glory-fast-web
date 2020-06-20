@@ -115,10 +115,9 @@ class EditableTable extends React.Component {
       {
         title: '列名',
         dataIndex: 'fieldName',
-        editable: true,
       },
       {
-        title: '说明',
+        title: '属性名',
         dataIndex: 'fieldComment',
         editable: true,
       },
@@ -131,9 +130,13 @@ class EditableTable extends React.Component {
         title: 'Java类型',
         dataIndex: 'javaType',
         render:(data)=>{
-            return  <Select defaultValue="lucy" defaultValue = {data}>
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
+            return  <Select style={{width: '110px'}} defaultValue="String" defaultValue = {data}>
+            <Option value="String">String</Option>
+            <Option value="Date">Date</Option>
+            <Option value="Integer">Integer</Option>
+            <Option value="Long">Long</Option>
+            <Option value="Double">Double</Option>
+            <Option value="Float">Float</Option>
           </Select>
         }
       },
@@ -189,9 +192,14 @@ class EditableTable extends React.Component {
         title: '查看匹配方式',
         dataIndex: 'queryType',
         render:(data)=>{
-            return  <Select defaultValue={data} >
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
+            return  <Select style={{width: '110px'}} defaultValue={data} >
+            <Option value="=">=</Option>
+            <Option value="like">like</Option>
+            <Option value="leftLike">leftLike</Option>
+            <Option value="rightLike">rightLike</Option>
+            <Option value=">=">&gt;=</Option>
+            <Option value="<=">&lt;=</Option>
+            <Option value="!=">!=</Option>
           </Select>
         }
       },
@@ -199,9 +207,15 @@ class EditableTable extends React.Component {
         title: '显示表单类型',
         dataIndex: 'showType',
         render:(data)=>{
-            return  <Select defaultValue={data} >
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
+            return  <Select style={{width: '110px'}} defaultValue={data} >
+            <Option value="input">文本框</Option>
+            <Option value="number">数字框</Option>
+            <Option value="date">日期框</Option>
+            <Option value="datetime">日期时间</Option>
+            <Option value="redio">单选框</Option>
+            <Option value="checkbox">复选框</Option>
+            <Option value="select">下拉框</Option>
+            <Option value="textarea">文本域</Option>
           </Select>
         }
       },
@@ -311,13 +325,14 @@ const formItemLayout = {
 
 export default class CodeConfigModal extends PureComponent {
   render() {
-    const { form ,handleSubmit ,visible ,cancleSubmit ,title,genCodelist,loading} = this.props;
+    const { form ,handleSubmit,saveGencodelist ,visible ,cancleSubmit ,title,genCodelist,loading} = this.props;
+    //handleSave saveGencodelist
     return (
         <Modal
         title={title}
         visible={visible}
         onCancel={cancleSubmit}
-        onOk={handleSubmit}
+        onOk={saveGencodelist}
         width = '80%'
       >
           <EditableTable 

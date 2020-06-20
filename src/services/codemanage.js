@@ -48,8 +48,8 @@ export async function queryGencodelist(data) {
 export async function updateGencodelist(data) {
     console.log(data);
     return request('/api/genCodeField/updateBatch', {
-      method: 'POST',
-      data,
+      method: 'PUT',
+      data:data.newData,
     });
 }
 

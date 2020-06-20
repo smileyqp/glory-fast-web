@@ -144,7 +144,6 @@ class CodeList extends PureComponent {
             payload: {
                 data,
                 callback: (res) => {
-                    debugger
                     if (res.ok == true) {
                         message.success()
                         this.refreshTable()
@@ -201,29 +200,51 @@ class CodeList extends PureComponent {
     }
 
     configCode = (record) => {
-        console.log(record)
-        this.setState({codeconfigVisible:true})
-        const {dispatch} = this.props;
+        const { dispatch } = this.props;
         dispatch({
             type: 'codemanage/fetchGencodelist',
             payload: {
                 genTableInfoId:record.id,
-                callback: (res) => {
-                console.log(res)
-                }
-            }
-        })
+                callback: res => {
+                    console.log(res)
+                    console.log(res.result)
+                    this.setState({genCodelist:res.result})
+                    console.log(this.state.genCodelist)
+
+                    this.setState({codeconfigVisible:true})
+                },
+            },
+        });
+        // dispatch({
+        //     type: 'codemanage/fetchGencodelist',
+        //     payload: {
+        //         genTableInfoId:record.id,
+        //         callback: (res) => {
+        //             debugger
+        //             console.log(res)
+        //             console.log(res.result)
+        //             this.setState({genCodelist:res.result})
+        //             console.log(this.state.genCodelist)
+        //         }
+        //     }
+        // })
+        
+        
+        
     }
 
     cancelConfig = () => {
         this.setState({codeconfigVisible:false})
     }
     handleConfig = () => {
+        debugger
         this.setState({codeconfigVisible:false})
     }
 
 
     saveGencodelist = (row) => {
+        const { dispatch } = this.props;
+        debugger
         console.log(row)
         const newData = [...this.state.genCodelist];
         console.log(newData)
@@ -234,6 +255,21 @@ class CodeList extends PureComponent {
                 return index
             }
         })
+        dispatch({
+            type: 'codemanage/saveGencodelist',
+            payload: {
+                newData,
+                callback: res => {
+                    debugger
+                    console.log(res)
+                    console.log(res.result)
+                    message.success()
+                    this.setState({codeconfigVisible:false})
+                },
+            },
+        });
+
+
       //  const index = newData.findIndex(item => row.id === item.id);
         console.log(index)
         // const item = newData[index];

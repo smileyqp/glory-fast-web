@@ -45,22 +45,35 @@ export default {
       },
 
 
-    /* 配置-业务表字段列表 */
-    *fetchGencodelist(_, { call, put }){
-        const {payload} = _;
+      *fetchGencodelist(_, { call, put }) {
+        const { payload } = _;
+        const {callback} = payload;
         const response = yield call(queryGencodelist,payload)
-        console.log(response)
-        yield put({
-          type: 'saveGenCodelist',
-          payload: response.result,
-        });
+        if (response.ok === true) {
+          if (callback) callback(response);
+        }
       },
+
+    /* 配置-业务表字段列表 */
+    // *fetchGencodelist(_, { call, put }){
+    //     debugger
+    //     const {payload} = _;
+    //     const response = yield call(queryGencodelist,payload)
+    //     console.log(response)
+    //     yield put({
+    //       type: 'saveGenCodelist',
+    //       payload: response.result,
+    //     });
+    //   },
     
     /* 配置-批量保存业务表字段列表 */
     *saveGencodelist(_, { call, put }){
         const {payload} = _;
+        const {callback} = payload;
         const response = yield call(updateGencodelist,payload)
-        console.log(response)
+        if (response.ok === true) {
+          if (callback) callback(response);
+        }
       },
 
 
