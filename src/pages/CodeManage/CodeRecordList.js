@@ -321,7 +321,7 @@ class CodeRecordList extends PureComponent {
                 <Button icon="plus" type="primary" onClick = {this.addCodeRecord}>
                 添加
                 </Button>
-                <Button icon="plus" type="primary" onClick = {this.deleteRole}>
+                <Button icon="delete" type="primary" onClick = {this.deleteRole}>
                 批量删除
                 </Button>
             </div>

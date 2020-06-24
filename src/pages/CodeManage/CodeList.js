@@ -241,6 +241,7 @@ class CodeList extends PureComponent {
         this.setState({codeconfigVisible:false})
     }
 
+    
 
     saveGencodelist = (row) => {
         const { dispatch } = this.props;
@@ -281,7 +282,22 @@ class CodeList extends PureComponent {
     }
 
 
-
+    handleSave = row => {
+        console.log(row)
+        const {genCodelist} = this.state;
+        const newData = [...genCodelist];
+        const index = newData.findIndex(item => row.id === item.id)
+      //  const index = newData.findIndex(item => row.id === item.id);
+        console.log(index)
+        const item = newData[index];
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        this.setState({ genCodelist: newData });
+        console.log(this.state.genCodelist)
+      };
+    
 
 
     render() {
@@ -387,8 +403,10 @@ class CodeList extends PureComponent {
                 cancleSubmit = {this.cancelConfig}
                 handleSubmit = {this.handleConfig}
                 genCodelist = {this.state.genCodelist}
+                changeItem = {this.changeItem}
                 loading={codeconfigloading}
                 saveGencodelist = {this.saveGencodelist}
+                handleSave = {this.handleSave}
             />
         )
         return (
@@ -402,7 +420,7 @@ class CodeList extends PureComponent {
                             <Button icon="plus" type="primary" onClick={this.addCode}>
                                 添加
                             </Button>
-                            <Button icon="plus" type="primary" onClick={this.deleteCode}>
+                            <Button icon="delete" type="primary" onClick={this.deleteCode}>
                                 批量删除
                             </Button>
                         </div>
