@@ -8,6 +8,7 @@ import { formatWan } from '@/utils/utils';
 import studentmanage from '@/models/studentmanage';
 import styles from './StudentList.less';
 import StudentModal from './StudentModal'
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
 
 const formItemLayout = {
     labelCol: {
@@ -112,31 +113,10 @@ class StudentList extends PureComponent {
         });
     };
 
-    handleSearch = e => {
-        e.preventDefault();
-    
-        const { dispatch, form } = this.props;
-    
-        form.validateFields((err, fieldsValue) => {
-            debugger
-        //   if (err) return;
-    
-          const values = {
-            ...fieldsValue,
-            updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
-          };
-    
-          this.setState({
-            formValues: values,
-          });
-          debugger
-          this.refreshTable(values)
-        //   dispatch({
-        //     type: 'admin/list',
-        //     payload: values,
-        //   });
-        });
-      };
+    handleSearch = (values) => {
+      const { dispatch, form } = this.props;
+      this.refreshTable(values)
+    };
 
 
     addStudent = () => {
@@ -255,109 +235,7 @@ class StudentList extends PureComponent {
             remarks:record.remarks,
           })
     }
-
-    renderSimpleForm() {
-        const {
-          form: { getFieldDecorator },
-        } = this.props;
-        return (
-          <Form onSubmit={this.handleSearch} layout="inline">
-            <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-              <Col md={8} sm={24}>
-                <FormItem label="学生名称">
-                  {getFieldDecorator('studentName')(<Input placeholder="请输入" />)}
-                </FormItem>
-              </Col>
-              <Col md={8} sm={24}>
-                <FormItem label="姓名">
-                  {getFieldDecorator('username')(<Input placeholder="请输入" />)}
-                </FormItem>
-              </Col>
-              
-              <Col md={8} sm={24}>
-                <FormItem label="电子邮件">
-                  {getFieldDecorator('email')(<Input placeholder="请输入" />)}
-                </FormItem>
-              </Col>
-              
-              <Col md={8} sm={24}>
-                <span className={styles.submitButtons}>
-                  <Button type="primary" htmlType="submit">
-                    查询
-                  </Button>
-                  <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-                    重置
-                  </Button>
-                  <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                    展开 <Icon type="down" />
-                  </a>
-                </span>
-              </Col>
-            </Row>
-          </Form>
-        );
-      }
-    
-      renderAdvancedForm() {
-        const {
-          form: { getFieldDecorator },
-        } = this.props;
-        return (
-          <Form onSubmit={this.handleSearch} layout="inline">
-            <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-            <Col md={8} sm={24}>
-                <FormItem label="学生名称">
-                  {getFieldDecorator('studentName')(<Input placeholder="请输入" />)}
-                </FormItem>
-              </Col>
-              <Col md={8} sm={24}>
-                <FormItem label="姓名">
-                  {getFieldDecorator('username')(<Input placeholder="请输入" />)}
-                </FormItem>
-              </Col>
-              
-              <Col md={8} sm={24}>
-                <FormItem label="电子邮件">
-                  {getFieldDecorator('email')(<Input placeholder="请输入" />)}
-                </FormItem>
-              </Col>
-              <Col md={8} sm={24}>
-                <FormItem label="电话">
-                  {getFieldDecorator('phone')(<Input placeholder="请输入" />)}
-                </FormItem>
-              </Col>
-              <Col md={8} sm={24}>
-                <FormItem label="性别">
-                  {getFieldDecorator('sex')(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
-                      <Option value="1">男</Option>
-                      <Option value="2">女</Option>
-                    </Select>
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <div style={{ overflow: 'hidden' }}>
-              <div style={{ marginBottom: 24 }}>
-                <Button type="primary" htmlType="submit">
-                  查询
-                </Button>
-                <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-                  重置
-                </Button>
-                <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                  收起 <Icon type="up" />
-                </a>
-              </div>
-            </div>
-          </Form>
-        );
-      }
-
-    renderForm() {
-        const { expandForm } = this.state;
-        return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
-    }
+ 
 
     render() {
         const { loading, studentlist, form } = this.props;
@@ -449,6 +327,15 @@ class StudentList extends PureComponent {
             }
         ]
 
+
+        const searchColumns = [
+          {label:'学生名称',dataIndex:'studentName'},
+          {label:'姓名',dataIndex:'username'},
+          {label:'电子邮件',dataIndex:'email'},
+          {label:'电话',dataIndex:'phone'},
+          {label:'性别',dataIndex:'sex',select:true,selectdata:[{value:'1',show:'男'},{value:'2',show:'女'}]},
+        ]
+
         
         const addStudentModal = (
             <StudentModal
@@ -469,6 +356,16 @@ class StudentList extends PureComponent {
                 form={form}
             />
         )
+
+        const searchCon = (
+          <GlobalSearch
+            handleSearch = {this.handleSearch}
+            toggleForm = {this.toggleForm}
+            expandForm = {this.state.expandForm}
+            handleFormReset = {this.handleFormReset}
+            searchColumns = {searchColumns}
+          />
+        )
         
         return (
             <PageHeaderWrapper title="学生管理">
@@ -476,7 +373,9 @@ class StudentList extends PureComponent {
                 {editeStudentModal}
                 <Card bordered={false}>
                     <div className={styles.tableList}>
-                        <div className={styles.tableListForm}>{this.renderForm()}</div>
+                        <div className={styles.tableListForm}>
+                          {searchCon}
+                        </div>
                         <div className={styles.tableListOperator}>
                             <Button icon="plus" type="primary" onClick={this.addStudent}>
                                 添加
