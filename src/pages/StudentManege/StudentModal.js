@@ -21,6 +21,8 @@ import {
 import classNames from 'classnames';
 import moment from 'moment'
 
+const dateFormat = 'YYYY/MM/DD';
+const monthFormat = 'YYYY/MM';
 
 const formItemLayout = {
     labelCol: {
@@ -110,35 +112,6 @@ export default class CodeModal extends PureComponent {
                 />
             )}
             </Form.Item>
-
-            {/* <Form.Item
-            label={
-                <span>
-                生日&nbsp;
-                <Tooltip title="请选择生日">
-                    <Icon type="question-circle-o" />
-                </Tooltip>
-                </span>
-            }
-            >
-            {getFieldDecorator('birthday', {
-                rules: [{ required: true, message: '请选择生日!', whitespace: true }],
-            })(<DatePicker
-                style={{ width: '100%' }}
-                getPopupContainer={trigger => trigger.parentNode}
-                />)}
-            </Form.Item> */}
-
-
-
-
-
-
-
-
-
-
-
 
             <Form.Item
             label={

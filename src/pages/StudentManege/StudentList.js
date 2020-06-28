@@ -9,7 +9,9 @@ import studentmanage from '@/models/studentmanage';
 import styles from './StudentList.less';
 import StudentModal from './StudentModal'
 import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
+import moment from 'moment';
 
+const dateFormat = 'YYYY/MM/DD';
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -219,19 +221,20 @@ class StudentList extends PureComponent {
     }
 
     editStudent = (record) => {
-        console.log(record)
+        console.log(record.lastLoginTime)
         const { form } = this.props;
         this.setState({editStudentVisible:true,editStudentId:record.id})
+        console.log(record.birthday&&record.birthday.replace(/-/g,'/'))
         form.setFieldsValue({
             studentName: record.studentName,
             studentNo: record.studentNo,
             idCard: record.idCard,
             sex: record.sex,
-            birthday:record.birthday,
+            birthday:moment(record.birthday.replace(/-/g,'/'),dateFormat),
             hobby:record.hobby,
             phone:record.phone,
             description:record.description,
-            lastLoginTime:record.lastLoginTime,
+            lastLoginTime:moment(record.lastLoginTime.replace(/-/g,'/'),dateFormat),
             remarks:record.remarks,
           })
     }
