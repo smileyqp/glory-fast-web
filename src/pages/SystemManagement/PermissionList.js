@@ -173,6 +173,7 @@ class PermissionList extends PureComponent {
                 </Button>
               </div>
               <StandardTable 
+                bordered
                 size="middle"
                 scroll={{ x: 1500, y: 700 }}
                 selectedRows={selectedRows}

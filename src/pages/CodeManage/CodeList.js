@@ -296,7 +296,7 @@ class CodeList extends PureComponent {
             {
                 title: '表名',
                 dataIndex: 'tableName',
-                width: 200,
+                width: 100,
                 fixed: 'left',
             },
             {
@@ -307,32 +307,32 @@ class CodeList extends PureComponent {
             {
                 title: '实体类名称',
                 dataIndex: 'clazzName',
-                width: 200,
+                width: 100,
             },
             {
                 title: '是否子表',
                 dataIndex: 'ifSon',
-                width: 200,
+                width: 50,
             },
             {
                 title: '关联父表',
                 dataIndex: 'parentTable',
-                width: 200,
+                width: 100,
             },
             {
                 title: '关联父表外键',
                 dataIndex: 'parentTableFk',
-                width: 200,
+                width: 100,
             },
             {
                 title: '创建时间',
                 dataIndex: 'createTime',
-                width: 200,
+                width: 100,
             },
             {
                 title: '创建人',
                 dataIndex: 'createBy_text',
-                width: 200,
+                width: 100,
             },
             {
                 title: '备注',
@@ -341,7 +341,7 @@ class CodeList extends PureComponent {
             },
             {
                 title: '操作',
-                width: 200,
+                width: 120,
                 fixed: 'right',
                 render: (_, record) => {
                     return <Fragment>
@@ -403,8 +403,9 @@ class CodeList extends PureComponent {
                             </Button>
                         </div>
                         <StandardTable
+                            bordered
                             size="middle"
-                            scroll={{ x: 1500, y: 700 }}
+                            scroll={{ x: 1200, y: 700 }}
                             selectedRows={selectedRows}
                             loading={loading}
                             pagination={pagination}

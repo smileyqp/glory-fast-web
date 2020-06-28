@@ -326,14 +326,15 @@ class CodeRecordList extends PureComponent {
                 </Button>
             </div>
                 <StandardTable 
-                    size="middle"
-                    scroll={{ x: 1500, y: 700 }}
-                    selectedRows={selectedRows}
-                    onSelectRow={this.handleSelectRows}
-                    dataSource = {codeRecordlist&&codeRecordlist.records}
-                    loading = {loading}
-                    columns = {columns}
-                    rowKey = {'id'}
+                  bordered
+                  size="small"
+                  scroll={{ x: 1500, y: 700 }}
+                  selectedRows={selectedRows}
+                  onSelectRow={this.handleSelectRows}
+                  dataSource = {codeRecordlist&&codeRecordlist.records}
+                  loading = {loading}
+                  columns = {columns}
+                  rowKey = {'id'}
                 />
             </div>
             

@@ -130,7 +130,7 @@ class OperateLog extends PureComponent {
                 <StandardTable
                     bordered
                     size="middle"
-                    scroll={{ x: 1500, y: 700 }}
+                    scroll={{ x: 1000, y: 700 }}
                     selectedRows={selectedRows}
                     loading={loading}
                     pagination={pagination}
