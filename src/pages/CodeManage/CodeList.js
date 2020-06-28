@@ -245,40 +245,18 @@ class CodeList extends PureComponent {
 
     saveGencodelist = (row) => {
         const { dispatch } = this.props;
-        debugger
-        console.log(row)
         const newData = [...this.state.genCodelist];
-        console.log(newData)
-        const index = newData.forEach((item,index)=>{
-            console.log(item)
-            if(item.id === row.id){
-                console.log(index)
-                return index
-            }
-        })
         dispatch({
             type: 'codemanage/saveGencodelist',
             payload: {
                 newData,
                 callback: res => {
-                    debugger
-                    console.log(res)
-                    console.log(res.result)
-                    message.success()
                     this.setState({codeconfigVisible:false})
                 },
             },
         });
 
 
-      //  const index = newData.findIndex(item => row.id === item.id);
-        console.log(index)
-        // const item = newData[index];
-        // newData.splice(index, 1, {
-        //   ...item,
-        //   ...row,
-        // });
-        // this.setState({ dataSource: newData });
     }
 
 

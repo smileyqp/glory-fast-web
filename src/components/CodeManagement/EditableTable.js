@@ -21,6 +21,7 @@ import {
   Popconfirm,
 } from 'antd';
 import classNames from 'classnames';
+import { extend } from 'umi-request';
 
 const EditableContext = React.createContext();
 
@@ -111,6 +112,7 @@ class EditableCell extends React.Component {
       );
     }
   }
+ 
 
 export default class EditableTable extends React.Component {
     constructor(props) {
@@ -134,7 +136,7 @@ export default class EditableTable extends React.Component {
           title: 'Java类型',
           dataIndex: 'javaType',
           render:(data,record,index)=>{
-              return  <Select style={{width: '110px'}} defaultValue="String" defaultValue = {data} onChange={this.changeValue.bind(this,record,index)}>
+              return  <Select style={{width: '110px'}}  defaultValue = {data} onChange={(e)=>this.changeValue(e,record,'javaType')}>
               <Option value="String">String</Option>
               <Option value="Date">Date</Option>
               <Option value="Integer">Integer</Option>
@@ -152,51 +154,51 @@ export default class EditableTable extends React.Component {
         {
           title: '主键',
           dataIndex: 'ifPrimaryKey',
-          render:(data)=>{
-              return <Checkbox  checked={data === '1'?true:false}/>
+          render:(data,record)=>{
+              return <Checkbox  checked={data === '1'?true:false} onChange = {(e)=>{this.changeChecked(e,record,'ifPrimaryKey')}}/>
           }
         },
         {
           title: '可空',
           dataIndex: 'ifBlank',
-          render:(data)=>{
-              return <Checkbox  checked={data === '1'?true:false}/>
+          render:(data,record)=>{
+              return <Checkbox  checked={data === '1'?true:false} onChange = {(e)=>{this.changeChecked(e,record,'ifBlank')}}/>
           }
         },
   
         {
           title: '插入',
           dataIndex: 'ifInsert',
-          render:(data)=>{
-              return <Checkbox  checked={data === '1'?true:false}/>
+          render:(data,record)=>{
+              return <Checkbox  checked={data === '1'?true:false} onChange = {(e)=>{this.changeChecked(e,record,'ifInsert')}}/>
           }
         },
         {
           title: '编辑',
           dataIndex: 'ifEdit',
-          render:(data)=>{
-              return <Checkbox  checked={data === '1'?true:false}/>
+          render:(data,record)=>{
+              return <Checkbox  checked={data === '1'?true:false} onChange = {(e)=>{this.changeChecked(e,record,'ifEdit')}}/>
           }
         },
         {
           title: '列表',
           dataIndex: 'ifList',
-          render:(data)=>{
-              return <Checkbox  checked={data === '1'?true:false}/>
+          render:(data,record)=>{
+              return <Checkbox  checked={data === '1'?true:false} onChange = {(e)=>{this.changeChecked(e,record,'ifList')}}/>
           }
         },
         {
           title: '查询',
           dataIndex: 'ifQuery',
-          render:(data)=>{
-              return <Checkbox  checked={data === '1'?true:false}/>
+          render:(data,record)=>{
+              return <Checkbox  checked={data === '1'?true:false} onChange = {(e)=>{this.changeChecked(e,record,'ifQuery')}}/>
           }
         },
         {
           title: '查看匹配方式',
           dataIndex: 'queryType',
           render:(data,record,index)=>{
-              return  <Select style={{width: '110px'}} defaultValue={data} >
+              return  <Select style={{width: '110px'}} defaultValue = {data} onChange={(e)=>this.changeValue(e,record,'queryType')}>
               <Option value="=">=</Option>
               <Option value="like">like</Option>
               <Option value="leftLike">leftLike</Option>
@@ -210,8 +212,8 @@ export default class EditableTable extends React.Component {
         {
           title: '显示表单类型',
           dataIndex: 'showType',
-          render:(data)=>{
-              return  <Select style={{width: '110px'}} defaultValue={data} >
+          render:(data,record,index)=>{
+              return  <Select style={{width: '110px'}} defaultValue = {data} onChange={(e)=>this.changeValue(e,record,'showType')}>
               <Option value="input">文本框</Option>
               <Option value="number">数字框</Option>
               <Option value="date">日期框</Option>
@@ -254,11 +256,25 @@ export default class EditableTable extends React.Component {
       };
     }
 
-    changeValue = (index,record) => {
-        
 
+    changeChecked = (e,record,dataIndex) => {
+      console.log(e)
+      const data = record;
+      if(e.target.checked){
+        data[dataIndex] = '1';
+      }else{
+        data[dataIndex] = '2';
+      }
+      console.log(data)
+      this.props.handleSave(data)
+    }
 
-        console.log(index,record)
+    changeValue = ( e,record,dataIndex) => {
+      
+      const data = record;
+      data[dataIndex] = e;
+      console.log(data)
+      this.props.handleSave(data)
     }
   
     render() {
