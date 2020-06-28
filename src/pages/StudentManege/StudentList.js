@@ -161,18 +161,22 @@ class StudentList extends PureComponent {
         })
     }
 
-
-    deleteStudent = () => {
+    deleteStudent = (isMore,record) => {
         const { dispatch } = this.props;
-        const { selectedRows } = this.state;
-        if (selectedRows.length === 0) {
-            message.error("请选择一条信息")
-            return;
+        var data = null;
+        if(isMore){
+          const { selectedRows } = this.state;
+          if (selectedRows.length === 0) {
+              message.error("请选择一条信息")
+              return;
+          }
+          data = selectedRows.map((item) => {
+              return item.id
+          })  
+        }else{
+          data = [record.id]
         }
-        const data = selectedRows.map((item) => {
-            return item.id
-        })
-
+     
         dispatch({
             type: 'studentmanage/fetchDeleteStudent',
             payload: {
@@ -251,14 +255,14 @@ class StudentList extends PureComponent {
             {
                 title: '序号',
                 dataIndex: 'title',
-                width: 80,
+                width: 50,
                 render: (text, record, index) => `${index + 1}`,
                 fixed: 'left',
             },
             {
                 title: '学生名称',
                 dataIndex: 'studentName',
-                width: 200,
+                width: 80,
                 fixed: 'left',
             },
             {
@@ -318,13 +322,13 @@ class StudentList extends PureComponent {
             },
             {
                 title: '操作',
-                width: 200,
+                width: 100,
                 fixed: 'right',
                 render: (_, record) => {
                     return <Fragment>
                         <a onClick={() => { this.editStudent(record) }}>编辑</a>
-                        {/* <span className="ant-divider" />
-                        <a onClick={() => { this.deleteStudent(record) }}>删除</a> */}
+                        <span className="ant-divider" />
+                        <a onClick={() => { this.deleteStudent(false,record) }}>删除</a>
                     </Fragment>
                 }
             }
@@ -383,7 +387,7 @@ class StudentList extends PureComponent {
                             <Button icon="plus" type="primary" onClick={this.addStudent}>
                                 添加
                             </Button>
-                            <Button icon="delete" type="primary" onClick={this.deleteStudent}>
+                            <Button icon="delete" type="primary" onClick={this.deleteStudent.bind(this,true)}>
                                 批量删除
                             </Button>
                         </div>
