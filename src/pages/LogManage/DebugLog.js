@@ -134,6 +134,7 @@ class DebugLog extends PureComponent {
         <PageHeaderWrapper>
             <Card bordered={false}>
                 <StandardTable
+                    bordered
                     size="middle"
                     scroll={{ x: 1500, y: 700 }}
                     selectedRows={selectedRows}

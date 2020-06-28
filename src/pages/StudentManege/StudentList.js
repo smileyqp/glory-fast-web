@@ -392,16 +392,17 @@ class StudentList extends PureComponent {
                             </Button>
                         </div>
                         <StandardTable
-                            size="middle"
-                            scroll={{ x: 1500, y: 700 }}
-                            selectedRows={selectedRows}
-                            loading={loading}
-                            pagination={pagination}
-                            dataSource={studentlist && studentlist.records}
-                            columns={columns}
-                            onSelectRow={this.handleSelectRows}
-                            onChange={this.handleStandardTableChange}
-                            rowKey="id"
+                          bordered
+                          size="middle"
+                          scroll={{ x: 1500, y: 700 }}
+                          selectedRows={selectedRows}
+                          loading={loading}
+                          pagination={pagination}
+                          dataSource={studentlist && studentlist.records}
+                          columns={columns}
+                          onSelectRow={this.handleSelectRows}
+                          onChange={this.handleStandardTableChange}
+                          rowKey="id"
                         />
                     </div>
                 </Card>

@@ -62,14 +62,15 @@ export default class DictTable extends PureComponent {
 
     return (
         <Table 
-            size="middle"
-            scroll={{ x: 1500, y: 700 }}
-            // selectedRows={selectedRows}
-            dataSource = {dataSource}
-            loading = {loading}
-            columns = {columns}
-            rowKey = {'id'}
-            rowSelection = {{type:'radio',onSelect:handleSelect}}
+          bordered  
+          size="middle"
+          scroll={{ x: 1500, y: 700 }}
+          // selectedRows={selectedRows}
+          dataSource = {dataSource}
+          loading = {loading}
+          columns = {columns}
+          rowKey = {'id'}
+          rowSelection = {{type:'radio',onSelect:handleSelect}}
         />
     );
   }

@@ -102,12 +102,7 @@ class OperateLog extends PureComponent {
             {
               title: '用户名',
               dataIndex: 'username',
-              width: 200,
-            },
-            {
-                title: '请求方式',
-                dataIndex: 'postType',
-                width: 200,
+              width: 100,
             },
             {
                 title: '请求名称',
@@ -133,6 +128,7 @@ class OperateLog extends PureComponent {
         <PageHeaderWrapper>
             <Card bordered={false}>
                 <StandardTable
+                    bordered
                     size="middle"
                     scroll={{ x: 1500, y: 700 }}
                     selectedRows={selectedRows}

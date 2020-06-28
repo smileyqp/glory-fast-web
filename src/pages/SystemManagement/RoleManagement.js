@@ -198,7 +198,7 @@ class RoleManagement extends PureComponent {
       {
         title: '序号',
         dataIndex: 'title',
-        width: 80,
+        width: 50,
         render:(text,record,index)=>`${index+1}`,
         fixed: 'left',
       },
@@ -211,7 +211,7 @@ class RoleManagement extends PureComponent {
       {
         title: '角色编码',
         dataIndex: 'roleCode',
-        width: 200,
+        width: 100,
       },
       {
         title: '角色描述',
@@ -221,12 +221,12 @@ class RoleManagement extends PureComponent {
       {
         title: '创建时间',
         dataIndex: 'createTime',
-        width: 200,
+        width: 100,
       },
       {
         title: '创建人',
         dataIndex: 'createBy_text',
-        width: 200,
+        width: 100,
       },
       {
         title: '备注',
@@ -284,14 +284,15 @@ class RoleManagement extends PureComponent {
                 </Button>
             </div>
                 <StandardTable 
-                    size="middle"
-                    scroll={{ x: 1500, y: 700 }}
-                    selectedRows={selectedRows}
-                    onSelectRow={this.handleSelectRows}
-                    dataSource = {rolelist&&rolelist.records}
-                    loading = {loading}
-                    columns = {columns}
-                    rowKey = {'id'}
+                  bordered
+                  size="middle"
+                  scroll={{ x: 1500, y: 600 }}
+                  selectedRows={selectedRows}
+                  onSelectRow={this.handleSelectRows}
+                  dataSource = {rolelist&&rolelist.records}
+                  loading = {loading}
+                  columns = {columns}
+                  rowKey = {'id'}
                 />
             </div>
             
