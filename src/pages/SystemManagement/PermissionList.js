@@ -17,7 +17,13 @@ import styles from './UserManagement.less';
 class PermissionList extends PureComponent {
   state = {
     selectedRows:[],
-    addDrawervisible:false
+    addDrawervisible:false,
+    pagination:{
+      pageSize:50,
+      position:[
+      {bottom:'none'}
+      ]
+    }
   }
     componentDidMount(){
         const { dispatch } = this.props;
@@ -69,7 +75,7 @@ class PermissionList extends PureComponent {
 
 
   render() {
-    const {selectedRows ,addDrawervisible} = this.state;
+    const {selectedRows ,addDrawervisible,pagination} = this.state;
     const {permissionlist,loading} = this.props;
     console.log(permissionlist)
     const treelist = permissionlist&&permissionlist.map((item)=>{
@@ -101,18 +107,16 @@ class PermissionList extends PureComponent {
         title: '序号',
         width: 80,
         render:(text,record,index)=>`${index+1}`,
-        fixed: 'left',
       },
       {
         title: '菜单名称',
         dataIndex: 'title',
-        width: 200,
-        fixed: 'left',
+        width: 100,
       },
       {
         title: 'icon',
         dataIndex: 'icon',
-        width: 200,
+        width: 100,
       },
       {
         title: '组件',
@@ -122,7 +126,7 @@ class PermissionList extends PureComponent {
       {
         title: '路径',
         dataIndex: 'url',
-        width: 300,
+        width: 150,
       },
       {
         title: '菜单类型',
@@ -132,7 +136,7 @@ class PermissionList extends PureComponent {
       {
         title: '排序',
         dataIndex: 'sortNo',
-        width: 100,
+        width: 50,
       },
       {
         title: '创建人',
@@ -175,13 +179,13 @@ class PermissionList extends PureComponent {
               <StandardTable 
                 bordered
                 size="middle"
-                scroll={{ x: 1500, y: 700 }}
                 selectedRows={selectedRows}
                 onSelectRow={this.handleSelectRows}
                 dataSource = {permissionlist&&permissionlist}
                 loading = {loading}
                 columns = {columns}
                 rowKey = {'title'}
+                pagination={pagination}
               />
           </div>
         

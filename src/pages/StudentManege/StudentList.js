@@ -387,7 +387,7 @@ class StudentList extends PureComponent {
                             <Button icon="plus" type="primary" onClick={this.addStudent}>
                                 添加
                             </Button>
-                            <Button icon="delete" type="primary" onClick={this.deleteStudent.bind(this,true)}>
+                            <Button icon="delete" type="danger" onClick={this.deleteStudent.bind(this,true)}>
                                 批量删除
                             </Button>
                         </div>

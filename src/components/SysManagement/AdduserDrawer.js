@@ -44,6 +44,29 @@ const tailFormItemLayout = {
 };
 
 export default class AdduserDrawer extends PureComponent {
+  state = {
+    confirmDirty: false,
+  }
+  compareToFirstPassword = (rule, value, callback) => {
+    const { form } = this.props;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
+    }
+  };
+  
+  validateToNextPassword = (rule, value, callback) => {
+      const { form } = this.props;
+      if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+      }
+      callback();
+  };
+  handleConfirmBlur = e => {
+  const { value } = e.target;
+  this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  };
   render() {
     const {
       addDrawervisible,

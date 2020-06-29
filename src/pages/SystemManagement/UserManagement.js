@@ -29,7 +29,7 @@ import AdduserDrawer from '@/components/SysManagement/AdduserDrawer';
 import UserlistColumn from '@/components/SysManagement/UserlistColumn';
 import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
 import md5 from'md5';
-
+import UpdatePasswordModal from '@/components/SysManagement/UpdatePasswordModal'
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -67,6 +67,7 @@ class UserManagement extends PureComponent {
         total:0,
         pageNo:1
     },
+    updatePasswordVisible:false
   };
 
   componentDidMount() {
@@ -247,6 +248,35 @@ class UserManagement extends PureComponent {
     this.setState({ addDrawervisible: false });
   };
 
+  updatePassword = (record) => {
+    console.log(record)
+    this.setState({updatePasswordVisible:true})
+  }
+
+  updatePasswordSubmit = (data) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'sysmanage/updateUser',
+      payload: {
+        ...data,
+        callback:(res) => {
+            if(res.ok == true){
+                this.setState({updatePasswordVisible:false})
+                this.refreshTable()
+            }
+        }
+      },
+    })
+  }
+
+  updatePasswordCancel = () => {
+    this.setState({updatePasswordVisible:false})
+  }
+
+  editStudent = (record) => {
+    console.log(record)
+  }
+
   render() {
     const {
       selectedRows,
@@ -264,6 +294,11 @@ class UserManagement extends PureComponent {
         <UserdetailDrawer
           closeDetaildrawer={this.closeDetaildrawer}
           detailDrawervisible={detailDrawervisible}
+        />
+        <UpdatePasswordModal
+          visible = {this.state.updatePasswordVisible}
+          handleSubmit = {this.updatePasswordSubmit}
+          cancelSubmit = {this.updatePasswordCancel}
         />
         <AdduserDrawer
           {...this.props}
@@ -306,7 +341,7 @@ class UserManagement extends PureComponent {
               loading={loading}
               pagination={pagination}
               dataSource={userlist && userlist.records}
-              columns={UserlistColumn(styles, this.openDetailDrawer)}
+              columns={UserlistColumn(styles, this.updatePassword,this.editStudent)}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
               rowKey="id"

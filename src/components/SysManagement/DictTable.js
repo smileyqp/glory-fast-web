@@ -12,20 +12,18 @@ export default class DictTable extends PureComponent {
         {
             title: '序号',
             dataIndex: 'title',
-            width: 80,
+            width: 50,
             render:(text,record,index)=>`${index+1}`,
-            fixed: 'left',
           },
         {
           title: type==='parent'?'字典名称':'名称',
           dataIndex: type==='parent'?'dictName':'itemText',
           width: 100,
-          fixed: 'left',
         },
         {
           title: type==='parent'?'字典代码':'值',
           dataIndex: type==='parent'?'dictCode':'itemValue',
-          width: 200,
+          width: 100,
         },
         {
             title: '描述',
@@ -64,7 +62,6 @@ export default class DictTable extends PureComponent {
         <Table 
           bordered  
           size="middle"
-          scroll={{ x: 1500, y: 700 }}
           // selectedRows={selectedRows}
           dataSource = {dataSource}
           loading = {loading}

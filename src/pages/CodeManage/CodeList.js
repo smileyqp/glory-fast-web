@@ -395,7 +395,7 @@ class CodeList extends PureComponent {
                             <Button icon="plus" type="primary" onClick={this.addCode}>
                                 添加
                             </Button>
-                            <Button icon="delete" type="primary" onClick={this.deleteCode}>
+                            <Button icon="delete" type="danger" onClick={this.deleteCode}>
                                 批量删除
                             </Button>
                         </div>

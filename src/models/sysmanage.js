@@ -1,4 +1,4 @@
-import { queryUserList, addUser,disableUser,deleteUser,queryPermissionList,permissionListAdd,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
+import { queryUserList, addUser,disableUser,deleteUser,updateUser,queryPermissionList,permissionListAdd,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -47,6 +47,15 @@ export default {
       const response = yield call(deleteUser, payload);
       if (response.status === 200) {
         console.log(response)
+        if (callback) callback(response);
+      }
+    },
+    *updateUser(_, { call, put }){
+      const { payload } = _;
+      const {callback} = payload;
+      console.log(payload)
+      const response = yield call(updateUser, payload);
+      if (response.status === 200) {
         if (callback) callback(response);
       }
     },

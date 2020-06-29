@@ -26,14 +26,19 @@ export async function disableUser(data) {
 }
 
 export async function deleteUser(data) {
-  console.log(data);
   let param = data.data
   return request('/api/user/delete', {
     method: 'DELETE',
     data:param,
   });
 }
-
+export async function updateUser(data) {
+  console.log(data);
+  return request('/api/user/update', {
+    method: 'PUT',
+    data,
+  });
+}
 
 export async function queryPermissionList() {
     return request('/api/menu/list', {
