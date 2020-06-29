@@ -91,23 +91,21 @@ class DebugLog extends PureComponent {
                 dataIndex: 'title',
                 width: 80,
                 render:(text,record,index)=>`${index+1}`,
-                fixed: 'left',
               },
             {
               title: '登录名',
               dataIndex: 'loginName',
               width: 100,
-              fixed: 'left',
             },
             {
               title: '用户名',
               dataIndex: 'username',
-              width: 200,
+              width: 100,
             },
             {
                 title: '异常类名',
                 dataIndex: 'clazzName',
-                width: 200,
+                width: 400,
             },
             {
                 title: '异常方法名',
@@ -136,7 +134,6 @@ class DebugLog extends PureComponent {
                 <StandardTable
                     bordered
                     size="middle"
-                    scroll={{ x: 1000, y: 700 }}
                     selectedRows={selectedRows}
                     loading={loading}
                     pagination={pagination}

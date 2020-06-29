@@ -91,13 +91,11 @@ class OperateLog extends PureComponent {
                 dataIndex: 'title',
                 width: 80,
                 render:(text,record,index)=>`${index+1}`,
-                fixed: 'left',
               },
             {
               title: '登录名',
               dataIndex: 'loginName',
               width: 100,
-              fixed: 'left',
             },
             {
               title: '用户名',
@@ -112,7 +110,7 @@ class OperateLog extends PureComponent {
             {
               title: '请求url',
               dataIndex: 'urlPath',
-              width: 200,
+              width: 400,
             },
             {
                 title: '操作时间',
@@ -130,7 +128,6 @@ class OperateLog extends PureComponent {
                 <StandardTable
                     bordered
                     size="middle"
-                    scroll={{ x: 1000, y: 700 }}
                     selectedRows={selectedRows}
                     loading={loading}
                     pagination={pagination}

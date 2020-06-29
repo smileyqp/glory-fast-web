@@ -91,13 +91,11 @@ class LoginLog extends PureComponent {
                 dataIndex: 'title',
                 width: 80,
                 render:(text,record,index)=>`${index+1}`,
-                fixed: 'left',
               },
             {
               title: '登录名',
               dataIndex: 'loginName',
               width: 100,
-              fixed: 'left',
             },
             {
               title: '用户名',
