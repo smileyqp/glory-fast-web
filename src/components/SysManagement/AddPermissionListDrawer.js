@@ -33,11 +33,11 @@ const RadioGroup = Radio.Group;
 const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
-      sm: { span: 8 },
+      sm: { span: 4 },
     },
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 16 },
+      sm: { span: 20 },
     },
   };
   const tailFormItemLayout = {
@@ -52,7 +52,7 @@ const formItemLayout = {
       },
     },
   };
-
+const {Option} = Select;
   export default class AddPermissionListDrawer extends PureComponent {
     state = {
         iconChooseVisible:false
@@ -78,7 +78,7 @@ const formItemLayout = {
     )
         
     return(
-    <Drawer
+    <Modal
         title="新增"
         width={720}
         visible={addDrawervisible}
@@ -86,7 +86,6 @@ const formItemLayout = {
         bodyStyle={{ paddingBottom: 80 }}
     >
         {IconModal}
-    <Card>
         <Form {...formItemLayout} onSubmit={handleSubmit}>
             <Form.Item
                 label={'菜单类型'}
@@ -101,15 +100,25 @@ const formItemLayout = {
                 label={'菜单名称'}
                 >
                 {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入登陆账号!', whitespace: true }],
+                    rules: [{ required: true, message: '请输入菜单名称!', whitespace: true }],
                 })(<Input />)}
+            </Form.Item>
+            <Form.Item
+                label={'是否子节点'}
+                >
+                {getFieldDecorator('isLeaf', {
+                    rules: [{  message: '请选择其类型!',required:true }],
+                })(<Select style={{ width: '100%' }}>
+                    <Option value={1}>是</Option>
+                    <Option value={2}>否</Option>
+                </Select>)}
             </Form.Item>
 
             <Form.Item
                 label={'上级菜单'}
                 >
-                {getFieldDecorator('loginName', {
-                    rules: [{  message: '请输入登陆账号!', whitespace: true }],
+                {getFieldDecorator('parentId', {
+                    rules: [{  message: '请选择上级菜单!', whitespace: true }],
                 })(<TreeSelect   treeData={treeData}   style={{ width: '100%' }}/>)}
             </Form.Item>
 
@@ -117,16 +126,22 @@ const formItemLayout = {
                 label={'菜单路径'}
                 >
                 {getFieldDecorator('url', {
-                    rules: [{ required: true, message: '请输入登陆账号!', whitespace: true }],
+                    rules: [{ required: true, message: '请输入菜单路径!', whitespace: true }],
                 })(<Input />)}
             </Form.Item>
-
+            <Form.Item
+                label={'前端组件名称'}
+                >
+                {getFieldDecorator('componentName', {
+                    rules: [{ required: true, message: '请输入前端组件名称!', whitespace: true }],
+                })(<Input />)}
+            </Form.Item>
 
             <Form.Item
                 label={'前端组件'}
                 >
                 {getFieldDecorator('component', {
-                    rules: [{ required: true, message: '请输入登陆账号!', whitespace: true }],
+                    rules: [{ required: true, message: '请输入前端组件!', whitespace: true }],
                 })(<Input />)}
             </Form.Item>
             
@@ -134,7 +149,7 @@ const formItemLayout = {
                 label={'菜单图标'}
                 >
                 {getFieldDecorator('icon', {
-                    rules: [{  message: '请输入登陆账号!', whitespace: true }],
+                    rules: [{  message: '请选择菜单图标!', whitespace: true }],
                 })(<Input addonAfter={<SettingOutlined onClick = {this.openIconChoose}/>}/>)}
             </Form.Item>
 
@@ -142,7 +157,7 @@ const formItemLayout = {
                 label={'排序'}
                 >
                 {getFieldDecorator('sortNo', {
-                    rules: [{ required: true, message: '请输入登陆账号!', whitespace: true }],
+                    rules: [{ required: true, message: '请输入其排序号!', whitespace: true }],
                 })(<Input />)}
             </Form.Item>
 
@@ -160,13 +175,7 @@ const formItemLayout = {
         </Form.Item>
 
         </Form>
-
-    </Card>
-    
-
-
-
-    </Drawer>
+    </Modal>
     )
     }
   }

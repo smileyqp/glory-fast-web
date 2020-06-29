@@ -430,6 +430,13 @@ class UserManagement extends PureComponent {
               <Button icon="delete" type="danger" onClick = {this.deleteMore}>
                   批量删除
               </Button>
+
+              <Button icon="upload" onClick={this.enableUser}>
+                用户导入
+              </Button>
+              <Button icon="download" onClick={this.enableUser}>
+                用户导出
+              </Button>
               
             </div>
             <StandardTable

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent,Fragment } from 'react';
 import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form} from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
@@ -157,7 +157,17 @@ class PermissionList extends PureComponent {
         title: '更新时间',
         dataIndex: 'updateTime',
         width: 200,
-      },
+      },{
+        title: '操作',
+        width:100,
+        render:(_,record)=>{
+          return  <Fragment>
+                      <a  >编辑</a>
+                      <span className="ant-divider" />
+                      <a >删除</a>
+                  </Fragment>
+        }
+      }
     ]
     return (
       <PageHeaderWrapper>
