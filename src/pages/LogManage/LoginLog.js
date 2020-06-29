@@ -7,6 +7,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
 
 @connect(({ logmanage,loading }) => ({
     loginloglist:logmanage.loginlog.loginloglist,
@@ -20,7 +21,8 @@ class LoginLog extends PureComponent {
             total:0,
             pageNo:1
         },
-        selectedRows:[]
+        selectedRows:[],
+        expandForm:false
     }
     componentDidMount(){
         const { dispatch } = this.props;
@@ -71,6 +73,18 @@ class LoginLog extends PureComponent {
         };
         this.refreshTable(data)
     };
+
+    toggleForm = () => {
+      const { expandForm } = this.state;
+      this.setState({
+        expandForm: !expandForm,
+      });
+    };
+
+    handleSearch = (values) => {
+      const { dispatch, form } = this.props;
+      this.refreshTable(values)
+    }
     
    
 
@@ -112,16 +126,31 @@ class LoginLog extends PureComponent {
               title: '登录IP',
               dataIndex: 'loginIp',
               width: 200,
-            },
-           
-         
+            },         
         ]
-        console.log(loginloglist)
-   
+
+
+        const searchColumns = [
+          {label:'登录名',dataIndex:'loginName'},
+          {label:'用户名',dataIndex:'username'},
+          {label:'登录地址',dataIndex:'loginAddr'},
+          {label:'登录时间',dataIndex:'loginTime'},
+        ]
+
+        const searchCon = (
+          <GlobalSearch
+            handleSearch = {this.handleSearch}
+            toggleForm = {this.toggleForm}
+            expandForm = {this.state.expandForm}
+            searchColumns = {searchColumns}
+          />
+        )
+      
         
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
+              {searchCon}
                 <Table
                     bordered
                     size="middle"

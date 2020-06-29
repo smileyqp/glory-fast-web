@@ -7,6 +7,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
 
 @connect(({ logmanage,loading }) => ({
     debugloglist:logmanage.debuglog.debugloglist,
@@ -20,7 +21,8 @@ class DebugLog extends PureComponent {
             total:0,
             pageNo:1
         },
-        selectedRows:[]
+        selectedRows:[],
+        expandForm:false
     }
     componentDidMount(){
         const { dispatch } = this.props;
@@ -76,7 +78,17 @@ class DebugLog extends PureComponent {
         this.refreshTable(data)
     };
     
-   
+    toggleForm = () => {
+        const { expandForm } = this.state;
+        this.setState({
+          expandForm: !expandForm,
+        });
+      };
+  
+      handleSearch = (values) => {
+        const { dispatch, form } = this.props;
+        this.refreshTable(values)
+      }
 
 
     render() {
@@ -126,11 +138,29 @@ class DebugLog extends PureComponent {
            
          
         ]
+
+
+        const searchColumns = [
+            {label:'登录名',dataIndex:'loginName'},
+            {label:'用户名',dataIndex:'username'},
+            {label:'登录地址',dataIndex:'loginAddr'},
+            {label:'登录时间',dataIndex:'loginTime'},
+          ]
+  
+          const searchCon = (
+            <GlobalSearch
+              handleSearch = {this.handleSearch}
+              toggleForm = {this.toggleForm}
+              expandForm = {this.state.expandForm}
+              searchColumns = {searchColumns}
+            />
+          )
    
         
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
+            {searchCon}
                 <Table
                     bordered
                     size="middle"

@@ -7,6 +7,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
 
 @connect(({ logmanage,loading }) => ({
     operateloglist:logmanage.operatelog.operateloglist,
@@ -20,7 +21,8 @@ class OperateLog extends PureComponent {
             total:0,
             pageNo:1
         },
-        selectedRows:[]
+        selectedRows:[],
+        expandForm:false
     }
     componentDidMount(){
         const { dispatch } = this.props;
@@ -73,7 +75,17 @@ class OperateLog extends PureComponent {
         this.refreshTable(data)
     };
     
-   
+    toggleForm = () => {
+      const { expandForm } = this.state;
+      this.setState({
+        expandForm: !expandForm,
+      });
+    };
+
+    handleSearch = (values) => {
+      const { dispatch, form } = this.props;
+      this.refreshTable(values)
+    }
 
 
     render() {
@@ -105,6 +117,11 @@ class OperateLog extends PureComponent {
                 width: 200,
             },
             {
+              title: '请求方式',
+              dataIndex: 'postType',
+              width: 100,
+          },
+            {
               title: '请求url',
               dataIndex: 'urlPath',
               width: 400,
@@ -114,14 +131,31 @@ class OperateLog extends PureComponent {
                 dataIndex: 'createTime',
                 width: 200,
             },
-           
-         
         ]
+
+
+        const searchColumns = [
+          {label:'登录名',dataIndex:'loginName'},
+          {label:'用户名',dataIndex:'username'},
+          {label:'请求名称',dataIndex:'postDesc'},
+          {label:'请求URL',dataIndex:'urlPath'},
+          {label:'请求方式',dataIndex:'postType',select:true,selectdata:[{value:'POST',show:'POST'},{value:'GET',show:'GET'},{value:'DELETE',show:'DELETE'},{value:'PUT',show:'PUT'}]},
+        ]
+
+        const searchCon = (
+          <GlobalSearch
+            handleSearch = {this.handleSearch}
+            toggleForm = {this.toggleForm}
+            expandForm = {this.state.expandForm}
+            searchColumns = {searchColumns}
+          />
+        )
    
         
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
+            {searchCon}
                 <Table
                     bordered
                     size="middle"

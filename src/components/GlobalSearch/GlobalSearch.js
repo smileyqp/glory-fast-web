@@ -42,7 +42,7 @@ export default class GlobalSearch extends PureComponent {
         return  item.select? <Col md={8} sm={24} key = {item.label}>
           <FormItem label={item.label}>
             {getFieldDecorator(item.dataIndex)(
-              <Select placeholder="请选择" style={{ width: '100%' }}>
+              <Select placeholder="请选择" style={{ width: '100px' }}>
                   {item.selectdata&&item.selectdata.map((i)=>{
                       return <Option value={i.value} key = {i.value}>{i.show}</Option>
                   })}
