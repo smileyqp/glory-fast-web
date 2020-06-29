@@ -271,7 +271,10 @@ class DictList extends PureComponent {
         const record = type === 'parent'?this.state.selectedRowdata:this.state.selectedChildRowdata;
         this.setState({editType:type})
         console.log(record)
-        
+        if(!record){
+            message.warning('请至少选择一项')
+            return
+        }
         this.setState({editDictVisible:true,editid:record.id})
         form.setFieldsValue({
             dictName: record.dictName,

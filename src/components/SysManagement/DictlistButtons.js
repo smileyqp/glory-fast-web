@@ -13,12 +13,13 @@ export default class DictlistButtons extends PureComponent {
             <Button icon="plus" type="primary" onClick = {additem} disabled = {disable}>
             添加
             </Button>
-            <Button icon="plus" type="primary" onClick = {deleteitem} disabled = {disable}>
-            删除
-            </Button>
-            <Button icon="plus" type="primary" onClick = {editItem} disabled = {disable}>
+            <Button icon="edit" onClick = {editItem} disabled = {disable}>
             编辑
             </Button>
+            <Button icon="delete" type="danger" onClick = {deleteitem} disabled = {disable}>
+            删除
+            </Button>
+           
         </div>
     );
   }

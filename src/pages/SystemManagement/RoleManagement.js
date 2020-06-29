@@ -233,12 +233,12 @@ class RoleManagement extends PureComponent {
       },
       {
         title:'操作',
-        width:100,
+        width:70,
         render:(_,record)=>{
             return <Fragment>
                 <a onClick= {()=>{this.editRole(record)}}>编辑</a>
-                {/* <span className="ant-divider" />
-                <a >删除</a> */}
+                <span className="ant-divider" />
+                <a >授权</a>
             </Fragment>
         }
       }
