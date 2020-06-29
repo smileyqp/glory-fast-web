@@ -34,11 +34,11 @@ const formItemLayout = {
 
 export default class DictListModal extends PureComponent {
   render() {
-    const { form ,handleSubmit ,visible ,cancleSubmit ,title} = this.props;
+    const { form ,handleSubmit ,visible ,cancleSubmit ,editType} = this.props;
     const { getFieldDecorator } = form; 
     return (
         <Modal
-            title = { title }
+            title = { editType === 'parent'?'编辑字典主表':'编辑字典子表' }
             visible={visible}
             onCancel={cancleSubmit}
             onOk={handleSubmit}

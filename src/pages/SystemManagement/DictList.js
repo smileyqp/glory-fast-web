@@ -244,7 +244,7 @@ class DictList extends PureComponent {
                 
                 if (!err) {
                     dispatch({
-                        type:'sysmanage/updateDict',
+                        type:'sysmanage/updateChildDict',
                         payload:{
                             ...data,
                             callback:(res)=>{
@@ -277,8 +277,8 @@ class DictList extends PureComponent {
         }
         this.setState({editDictVisible:true,editid:record.id})
         form.setFieldsValue({
-            dictName: record.dictName,
-            dictCode: record.dictCode,
+            dictName:type==='parent'? record.dictName:record.itemText,
+            dictCode:type==='parent'? record.dictCode:record.itemValue,
             description: record.description,
             remarks: record.remarks
           })
@@ -321,7 +321,7 @@ class DictList extends PureComponent {
             cancleSubmit = {this.cancelEditDict }
             handleSubmit = { this.editSubmit }
             form = {form}
-            title= {"编辑字典主表"}
+            editType = {this.state.editType}
         />
         )
 
@@ -341,7 +341,7 @@ class DictList extends PureComponent {
                 deleteitem = { this.deleteChildDict }
                 styleclass = { styles.tableListOperator} 
                 disable = {this.state.childbtnDisabled}
-                editItem = {()=>{this.editDictlist('parent')}}
+                editItem = {()=>{this.editDictlist('child')}}
             />
         )
         
