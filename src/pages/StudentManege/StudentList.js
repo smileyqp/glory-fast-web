@@ -60,6 +60,7 @@ class StudentList extends PureComponent {
         addStudentVisible: false,
         editStudentVisible: false,
         formValues: {},
+        expandForm:false
     }
     componentDidMount() {
         const { dispatch } = this.props;
@@ -96,18 +97,7 @@ class StudentList extends PureComponent {
           expandForm: !expandForm,
         });
       };
-
-      handleFormReset = () => {
-        const { form, dispatch } = this.props;
-        form.resetFields();
-        this.setState({
-          formValues: {},
-        });
-        dispatch({
-          type: 'rule1/fetch',
-          payload: {},
-        });
-      };
+ 
 
     handleSelectRows = rows => {
         this.setState({
@@ -369,7 +359,6 @@ class StudentList extends PureComponent {
             handleSearch = {this.handleSearch}
             toggleForm = {this.toggleForm}
             expandForm = {this.state.expandForm}
-            handleFormReset = {this.handleFormReset}
             searchColumns = {searchColumns}
           />
         )

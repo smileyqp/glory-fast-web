@@ -71,7 +71,8 @@ class UserManagement extends PureComponent {
         pageNo:1
     },
     updatePasswordVisible:false,
-    updateUserVisible:false
+    updateUserVisible:false,
+    expandForm:false
   };
 
   componentDidMount() {
@@ -324,6 +325,18 @@ class UserManagement extends PureComponent {
     const {form} = this.props;
     form.resetFields()
   }
+
+  toggleForm = () => {
+    const { expandForm } = this.state;
+    this.setState({
+      expandForm: !expandForm,
+    });
+  };
+  handleSearch = (values) => {
+    const { dispatch, form } = this.props;
+    this.refreshTable(values)
+  };
+
   render() {
     const {
       selectedRows,
@@ -336,6 +349,14 @@ class UserManagement extends PureComponent {
       updateUserVisible
     } = this.state;
     const { userlist, loading ,rolelist} = this.props;
+    const searchColumns = [
+      {label:'用户姓名',dataIndex:'username'},
+      {label:'用户账号',dataIndex:'loginName'},
+      {label:'用户状态',dataIndex:'status_text'},
+      {label:'电子邮件',dataIndex:'email'},
+      {label:'电话',dataIndex:'phone'},
+      {label:'性别',dataIndex:'sex',select:true,selectdata:[{value:'1',show:'男'},{value:'2',show:'女'}]},
+    ]
 
     const updateUserModal = (
       <AdduserDrawer
@@ -350,6 +371,16 @@ class UserManagement extends PureComponent {
         fileData={fileData}
         rolelist = {rolelist&&rolelist.records}
         />
+    )
+
+
+    const searchCon = (
+      <GlobalSearch
+        handleSearch = {this.handleSearch}
+        toggleForm = {this.toggleForm}
+        expandForm = {this.state.expandForm}
+        searchColumns = {searchColumns}
+      />
     )
     return (
       <PageHeaderWrapper title="用户管理">
@@ -383,6 +414,7 @@ class UserManagement extends PureComponent {
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
+              {searchCon}
               <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
                 新建
               </Button>
