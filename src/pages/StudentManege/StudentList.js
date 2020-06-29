@@ -382,7 +382,7 @@ class StudentList extends PureComponent {
                         </div>
                         <StandardTable
                           bordered
-                          size="middle"
+                          size="small"
                           scroll={{ x: 1500, y: 700 }}
                           selectedRows={selectedRows}
                           loading={loading}

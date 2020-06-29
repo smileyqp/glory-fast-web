@@ -26,6 +26,11 @@ export default class DictTable extends PureComponent {
           width: 100,
         },
         {
+          title: '排序',
+          dataIndex: 'sortOrder',
+          width: 100,
+        },
+        {
             title: '描述',
             dataIndex: 'description',
             width: 200,

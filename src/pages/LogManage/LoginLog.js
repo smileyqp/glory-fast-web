@@ -153,7 +153,7 @@ class LoginLog extends PureComponent {
               {searchCon}
                 <Table
                     bordered
-                    size="middle"
+                    size="small"
                     selectedRows={selectedRows}
                     loading={loading}
                     pagination={pagination}

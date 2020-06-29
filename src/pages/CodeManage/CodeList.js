@@ -401,7 +401,7 @@ class CodeList extends PureComponent {
                         </div>
                         <StandardTable
                             bordered
-                            size="middle"
+                            size="small"
                             scroll={{ x: 1200, y: 700 }}
                             selectedRows={selectedRows}
                             loading={loading}

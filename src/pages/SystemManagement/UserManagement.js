@@ -160,6 +160,20 @@ class UserManagement extends PureComponent {
       },
     });
   }
+  exportUser = () => {
+    // TODO 可以带上条件 按搜索条件导出
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'sysmanage/exportUser',
+      payload: {
+        callback:(res)=>{
+            // if(res.ok == true){
+            //     this.refreshTable()
+            // }
+        }
+      },
+    });
+  }
   disableUser = () => {
     const { selectedRows } = this.state;
     if (selectedRows.length === 0){
@@ -434,7 +448,7 @@ class UserManagement extends PureComponent {
               <Button icon="upload" onClick={this.enableUser}>
                 用户导入
               </Button>
-              <Button icon="download" onClick={this.enableUser}>
+              <Button icon="download" onClick={this.exportUser}>
                 用户导出
               </Button>
               
@@ -442,8 +456,9 @@ class UserManagement extends PureComponent {
             <StandardTable
               bordered
               scroll={{ x: 1500, y: 600 }}
+              size="small"
               selectedRows={selectedRows}
-              loading={loading}
+              loading={loading} 
               pagination={pagination}
               dataSource={userlist && userlist.records}
               columns={UserlistColumn(styles, this.updatePassword,this.editUser)}

@@ -72,12 +72,26 @@ export default class DictListModal extends PureComponent {
                 rules: [{ required: true, message: '请输入字典代码!', whitespace: true }],
             })(<Input />)}
             </Form.Item>
+            <Form.Item
+            label={
+                <span>
+                字典排序&nbsp;
+                <Tooltip title="请输入字典排序">
+                    <Icon type="question-circle-o" />
+                </Tooltip>
+                </span>
+            }
+            >
+            {getFieldDecorator('sortOrder', {
+                rules: [{ required: true, message: '请输入字典排序!', whitespace: true }],
+            })(<Input />)}
+            </Form.Item>
 
             <Form.Item label="描述">
             {getFieldDecorator('description', {
                 rules: [
                 {
-                    required: true,
+                    required: false,
                     message: '请输入您的描述!',
                 },
                 ],
@@ -87,7 +101,7 @@ export default class DictListModal extends PureComponent {
             {getFieldDecorator('remarks', {
                 rules: [
                 {
-                    required: true,
+                    required: false,
                     message: '请输入字典备注!',
                 },
                 ],

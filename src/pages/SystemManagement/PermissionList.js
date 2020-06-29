@@ -188,7 +188,7 @@ class PermissionList extends PureComponent {
               </div>
               <StandardTable 
                 bordered
-                size="middle"
+                size="small"
                 selectedRows={selectedRows}
                 onSelectRow={this.handleSelectRows}
                 dataSource = {permissionlist&&permissionlist}

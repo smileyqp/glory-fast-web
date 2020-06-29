@@ -24,6 +24,13 @@ export async function disableUser(data) {
     data,
   });
 }
+export async function exportUser(data) {
+  console.log(data);
+  return request('/api/user/export', {
+    method: 'GET',
+    data,
+  });
+}
 
 export async function deleteUser(data) {
   let param = data.data

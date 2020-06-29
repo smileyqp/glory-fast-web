@@ -282,7 +282,7 @@ class RoleManagement extends PureComponent {
             </div>
                 <StandardTable 
                   bordered
-                  size="middle"
+                  size="small"
                   selectedRows={selectedRows}
                   onSelectRow={this.handleSelectRows}
                   dataSource = {rolelist&&rolelist.records}

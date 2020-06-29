@@ -231,7 +231,7 @@ class CodeRecordList extends PureComponent {
       {
         title: '记录名称',
         dataIndex: 'recordName',
-        width: 100,
+        width: 200,
         fixed: 'left',
       },
       {
