@@ -42,6 +42,7 @@ const tailFormItemLayout = {
     },
   },
 };
+const { Option } = Select;
 
 export default class AdduserDrawer extends PureComponent {
   state = {
@@ -78,6 +79,7 @@ export default class AdduserDrawer extends PureComponent {
       imageUrl,
       photoloading,
       fileData,
+      rolelist
     } = this.props;
     const { getFieldDecorator } = form;
     const prefixSelector = getFieldDecorator('prefix', {
@@ -173,6 +175,22 @@ export default class AdduserDrawer extends PureComponent {
                   },
                 ],
               })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+            </Form.Item>
+            <Form.Item label="请选择用户角色" >
+              {getFieldDecorator('roles', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请选择用户角色!',
+                  },
+                ],
+              })(
+                <Select mode="tags" style={{ width: '100%' }} placeholder="用户角色">
+                {rolelist&&rolelist.map((item)=>{
+                  return  <Option key={item.id} value={item.id}>{item.roleName}</Option>
+                })}
+              </Select>,
+              )}
             </Form.Item>
 
             <Form.Item label="头像">

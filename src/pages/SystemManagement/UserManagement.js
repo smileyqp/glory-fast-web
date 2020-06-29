@@ -55,6 +55,7 @@ function beforeUpload(file) {
 
 @connect(({ sysmanage, loading }) => ({
   userlist: sysmanage.usermanage.userlist,
+  rolelist:sysmanage.rolemanage.rolelist,
   loading: loading.effects['sysmanage/fetchUserList'],
 }))
 @Form.create()
@@ -83,7 +84,13 @@ class UserManagement extends PureComponent {
       type: 'user/fetchCurrent',
     });
     this.refreshTable(data)
+    dispatch({
+      type: 'sysmanage/fetchRoleList',
+      payload:{
+      }
+    });
   }
+  
 
 
   refreshTable = (paginationdata) => {
@@ -286,6 +293,7 @@ class UserManagement extends PureComponent {
       loginName: record.loginName,
       username:record.username,
       birthday:record.birthday&&moment(record.birthday.replace(/-/g,'/'),dateFormat),
+      roles:record.roles
     })
     this.setState({imageUrl:record.photo})
   }
@@ -303,6 +311,7 @@ class UserManagement extends PureComponent {
               if(res.status == 200){
                   this.setState({updateUserVisible:false,imageUrl:null})
                   form.resetFields()
+                  this.refreshTable()
               }
           }
         },
@@ -326,7 +335,7 @@ class UserManagement extends PureComponent {
       pagination,
       updateUserVisible
     } = this.state;
-    const { userlist, loading } = this.props;
+    const { userlist, loading ,rolelist} = this.props;
 
     const updateUserModal = (
       <AdduserDrawer
@@ -339,6 +348,7 @@ class UserManagement extends PureComponent {
         imageUrl={imageUrl}
         addDrawervisible={updateUserVisible}
         fileData={fileData}
+        rolelist = {rolelist&&rolelist.records}
         />
     )
     return (
@@ -363,6 +373,7 @@ class UserManagement extends PureComponent {
           imageUrl={imageUrl}
           addDrawervisible={addDrawervisible}
           fileData={fileData}
+          rolelist = {rolelist&&rolelist.records}
         />
 
 
