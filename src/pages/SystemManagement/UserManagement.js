@@ -30,7 +30,9 @@ import UserlistColumn from '@/components/SysManagement/UserlistColumn';
 import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
 import md5 from'md5';
 import UpdatePasswordModal from '@/components/SysManagement/UpdatePasswordModal'
+import moment from 'moment';
 
+const dateFormat = 'YYYY/MM/DD';
 function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
@@ -67,7 +69,8 @@ class UserManagement extends PureComponent {
         total:0,
         pageNo:1
     },
-    updatePasswordVisible:false
+    updatePasswordVisible:false,
+    updateUserVisible:false
   };
 
   componentDidMount() {
@@ -272,10 +275,46 @@ class UserManagement extends PureComponent {
     this.setState({updatePasswordVisible:false})
   }
 
-  editStudent = (record) => {
+  editUser = (record) => {
     console.log(record)
+    const { form } = this.props;
+    this.setState({updateUserVisible:true,editUserRecord:record})
+    form.setFieldsValue({
+      telephone: record.telephone,
+      sex: record.sex,
+      email: record.email,
+      loginName: record.loginName,
+      username:record.username,
+      birthday:record.birthday&&moment(record.birthday.replace(/-/g,'/'),dateFormat),
+    })
+    this.setState({imageUrl:record.photo})
   }
-
+  confirmeditUser = () => {
+    const {form,dispatch} = this.props;
+    form.validateFieldsAndScroll((err,values)=>{
+      const data = {...this.state.editUserRecord,...values}
+      console.log(data)
+      console.log(values)
+      dispatch({
+        type: 'sysmanage/updateUser',
+        payload: {
+          ...data,
+          callback:(res) => {
+              if(res.status == 200){
+                  this.setState({updateUserVisible:false,imageUrl:null})
+                  form.resetFields()
+              }
+          }
+        },
+      })
+    })
+  }
+  
+  cancelEdit = () => {
+    this.setState({ updateUserVisible: false });
+    const {form} = this.props;
+    form.resetFields()
+  }
   render() {
     const {
       selectedRows,
@@ -285,11 +324,26 @@ class UserManagement extends PureComponent {
       photoloading,
       fileData,
       pagination,
+      updateUserVisible
     } = this.state;
     const { userlist, loading } = this.props;
 
+    const updateUserModal = (
+      <AdduserDrawer
+        {...this.props}
+        beforeUpload={this.beforeUpload}
+        handleCancel={this.cancelEdit}
+        handleSubmit={this.confirmeditUser}
+        handleChange={this.handleChange}
+        photoloading={photoloading}
+        imageUrl={imageUrl}
+        addDrawervisible={updateUserVisible}
+        fileData={fileData}
+        />
+    )
     return (
       <PageHeaderWrapper title="用户管理">
+        {updateUserModal}
         <UserdetailDrawer
           closeDetaildrawer={this.closeDetaildrawer}
           detailDrawervisible={detailDrawervisible}
@@ -310,6 +364,8 @@ class UserManagement extends PureComponent {
           addDrawervisible={addDrawervisible}
           fileData={fileData}
         />
+
+
 
 
 
@@ -340,7 +396,7 @@ class UserManagement extends PureComponent {
               loading={loading}
               pagination={pagination}
               dataSource={userlist && userlist.records}
-              columns={UserlistColumn(styles, this.updatePassword,this.editStudent)}
+              columns={UserlistColumn(styles, this.updatePassword,this.editUser)}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
               rowKey="id"

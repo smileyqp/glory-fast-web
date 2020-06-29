@@ -24,7 +24,7 @@ import DetailMenu from '@/components/SysManagement/DetailMenu';
 
 const statusMap = {'启用':'green','禁用': 'red'}
 
-export default function UserlistColumn(styles, updatePassword,editStudent) {
+export default function UserlistColumn(styles, updatePassword,editUser) {
   return [
     {
       title: '序号',
@@ -143,7 +143,7 @@ export default function UserlistColumn(styles, updatePassword,editStudent) {
       // ),
       render: (_, record) => {
         return <Fragment>
-            <a onClick={() => { editStudent(record) }}>详情</a>
+            <a onClick={() => { editUser(record) }}>详情</a>
             <span className="ant-divider" />
             <a onClick={() => { updatePassword(record) }}>修改密码</a>
         </Fragment>

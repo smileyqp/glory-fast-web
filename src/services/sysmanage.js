@@ -33,7 +33,6 @@ export async function deleteUser(data) {
   });
 }
 export async function updateUser(data) {
-  console.log(data);
   return request('/api/user/update', {
     method: 'PUT',
     data,

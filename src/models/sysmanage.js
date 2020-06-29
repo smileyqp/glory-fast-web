@@ -55,6 +55,7 @@ export default {
       const {callback} = payload;
       console.log(payload)
       const response = yield call(updateUser, payload);
+      console.log(response)
       if (response.status === 200) {
         if (callback) callback(response);
       }
