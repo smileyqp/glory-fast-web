@@ -57,6 +57,15 @@ export default class UpdatePasswordModal extends PureComponent {
     const { value } = e.target;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     };
+
+    submitUpdate = () => {
+        const {form,handleSubmit} = this.props;
+        form.validateFieldsAndScroll((err, values)=>{
+            if(!err){
+                handleSubmit({password:values.password})
+            }
+        })
+    }
   render() {
     const { form ,handleSubmit ,visible ,cancleSubmit ,title} = this.props;
     const { getFieldDecorator } = this.props.form; 
@@ -65,9 +74,9 @@ export default class UpdatePasswordModal extends PureComponent {
         title={'修改密码'}
         visible={visible}
         onCancel={cancleSubmit}
-        onOk={handleSubmit}
+        onOk={this.submitUpdate}
       >
-        <Form {...formItemLayout} onSubmit={handleSubmit}>
+        <Form {...formItemLayout} onSubmit={this.submitUpdate}>
              <Form.Item label="登陆密码" hasFeedback>
               {getFieldDecorator('password', {
                 rules: [

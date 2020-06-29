@@ -249,20 +249,19 @@ class UserManagement extends PureComponent {
   };
 
   updatePassword = (record) => {
-    console.log(record)
-    this.setState({updatePasswordVisible:true})
+    this.setState({updatePasswordVisible:true,updateRecord:record})
   }
 
-  updatePasswordSubmit = (data) => {
+  updatePasswordSubmit = (password) => {
+    const data = {...this.state.updateRecord,...password}
     const { dispatch } = this.props;
     dispatch({
       type: 'sysmanage/updateUser',
       payload: {
         ...data,
         callback:(res) => {
-            if(res.ok == true){
+            if(res.status == 200){
                 this.setState({updatePasswordVisible:false})
-                this.refreshTable()
             }
         }
       },
@@ -298,7 +297,7 @@ class UserManagement extends PureComponent {
         <UpdatePasswordModal
           visible = {this.state.updatePasswordVisible}
           handleSubmit = {this.updatePasswordSubmit}
-          cancelSubmit = {this.updatePasswordCancel}
+          cancleSubmit = {this.updatePasswordCancel}
         />
         <AdduserDrawer
           {...this.props}
