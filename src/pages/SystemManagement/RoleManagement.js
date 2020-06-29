@@ -200,13 +200,11 @@ class RoleManagement extends PureComponent {
         dataIndex: 'title',
         width: 50,
         render:(text,record,index)=>`${index+1}`,
-        fixed: 'left',
       },
       {
         title: '角色名称',
         dataIndex: 'roleName',
         width: 100,
-        fixed: 'left',
       },
       {
         title: '角色编码',
@@ -236,7 +234,6 @@ class RoleManagement extends PureComponent {
       {
         title:'操作',
         width:100,
-        fixed:'right',
         render:(_,record)=>{
             return <Fragment>
                 <a onClick= {()=>{this.editRole(record)}}>编辑</a>
@@ -286,7 +283,6 @@ class RoleManagement extends PureComponent {
                 <StandardTable 
                   bordered
                   size="middle"
-                  scroll={{ x: 1500, y: 600 }}
                   selectedRows={selectedRows}
                   onSelectRow={this.handleSelectRows}
                   dataSource = {rolelist&&rolelist.records}
