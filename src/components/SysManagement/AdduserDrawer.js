@@ -15,18 +15,19 @@ import {
   Row,
   Col,
   Button,
-  Card
+  Card,
+  Modal
 } from 'antd';
 import classNames from 'classnames';
 
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 8 },
+    sm: { span: 4 },
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 16 },
+    sm: { span: 20 },
   },
 };
 const tailFormItemLayout = {
@@ -71,14 +72,15 @@ export default class AdduserDrawer extends PureComponent {
       </div>
     );
     return (
-      <Drawer
-        title="新增"
+      <Modal
+        title="新增用户"
         width={720}
-        onClose={handleCancel}
+        // onClose={handleCancel}
         visible={addDrawervisible}
         bodyStyle={{ paddingBottom: 80 }}
+        onOk={handleSubmit}
+        onCancel={handleCancel}
       >
-        <Card>
           <Form {...formItemLayout} onSubmit={handleSubmit}>
             <Form.Item
               label={
@@ -199,21 +201,8 @@ export default class AdduserDrawer extends PureComponent {
                 rules: [{ required: true, message: 'Please input your phone number!' }],
               })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
             </Form.Item>
-            <Form.Item {...tailFormItemLayout}>
-              <Row gutter={16}>
-                <Col span={6}>
-                  <Button type="primary" htmlType="submit">
-                    创建
-                  </Button>
-                </Col>
-                <Col span={6}>
-                  <Button onClick={handleCancel}>取消</Button>
-                </Col>
-              </Row>
-            </Form.Item>
           </Form>
-        </Card>
-      </Drawer>
+      </Modal>
     );
   }
 }
