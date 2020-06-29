@@ -27,11 +27,7 @@ class LoginLog extends PureComponent {
         dispatch({
           type: 'user/fetchCurrent',
         });
-        // const {pageSize,pageNo} = this.state.pagination;
-        // dispatch({
-        //   type:'logmanage/fetchLoginloglist',
-        //   payload:{pageSize,pageNo}
-        // })
+       
         this.refreshTable()
     }
 
@@ -44,8 +40,8 @@ class LoginLog extends PureComponent {
               ...data,
               callback: res => {
                   const pagination = { ...this.state.pagination };
-                  pagination.total = res.total;
-                  pagination.pageSize = res.pageSize;
+                  pagination.total = res.result.total;
+                  pagination.pageSize = res.result.pageSize;
                   this.setState({ pagination: pagination });
               },
           },
@@ -89,7 +85,7 @@ class LoginLog extends PureComponent {
             {
                 title: '序号',
                 dataIndex: 'title',
-                width: 80,
+                width: 50,
                 render:(text,record,index)=>`${index+1}`,
               },
             {
@@ -100,7 +96,7 @@ class LoginLog extends PureComponent {
             {
               title: '用户名',
               dataIndex: 'username',
-              width: 200,
+              width: 100,
             },
             {
                 title: '登录地址',
@@ -126,7 +122,7 @@ class LoginLog extends PureComponent {
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
-                <StandardTable
+                <Table
                     bordered
                     size="middle"
                     selectedRows={selectedRows}

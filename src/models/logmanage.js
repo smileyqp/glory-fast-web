@@ -12,7 +12,9 @@ export default {
   effects: {
     *fetchLoginloglist(_, { call, put }){
       const {payload} = _;
+      const {callback} = payload;
       const response = yield call(queryLoginLog,payload)
+      if (callback) callback(response)
       yield put({
         type: 'saveLoginLog',
         payload: response.result,
@@ -20,7 +22,9 @@ export default {
     },
     *fetchOperateloglist(_, { call, put }){
         const {payload} = _;
+        const {callback} = payload;
         const response = yield call(queryOperateLog,payload)
+        if (callback) callback(response)
         yield put({
           type: 'saveOperateLog',
           payload: response.result,
@@ -28,7 +32,9 @@ export default {
     },
     *fetchDebugloglist(_, { call, put }){
         const {payload} = _;
+        const {callback} = payload;
         const response = yield call(queryDebugLog,payload)
+        if (callback) callback(response)
         yield put({
           type: 'saveDebugLog',
           payload: response.result,

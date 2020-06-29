@@ -44,8 +44,8 @@ class DebugLog extends PureComponent {
               ...data,
               callback: res => {
                   const pagination = { ...this.state.pagination };
-                  pagination.total = res.total;
-                  pagination.pageSize = res.pageSize;
+                  pagination.total = res.result.total;
+                  pagination.pageSize = res.result.pageSize;
                   this.setState({ pagination: pagination });
               },
           },
@@ -89,7 +89,7 @@ class DebugLog extends PureComponent {
             {
                 title: '序号',
                 dataIndex: 'title',
-                width: 80,
+                width: 50,
                 render:(text,record,index)=>`${index+1}`,
               },
             {
@@ -131,7 +131,7 @@ class DebugLog extends PureComponent {
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
-                <StandardTable
+                <Table
                     bordered
                     size="middle"
                     selectedRows={selectedRows}

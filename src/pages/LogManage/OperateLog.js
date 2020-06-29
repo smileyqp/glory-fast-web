@@ -27,11 +27,7 @@ class OperateLog extends PureComponent {
         dispatch({
           type: 'user/fetchCurrent',
         });
-        // const {pageSize,pageNo} = this.state.pagination;
-        // dispatch({
-        //   type:'logmanage/fetchLoginloglist',
-        //   payload:{pageSize,pageNo}
-        // })
+       
         this.refreshTable()
     }
 
@@ -43,9 +39,10 @@ class OperateLog extends PureComponent {
           payload: {
               ...data,
               callback: res => {
+                console.log(res)
                   const pagination = { ...this.state.pagination };
-                  pagination.total = res.total;
-                  pagination.pageSize = res.pageSize;
+                  pagination.total = res.result.total;
+                  pagination.pageSize = res.result.pageSize;
                   this.setState({ pagination: pagination });
               },
           },
@@ -89,7 +86,7 @@ class OperateLog extends PureComponent {
             {
                 title: '序号',
                 dataIndex: 'title',
-                width: 80,
+                width: 50,
                 render:(text,record,index)=>`${index+1}`,
               },
             {
@@ -125,7 +122,7 @@ class OperateLog extends PureComponent {
         return (
         <PageHeaderWrapper>
             <Card bordered={false}>
-                <StandardTable
+                <Table
                     bordered
                     size="middle"
                     selectedRows={selectedRows}
