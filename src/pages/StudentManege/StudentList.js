@@ -328,7 +328,7 @@ class StudentList extends PureComponent {
                     return <Fragment>
                         <a onClick={() => { this.editStudent(record) }}>编辑</a>
                         <span className="ant-divider" />
-                        <a onClick={() => { this.deleteStudent(false,record) }}>删除</a>
+                        <a onClick={() => { this.deleteStudent(false,record) }} style={{color:'red'}}>删除</a>
                     </Fragment>
                 }
             }

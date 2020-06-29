@@ -27,7 +27,9 @@ import styles from './UserManagement.less';
 import UserdetailDrawer from '@/components/SysManagement/UserdetailDrawer';
 import AdduserDrawer from '@/components/SysManagement/AdduserDrawer';
 import UserlistColumn from '@/components/SysManagement/UserlistColumn';
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
 import md5 from'md5';
+
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -181,6 +183,30 @@ class UserManagement extends PureComponent {
     
   }
 
+  deleteMore = () => {
+    const { dispatch } = this.props;
+    const { selectedRows } = this.state;
+    if (selectedRows.length === 0){
+      message.error("请选择一条信息");
+      return;
+    }
+    const data = selectedRows.map((item) => {
+      return item.id
+    })  
+    console.log(data)
+    dispatch({
+      type:'sysmanage/deleteUser',
+      payload:{
+        data,
+        callback: (res) => {
+          console.log(res)
+          message.success(res.result)
+          this.refreshTable()
+        }
+      },
+    })
+  }
+
   handleChange = info => {
     this.setState({ photoloading: true });
     getBase64(info.file.originFileObj, imageUrl =>
@@ -270,26 +296,19 @@ class UserManagement extends PureComponent {
               <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
                 新建
               </Button>
-              <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
+              {/* <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
                 修改密码
-              </Button>
-              <Button icon="plus" type="primary" onClick={this.enableUser}>
+              </Button> */}
+              <Button icon="check" type="primary" onClick={this.enableUser}>
                 启用
               </Button>
-              <Button icon="plus" type="primary" onClick={this.disableUser}>
+              <Button icon="stop" type="danger"  onClick={this.disableUser}>
                 禁用
               </Button>
+              <Button icon="delete" type="danger" onClick = {this.deleteMore}>
+                  批量删除
+              </Button>
               
-              {/* {selectedRows.length > 0 && (
-                        <span>
-                        <Button>批量操作</Button>
-                        <Dropdown overlay={menu}>
-                            <Button>
-                            更多操作 <Icon type="down" />
-                            </Button>
-                        </Dropdown>
-                        </span>
-                    )} */}
             </div>
             <StandardTable
               bordered

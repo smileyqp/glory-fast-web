@@ -29,7 +29,7 @@ export default function UserlistColumn(styles, openDetailDrawer) {
     {
       title: '序号',
       dataIndex: 'title',
-      width: 80,
+      width: 50,
       render:(text,record,index)=>`${index+1}`,
       fixed: 'left',
     },
@@ -132,16 +132,23 @@ export default function UserlistColumn(styles, openDetailDrawer) {
     // },
     {
       title: '操作',
-      render: () => (
-        <Fragment>
-          <Dropdown overlay={<DetailMenu openDetailDrawer={openDetailDrawer} />}>
-            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-              更多 <Icon type="down" />
-            </a>
-          </Dropdown>
+      // render: () => (
+      //   <Fragment>
+      //     <Dropdown overlay={<DetailMenu openDetailDrawer={openDetailDrawer} />}>
+      //       <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+      //         更多 <Icon type="down" />
+      //       </a>
+      //     </Dropdown>
+      //   </Fragment>
+      // ),
+      render: (_, record) => {
+        return <Fragment>
+            <a onClick={() => { this.editStudent(record) }}>详情</a>
+            <span className="ant-divider" />
+            <a onClick={() => { this.deleteStudent(false,record) }}>修改密码</a>
         </Fragment>
-      ),
-      width: 200,
+    },
+      width: 150,
       fixed: 'right',
     },
   ];
