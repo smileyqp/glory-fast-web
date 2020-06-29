@@ -78,18 +78,6 @@ class UserManagement extends PureComponent {
     dispatch({
       type: 'user/fetchCurrent',
     });
-    // dispatch({
-    //   type: 'sysmanage/fetchUserList',
-    //   payload: {
-    //     data:{...this.state.pagination},
-    //     callback: res => {
-    //       const pagination = { ...this.state.pagination };
-    //       pagination.total = res.total;
-    //       pagination.pageSize = res.pageSize;
-    //       this.setState({ pagination: pagination });
-    //     },
-    //   },
-    // });
     this.refreshTable(data)
   }
 
@@ -246,6 +234,7 @@ class UserManagement extends PureComponent {
                 if(res.ok == true){
                     this.setState({addDrawervisible:false})
                     this.props.form.resetFields();
+                    this.refreshTable()
                 }
             }
           },
