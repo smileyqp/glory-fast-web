@@ -291,13 +291,11 @@ class CodeList extends PureComponent {
                 dataIndex: 'title',
                 width: 80,
                 render: (text, record, index) => `${index + 1}`,
-                fixed: 'left',
             },
             {
                 title: '表名',
                 dataIndex: 'tableName',
                 width: 100,
-                fixed: 'left',
             },
             {
                 title: '表注释',
@@ -312,7 +310,7 @@ class CodeList extends PureComponent {
             {
                 title: '是否子表',
                 dataIndex: 'ifSon',
-                width: 50,
+                width: 100,
             },
             {
                 title: '关联父表',
@@ -327,7 +325,7 @@ class CodeList extends PureComponent {
             {
                 title: '创建时间',
                 dataIndex: 'createTime',
-                width: 100,
+                width: 200,
             },
             {
                 title: '创建人',
@@ -342,7 +340,6 @@ class CodeList extends PureComponent {
             {
                 title: '操作',
                 width: 120,
-                fixed: 'right',
                 render: (_, record) => {
                     return <Fragment>
                         <a onClick={() => { this.editCode(record) }}>编辑</a>

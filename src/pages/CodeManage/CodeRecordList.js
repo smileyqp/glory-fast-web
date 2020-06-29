@@ -237,12 +237,12 @@ class CodeRecordList extends PureComponent {
       {
         title: '分类',
         dataIndex: 'genType',
-        width: 200,
+        width: 100,
       },
       {
         title: '生成包路径',
         dataIndex: 'packageName',
-        width: 200,
+        width: 250,
       },
       {
         title: '生成模块名',
@@ -257,7 +257,7 @@ class CodeRecordList extends PureComponent {
       {
         title: '生成功能作者',
         dataIndex: 'moduleAuthor',
-        width: 200,
+        width: 120,
       },
       {
         title: '创建时间',
@@ -267,7 +267,7 @@ class CodeRecordList extends PureComponent {
       {
         title: '创建人',
         dataIndex: 'createBy_text',
-        width: 200,
+        width: 120,
       },
       {
         title: '备注',

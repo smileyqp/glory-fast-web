@@ -129,7 +129,6 @@ class LoginLog extends PureComponent {
                 <StandardTable
                     bordered
                     size="middle"
-                    scroll={{ x: 1000, y: 700 }}
                     selectedRows={selectedRows}
                     loading={loading}
                     pagination={pagination}
