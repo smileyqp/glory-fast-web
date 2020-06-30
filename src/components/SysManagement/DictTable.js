@@ -8,7 +8,8 @@ import classNames from 'classnames';
 export default class DictTable extends PureComponent {
   render() {
     const { dataSource ,loading ,handleSelect,editDictlist,type} = this.props;
-    const columns = [
+   
+    var columns = [
         {
             title: '序号',
             dataIndex: 'title',
@@ -29,6 +30,7 @@ export default class DictTable extends PureComponent {
           title: '排序',
           dataIndex: 'sortOrder',
           width: 100,
+          show:false
         },
         {
             title: '描述',
@@ -60,8 +62,11 @@ export default class DictTable extends PureComponent {
             dataIndex: 'updateTime',
             width: 200,
         },
-     
     ]
+    if(type === 'parent'){
+     columns.splice(3,1)
+    }
+
 
     return (
         <Table 
