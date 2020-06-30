@@ -161,18 +161,46 @@ class UserManagement extends PureComponent {
     });
   }
   exportUser = () => {
+    this.downloadFile("aaa.xls","/api/user/export","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTM0ODA0OTksInVzZXJuYW1lIjoiYWRtaW4ifQ.BAWUrIPwjhrtK8qxToV2p1kSiKaU-Jx7xHqTkjY6Ukc")
     // TODO 可以带上条件 按搜索条件导出
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'sysmanage/exportUser',
-      payload: {
-        callback:(res)=>{
-            // if(res.ok == true){
-            //     this.refreshTable()
-            // }
-        }
-      },
-    });
+    // const { dispatch } = this.props;
+    // dispatch({
+    //   type: 'sysmanage/exportUser',
+    //   payload: {
+    //     callback:(res)=>{
+    //         // if(res.ok == true){
+    //         //     this.refreshTable()
+    //         // }
+    //     }
+    //   },
+    // });
+  }
+  downloadFile = (filename, fileUrl, token) => {
+    const xhr = new XMLHttpRequest()
+    const url = fileUrl
+    xhr.open('get', url, true)
+    xhr.setRequestHeader('Authorization', `${token}`) // 给后端发送请求头
+    xhr.responseType = 'blob'
+    xhr.onload = function(e) {
+      if (this.status === 200) {
+        const blob = this.response
+        // URL对象是硬盘（SD卡等）指向文件的一个路径，
+        //如果我们做文件上传的时候，想在没有上传服务器端的情况下看到上传图片的效果图
+        //就可是以通过var url=window.URL.createObjectURL(obj.files[0]);获得一个http格式的url路径
+        //这个时候就可以设置到<img>中显示了
+        //window.webkitURL和window.URL是一样的，window.URL标准定义
+        //window.webkitURL是webkit内核的实现（一般手机上就是使用这个），还有火狐等浏览器的实现。
+        const urlObject = window.URL || window.webkitURL || window
+        const export_blob = new Blob([blob])
+        const a = document.createElementNS('http://www.w3.org/1999/xhtml', 'a') // 利用a标签特性下载
+        const url = urlObject.createObjectURL(export_blob)
+        a.href = url
+        a.download = filename
+        a.click()
+      }
+    }
+    // 发送请求
+    xhr.send()
   }
   disableUser = () => {
     const { selectedRows } = this.state;
