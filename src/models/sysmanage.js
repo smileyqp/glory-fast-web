@@ -44,6 +44,11 @@ export default {
       const { payload } = _;
       const { callback } = payload;
       const response = yield call(exportUser, payload);
+      console.log(response)
+      yield put({
+        type: 'downloadUserlist',
+        payload: response,
+      });
       if (response.ok === true) {
         console.log(response)
         if (callback) callback(response);
@@ -232,6 +237,22 @@ export default {
           dictlistchild:action.payload
         }
       }
+    },
+    downloadUserlist(state,action){
+      if (window.navigator.msSaveOrOpenBlob) {
+        navigator.msSaveBlob(blob, 'smile.xls');
+      } else {
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(new Blob([action.payload],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+        link.download = 'smile.xls';
+        //此写法兼容可火狐浏览器
+        document.body.appendChild(link);
+        var evt = document.createEvent("MouseEvents");
+        evt.initEvent("click", false, false);
+        link.dispatchEvent(evt);
+        document.body.removeChild(link);
+      }
+      return {...state}
     }
   },
 };
