@@ -34,11 +34,11 @@ const formItemLayout = {
 
 export default class DictListModal extends PureComponent {
   render() {
-    const { form ,handleSubmit ,visible ,cancleSubmit ,editType} = this.props;
+    const { form ,handleSubmit ,visible ,cancleSubmit ,editType,title,isparent} = this.props;
     const { getFieldDecorator } = form; 
     return (
         <Modal
-            title = { editType === 'parent'?'编辑字典主表':'编辑字典子表' }
+            title = {title}
             visible={visible}
             onCancel={cancleSubmit}
             onOk={handleSubmit}
@@ -72,7 +72,7 @@ export default class DictListModal extends PureComponent {
                 rules: [{ required: true, message: '请输入字典代码!', whitespace: true }],
             })(<Input />)}
             </Form.Item>
-            <Form.Item
+            {!isparent &&<Form.Item
             label={
                 <span>
                 字典排序&nbsp;
@@ -83,9 +83,9 @@ export default class DictListModal extends PureComponent {
             }
             >
             {getFieldDecorator('sortOrder', {
-                rules: [{ required: true, message: '请输入字典排序!', whitespace: true }],
+                rules: [{ required: false, message: '请输入字典排序!',}],
             })(<Input />)}
-            </Form.Item>
+            </Form.Item>}
 
             <Form.Item label="描述">
             {getFieldDecorator('description', {
