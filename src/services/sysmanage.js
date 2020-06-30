@@ -142,7 +142,7 @@ export async function childDictAdd(data){
 
 export async function childDictUpdate(data){
   return request('/api/dict/updateItem',{
-      method:'POST',
+      method:'PUT',
       data
   })
 }

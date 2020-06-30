@@ -116,11 +116,11 @@ class DictList extends PureComponent {
     }
 
     addDict = () => {
-        this.setState({addDictVisible:true})
+        this.setState({addDictVisible:true,title:'添加字典主表'})
     }
 
     addChildDict = () => {
-        this.setState({addChildDictVisible:true})
+        this.setState({addChildDictVisible:true,title:'添加字典子表'})
     }
     cancelAddDict = () => {
         this.setState({addDictVisible:false})
@@ -152,7 +152,7 @@ class DictList extends PureComponent {
                         }
                     })
                 }else if(type === 'sysmanage/addChildDict'){
-                    const data = {dictId:id,itemText:values.dictName,itemValue:values.dictCode,remarks:values.remarks,description:values.description}
+                    const data = {dictId:id,itemText:values.dictName,itemValue:values.dictCode,remarks:values.remarks,description:values.description,sortOrder:values.sortOrder}
                     dispatch({
                         type,
                         payload:{
@@ -218,10 +218,10 @@ class DictList extends PureComponent {
 
     editSubmit = () => {
         const { dispatch } = this.props;
-        const { editType } = this.state;
+        const { isparent } = this.state;
         this.props.form.validateFieldsAndScroll((err, values) => {
             console.log('Received values of form: ', values);
-            if(editType === 'parent'){
+            if(isparent){
                 const data = {...values,id:this.state.editid}
                 if (!err) {
                     dispatch({
@@ -269,13 +269,13 @@ class DictList extends PureComponent {
     editDictlist = (type) => {
         const { form } = this.props;
         const record = type === 'parent'?this.state.selectedRowdata:this.state.selectedChildRowdata;
-        this.setState({editType:type})
+        this.setState({isparent:type==='parent'?true:false})
         console.log(record)
         if(!record){
             message.warning('请至少选择一项')
             return
         }
-        this.setState({editDictVisible:true,editid:record.id})
+        this.setState({editDictVisible:true,editid:record.id,title:type==='parent'?'编辑字典主表':'编辑字典子表'})
         form.setFieldsValue({
             dictName:type==='parent'? record.dictName:record.itemText,
             dictCode:type==='parent'? record.dictCode:record.itemValue,
@@ -295,13 +295,21 @@ class DictList extends PureComponent {
         const {dictlist,loading,form,dictlistchild,childloading} = this.props;
         const {getFieldDecorator} = form;
         const {selectedRows} = this.state;
+
+
+
+
+
+
+
         const addDictModal = (
             <DictListModal
                 visible = { this.state.addDictVisible }
                 cancleSubmit = {this.cancelAddDict }
                 handleSubmit = { (e)=>{this.handleSubmit(e,'sysmanage/addDict')} }
                 form = {form}
-                title= {"新增字典主表"}
+                isparent = {true}
+                title= {this.state.title}
             />
         )
 
@@ -311,7 +319,8 @@ class DictList extends PureComponent {
             cancleSubmit = {this.cancelAddChildDict }
             handleSubmit = { (e)=>{this.handleSubmit(e,'sysmanage/addChildDict',this.state.selectedRowid)} }
             form = {form}
-            title= {"新增字典子表"}
+            isparent={false}
+            title= {this.state.title}
         />
         )
 
@@ -321,10 +330,30 @@ class DictList extends PureComponent {
             cancleSubmit = {this.cancelEditDict }
             handleSubmit = { this.editSubmit }
             form = {form}
-            editType = {this.state.editType}
+            title = {this.state.title}
+            isparent = {this.state.isparent}
         />
         )
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         const dictButtons = (
             <DictlistButtons 
                 additem = { this.addDict }
