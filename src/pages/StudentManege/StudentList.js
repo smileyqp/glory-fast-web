@@ -106,7 +106,6 @@ class StudentList extends PureComponent {
     };
 
     handleSearch = (values) => {
-      const { dispatch, form } = this.props;
       this.refreshTable(values)
     };
 

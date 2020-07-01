@@ -10,6 +10,8 @@ import styles from './CodeManage.less';
 // import AddPermissionListDrawer from '@/components/SysManagement/AddPermissionListDrawer'
 import CodeModal from '@/components/CodeManagement/CodeModal'
 import CodeConfigModal from '@/components/CodeManagement/CodeConfigModal'
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
+
 
 const formItemLayout = {
     labelCol: {
@@ -52,7 +54,8 @@ class CodeList extends PureComponent {
         addCodeVisible: false,
         editCodeVisible: false,
         codeconfigVisible:false,
-        genCodelist:this.props.genCodelist
+        genCodelist:this.props.genCodelist,
+        expandForm:false
     }
     componentDidMount() {
         const { dispatch } = this.props;
@@ -274,8 +277,17 @@ class CodeList extends PureComponent {
         });
         this.setState({ genCodelist: newData });
         console.log(this.state.genCodelist)
-      };
-    
+    };
+    handleSearch = (values) => {
+        this.refreshTable(values)
+    };
+
+    toggleForm = () => {
+        const { expandForm } = this.state;
+        this.setState({
+            expandForm: !expandForm,
+        });
+    };
 
 
     render() {
@@ -351,6 +363,23 @@ class CodeList extends PureComponent {
             }
         ]
 
+        const searchColumns = [
+            {label:'表名',dataIndex:'tableName'},
+            {label:'表注释',dataIndex:'tableComment'},
+            {label:'实体类名称',dataIndex:'clazzName'},
+            {label:'是否子表',dataIndex:'ifSon'},
+            {label:'创建人',dataIndex:'createBy_text'},
+            {label:'备注',dataIndex:'remarks'},
+          ]
+        const searchCon = (
+        <GlobalSearch
+            handleSearch = {this.handleSearch}
+            toggleForm = {this.toggleForm}
+            expandForm = {this.state.expandForm}
+            searchColumns = {searchColumns}
+        />
+        )
+
         const addCodeModal = (
             <CodeModal
                 visible={this.state.addCodeVisible}
@@ -391,6 +420,7 @@ class CodeList extends PureComponent {
                 {codeconfigModal}
                 <Card bordered={false}>
                     <div className={styles.tableList}>
+                        {searchCon}
                         <div className={styles.topbuttons}>
                             <Button icon="plus" type="primary" onClick={this.addCode}>
                                 添加

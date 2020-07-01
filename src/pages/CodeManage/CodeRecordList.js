@@ -8,6 +8,8 @@ import { formatWan } from '@/utils/utils';
 import codemanage from '@/models/codemanage';
 import styles from './CodeManage.less';
 import CodeRecordModal from '@/components/CodeManagement/CodeRecordModal' 
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
+
 
 const formItemLayout = {
   labelCol: {
@@ -53,7 +55,8 @@ class CodeRecordList extends PureComponent {
     },
     selectedRows:[],
     addCodeRecordVisible:false,
-    editCodeRecordVisible:false
+    editCodeRecordVisible:false,
+    expandForm:false
   }
   componentDidMount() {
     const { dispatch } = this.props;
@@ -215,6 +218,16 @@ class CodeRecordList extends PureComponent {
     const { form } = this.props;
     form.resetFields()
   }
+  handleSearch = (values) => {
+    this.refreshTable(values)
+  };
+
+  toggleForm = () => {
+      const { expandForm } = this.state;
+      this.setState({
+          expandForm: !expandForm,
+      });
+  };
 
   render() {
     const {loading,codeRecordlist,form} = this.props;
@@ -290,6 +303,24 @@ class CodeRecordList extends PureComponent {
     ]
 
 
+    const searchColumns = [
+      {label:'记录名称',dataIndex:'recordName'},
+      {label:'分类',dataIndex:'genType'},
+      {label:'模块名称',dataIndex:'moduleName'},
+      {label:'功能名称',dataIndex:'clazzName'},
+      {label:'创建人',dataIndex:'createBy_text'},
+      {label:'备注',dataIndex:'remarks'},
+    ]
+    const searchCon = (
+    <GlobalSearch
+        handleSearch = {this.handleSearch}
+        toggleForm = {this.toggleForm}
+        expandForm = {this.state.expandForm}
+        searchColumns = {searchColumns}
+    />
+    )
+
+
   const addCodeRecordModal = (
     <CodeRecordModal
       visible = {this.state.addCodeRecordVisible}
@@ -317,6 +348,7 @@ class CodeRecordList extends PureComponent {
         {editeCodeRecordModal}
         <Card bordered={false}>
         <div className={styles.tableList}>
+          {searchCon}
             <div className={styles.topbuttons}>
                 <Button icon="plus" type="primary" onClick = {this.addCodeRecord}>
                 添加
