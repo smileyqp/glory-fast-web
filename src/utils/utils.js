@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
+import {getToken} from './authority'
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -192,3 +193,26 @@ export const importCDN = (url, name) =>
     };
     document.head.appendChild(dom);
   });
+
+
+export const downloadFile = (filename, fileUrl) => {
+  const token = getToken()
+  const xhr = new XMLHttpRequest()
+  const url = fileUrl
+  xhr.open('get', url, true)
+  xhr.setRequestHeader('Authorization', `${token}`) // 给后端发送请求头
+  xhr.responseType = 'blob'
+  xhr.onload = function(e) {
+    if (this.status === 200) {
+      const blob = this.response
+      const urlObject = window.URL || window.webkitURL || window
+      const export_blob = new Blob([blob])
+      const a = document.createElement('a') // 利用a标签特性下载
+      const url = urlObject.createObjectURL(export_blob)
+      a.href = url
+      a.download = filename
+      a.click()
+    }
+  }
+  xhr.send()
+}
