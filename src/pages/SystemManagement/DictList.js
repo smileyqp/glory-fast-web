@@ -242,8 +242,8 @@ class DictList extends PureComponent {
             }else{
                 const data = {...values,id:this.state.editid}
                 data.itemText = data.dictName;
-                data.dictId=data.dictCode;
-                
+                data.dictId= this.state.selectedRowid;
+                data.itemValue = data.dictCode;
                 if (!err) {
                     dispatch({
                         type:'sysmanage/updateChildDict',
