@@ -89,6 +89,7 @@ export default function request(url, option) {
       'Authorization':authorized
     },
   };
+  console.log(options)
   const newOptions = { ...defaultOptions, ...options };
   console.log(newOptions)
   if (

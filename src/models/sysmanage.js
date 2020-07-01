@@ -243,7 +243,7 @@ export default {
         navigator.msSaveBlob(blob, 'smile.xls');
       } else {
         var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(new Blob([action.payload],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+        link.href = window.URL.createObjectURL(new Blob([action.payload]));
         link.download = 'smile.xls';
         //此写法兼容可火狐浏览器
         document.body.appendChild(link);
@@ -251,6 +251,18 @@ export default {
         evt.initEvent("click", false, false);
         link.dispatchEvent(evt);
         document.body.removeChild(link);
+
+
+
+        // const blob = action.payload;
+        // const urlObj = window.URL || window.webkitURL || window;
+        // const export_blob = new Blob([blob])
+        // const a = document.createElementNS('http://www.w3.org/1999/xhtml','a')
+        // const url = urlObj.createObjectURL(export_blob)
+        // a.href = url;
+        // a.download = 'smile.xls'
+        // a.click()
+
       }
       return {...state}
     }

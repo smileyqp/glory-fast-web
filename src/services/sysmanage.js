@@ -1,5 +1,6 @@
 import request from '@/utils/request';
 import { func } from 'prop-types';
+import {getToken} from '../utils/authority'
 
 export async function queryUserList(data) {
   console.log(data);
@@ -26,8 +27,10 @@ export async function disableUser(data) {
 }
 export async function exportUser(data) {
   console.log(data);
+  const authorized = getToken()||'';
   return request('/api/user/export', {
     method: 'GET',
+    headers:{'Content-Type': 'application/octet-stream','X-Requested-With': 'XMLHttpRequest','Authorization':authorized,'responseType':'blob'},
     data,
   });
 }
