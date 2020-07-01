@@ -30,7 +30,7 @@ export async function exportUser(data) {
   const authorized = getToken()||'';
   return request('/api/user/export', {
     method: 'GET',
-    headers:{'Content-Type': 'application/octet-stream','X-Requested-With': 'XMLHttpRequest','Authorization':authorized,'responseType':'blob'},
+    headers:{ Accept:'*/*','Authorization':authorized, },
     data,
   });
 }
