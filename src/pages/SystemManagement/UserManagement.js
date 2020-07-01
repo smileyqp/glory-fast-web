@@ -32,6 +32,7 @@ import md5 from'md5';
 import UpdatePasswordModal from '@/components/SysManagement/UpdatePasswordModal'
 import moment from 'moment';
 import {downloadFile} from '@/utils/utils'
+import { formatDate } from 'umi-plugin-react/locale';
 const dateFormat = 'YYYY/MM/DD';
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -161,6 +162,24 @@ class UserManagement extends PureComponent {
     });
   }
  
+  uploadInfo = (info) => {
+    console.log(info)
+    const {dispatch} = this.props;
+    const { fileList,file } = info;
+    const formData = new FormData();
+    formData.append('file',file)
+    // fileList.forEach(file => {
+    //   console.log(file)
+    //   formData.append('files[]', file);
+    // });
+    console.log(formData)
+    dispatch({
+      type: 'sysmanage/uploadInfo',
+      payload:{
+        data:formData
+      }
+    })
+  }
   
   disableUser = () => {
     const { selectedRows } = this.state;
@@ -417,12 +436,10 @@ class UserManagement extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
               {searchCon}
+              <div className={styles.btnContainer}>
               <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
                 新建
               </Button>
-              {/* <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
-                修改密码
-              </Button> */}
               <Button icon="check" type="primary" onClick={this.enableUser}>
                 启用
               </Button>
@@ -432,13 +449,15 @@ class UserManagement extends PureComponent {
               <Button icon="delete" type="danger" onClick = {this.deleteMore}>
                   批量删除
               </Button>
-
-              <Button icon="upload" onClick={this.enableUser}>
-                用户导入
-              </Button>
+              
+              <Upload className={styles.upload} name='file' onChange = {this.uploadInfo} accept=".xls,.xlsx"><Button icon="upload"> 用户导入</Button></Upload>
+              
+              
               <Button icon="download" onClick={()=>{downloadFile("用户表.xls","/api/user/export")}}>
                 用户导出
               </Button>
+              </div>
+            
               
             </div>
             <StandardTable

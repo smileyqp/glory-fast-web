@@ -31,7 +31,14 @@ export async function exportUser(data) {
     data,
   });
 }
-
+export async function uploadInfo(data) {
+  console.log(data);
+  return request('/api/user/import', {
+    header:{'content-type':'multipart/form-data'},
+    method: 'POST',
+    data:data.data
+  });
+}
 export async function deleteUser(data) {
   let param = data.data
   return request('/api/user/delete', {
