@@ -84,6 +84,8 @@ const {Option} = Select;
         visible={addDrawervisible}
         onClose={handleCancel}
         bodyStyle={{ paddingBottom: 80 }}
+        onOk={handleSubmit}
+        onCancel={handleCancel}
     >
         {IconModal}
         <Form {...formItemLayout} onSubmit={handleSubmit}>
@@ -161,7 +163,7 @@ const {Option} = Select;
                 })(<Input />)}
             </Form.Item>
 
-            <Form.Item {...tailFormItemLayout}>
+            {/* <Form.Item {...tailFormItemLayout}>
             <Row gutter={16}>
             <Col span={6}>
                 <Button type="primary" htmlType="submit">
@@ -172,7 +174,7 @@ const {Option} = Select;
                 <Button onClick={handleCancel}>取消</Button>
             </Col>
             </Row>
-        </Form.Item>
+        </Form.Item> */}
 
         </Form>
     </Modal>
