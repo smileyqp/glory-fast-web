@@ -9,7 +9,7 @@ export default class DictlistButtons extends PureComponent {
   render() {
     const { additem ,deleteitem ,styleclass ,disable,editItem} = this.props;
     return (
-        <div className={styleclass}>
+        <div  className={styleclass}>
             <Button icon="plus" type="primary" onClick = {additem} disabled = {disable}>
             添加
             </Button>

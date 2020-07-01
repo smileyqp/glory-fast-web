@@ -372,7 +372,7 @@ class StudentList extends PureComponent {
                         <div className={styles.tableListForm}>
                           {searchCon}
                         </div>
-                        <div className={styles.tableListOperator}>
+                        <div className={styles.topbuttons}>
                             <Button icon="plus" type="primary" onClick={this.addStudent}>
                                 添加
                             </Button>

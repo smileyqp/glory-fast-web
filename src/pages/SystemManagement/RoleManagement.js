@@ -272,7 +272,7 @@ class RoleManagement extends PureComponent {
         {editeRoleModal}
         <Card bordered={false}>
         <div className={styles.tableList}>
-            <div className={styles.tableListOperator}>
+            <div className={styles.topbuttons}>
                 <Button icon="plus" type="primary" onClick = {this.addRole}>
                 添加
                 </Button>

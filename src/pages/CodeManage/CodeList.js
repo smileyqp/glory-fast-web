@@ -391,7 +391,7 @@ class CodeList extends PureComponent {
                 {codeconfigModal}
                 <Card bordered={false}>
                     <div className={styles.tableList}>
-                        <div className={styles.tableListOperator}>
+                        <div className={styles.topbuttons}>
                             <Button icon="plus" type="primary" onClick={this.addCode}>
                                 添加
                             </Button>

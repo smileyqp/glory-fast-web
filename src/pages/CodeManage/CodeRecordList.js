@@ -317,7 +317,7 @@ class CodeRecordList extends PureComponent {
         {editeCodeRecordModal}
         <Card bordered={false}>
         <div className={styles.tableList}>
-            <div className={styles.tableListOperator}>
+            <div className={styles.topbuttons}>
                 <Button icon="plus" type="primary" onClick = {this.addCodeRecord}>
                 添加
                 </Button>

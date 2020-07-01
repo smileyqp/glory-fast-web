@@ -181,7 +181,7 @@ class PermissionList extends PureComponent {
         />
         <Card bordered={false}>
           <div className={styles.tableList}>
-              <div className={styles.tableListOperator}>
+              <div className={styles.topbuttons}>
                 <Button icon="plus" type="primary" onClick = {this.openAddDrawer}>
                   新建
                 </Button>

@@ -167,7 +167,7 @@ class UserManagement extends PureComponent {
     const {dispatch} = this.props;
     const { fileList,file } = info;
     const formData = new FormData();
-    formData.append('file',file)
+    formData.append('file',file.originFileObj)
     // fileList.forEach(file => {
     //   console.log(file)
     //   formData.append('files[]', file);
@@ -436,7 +436,7 @@ class UserManagement extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
               {searchCon}
-              <div className={styles.btnContainer}>
+              <div className={styles.topbuttons}>
               <Button icon="plus" type="primary" onClick={this.openAddDrawer}>
                 新建
               </Button>

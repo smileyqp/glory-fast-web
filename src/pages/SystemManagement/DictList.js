@@ -1,5 +1,5 @@
 import React, { PureComponent,Fragment } from 'react';
-import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form ,Modal,Input,message} from 'antd';
+import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form ,Modal,Input,message,Divider} from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -12,6 +12,8 @@ import DictListModal from '@/components/SysManagement/DictListModal'
 import DictlistButtons from '@/components/SysManagement/DictlistButtons'
 import { RightSquareFilled } from '@ant-design/icons';
 import DictTable from '@/components/SysManagement/DictTable'
+import GlobalSearch from '@/components/GlobalSearch/GlobalSearch'
+
 
 const formItemLayout = {
     labelCol: {
@@ -86,9 +88,9 @@ class DictList extends PureComponent {
         });
     }
 
-    refreshChildTable = (selectedRowid) => {
+    refreshChildTable = (selectedRowid,values) => {
         const { dispatch } = this.props;
-        const data = {...this.state.childpagination,dictId:selectedRowid}
+        const data = {...this.state.childpagination,dictId:selectedRowid,...values}
         dispatch({
             type:'sysmanage/fetchChildDictList',
             payload: {
@@ -288,15 +290,49 @@ class DictList extends PureComponent {
         const { form } = this.props;
         form.resetFields()
       }
+
+      toggleParentForm = () => {
+        const { expandParentForm } = this.state;
+        this.setState({
+            expandParentForm: !expandParentForm,
+        });
+      };
+
+
+      toggleChildForm = () => {
+        const { expandChildForm } = this.state;
+        this.setState({
+            expandChildForm: !expandChildForm,
+        });
+      };
+
+      handleSearchParent = (values) => {
+        this.refreshTable(values)
+      }
     
+      handleSearchChild = (values) => {
+        this.refreshChildTable(this.state.selectedRowid,values)
+      }
 
 
     render() {
         const {dictlist,loading,form,dictlistchild,childloading} = this.props;
         const {getFieldDecorator} = form;
         const {selectedRows} = this.state;
-
-
+        const searchParentColumns = [
+            {label:'字典名称',dataIndex:'dictName'},
+            {label:'创建人',dataIndex:'createBy_text'},
+            {label:'描述',dataIndex:'description'},
+            {label:'备注',dataIndex:'remarks'},
+          ]
+        const searchChildColumns = [
+            {label:'名称',dataIndex:'itemText'},
+            {label:'值',dataIndex:'itemValue'},
+            {label:'排序',dataIndex:'sortOrder'},
+            {label:'描述',dataIndex:'description'},
+            {label:'备注',dataIndex:'remarks'},
+            {label:'创建人',dataIndex:'createBy_text'},
+        ]
 
 
 
@@ -334,25 +370,6 @@ class DictList extends PureComponent {
             isparent = {this.state.isparent}
         />
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
         const dictButtons = (
             <DictlistButtons 
@@ -361,6 +378,8 @@ class DictList extends PureComponent {
                 styleclass = { styles.tableListOperator} 
                 disable = {false}
                 editItem = {()=>{this.editDictlist('parent')}}
+                styleclass = {styles.topbuttons}
+
             />
         )
 
@@ -371,8 +390,27 @@ class DictList extends PureComponent {
                 styleclass = { styles.tableListOperator} 
                 disable = {this.state.childbtnDisabled}
                 editItem = {()=>{this.editDictlist('child')}}
+                styleclass = {styles.topbuttons}
             />
         )
+
+        const searchParentCon = (
+            <GlobalSearch
+              handleSearch = {this.handleSearchParent}
+              toggleForm = {this.toggleParentForm}
+              expandForm = {this.state.expandParentForm}
+              searchColumns = {searchParentColumns}
+            />
+          )
+
+          const searchChildCon = (
+            <GlobalSearch
+              handleSearch = {this.handleSearchChild}
+              toggleForm = {this.toggleChildForm}
+              expandForm = {this.state.expandChildForm}
+              searchColumns = {searchChildColumns}
+            />
+          )
         
    
         
@@ -383,6 +421,7 @@ class DictList extends PureComponent {
             {editDictModal}
             <Card bordered={false}>
                 <div className={styles.tableList}>
+                {searchParentCon}
                     {dictButtons}
                     <DictTable
                         dataSource = {dictlist&&dictlist.records}
@@ -391,10 +430,12 @@ class DictList extends PureComponent {
                         type='parent'
                     />
                 </div>
-            </Card>
+            <Divider />
 
+            </Card>
             <Card bordered={false}>
                 <div className={styles.tableList}>
+                    {!this.state.childbtnDisabled&&searchChildCon}
                     {childDictbtn}
                     <DictTable
                         dataSource = {dictlistchild&&dictlistchild.records}
