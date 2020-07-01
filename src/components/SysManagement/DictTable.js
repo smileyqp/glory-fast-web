@@ -37,31 +37,31 @@ export default class DictTable extends PureComponent {
             dataIndex: 'description',
             width: 200,
         },
-        {
-            title: '备注',
-            dataIndex: 'remarks',
-            width: 200,
-        },
-        {
-          title: '创建人',
-          dataIndex: 'createBy_text',
-          width: 200,
-        },
+        // {
+        //     title: '备注',
+        //     dataIndex: 'remarks',
+        //     width: 200,
+        // },
+        // {
+        //   title: '创建人',
+        //   dataIndex: 'createBy_text',
+        //   width: 200,
+        // },
         {
             title: '创建时间',
             dataIndex: 'createTime',
             width: 200,
         },
-        {
-            title: '更新人',
-            dataIndex: 'updateBy_text',
-            width: 200,
-        },
-        {
-            title: '更新时间',
-            dataIndex: 'updateTime',
-            width: 200,
-        },
+        // {
+        //     title: '更新人',
+        //     dataIndex: 'updateBy_text',
+        //     width: 200,
+        // },
+        // {
+        //     title: '更新时间',
+        //     dataIndex: 'updateTime',
+        //     width: 200,
+        // },
     ]
     if(type === 'parent'){
      columns.splice(3,1)

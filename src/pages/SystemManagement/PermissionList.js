@@ -103,14 +103,14 @@ class PermissionList extends PureComponent {
     })
     console.log(treelist)
     const columns = [
-      {
-        title: '序号',
-        width: 80,
-        render:(text,record,index)=>`${index+1}`,
-      },
+      // {
+      //   title: '序号',
+      //   width: 80,
+      //   render:(text,record,index)=>`${index+1}`,
+      // },
       {
         title: '菜单名称',
-        dataIndex: 'title',
+        dataIndex: 'name',
         width: 100,
       },
       {
@@ -130,7 +130,7 @@ class PermissionList extends PureComponent {
       },
       {
         title: '菜单类型',
-        dataIndex: 'menuType',
+        dataIndex: 'menuType_text',
         width: 100,
       },
       {
@@ -138,26 +138,27 @@ class PermissionList extends PureComponent {
         dataIndex: 'sortNo',
         width: 50,
       },
-      {
-        title: '创建人',
-        dataIndex: 'createBy',
-        width: 100,
-      },
+      // {
+      //   title: '创建人',
+      //   dataIndex: 'createBy',
+      //   width: 100,
+      // },
       {
         title: '创建时间',
         dataIndex: 'createTime',
         width: 200,
       },
+      // {
+      //   title: '更新人',
+      //   dataIndex: 'updateBy',
+      //   width: 100,
+      // },
+      // {
+      //   title: '更新时间',
+      //   dataIndex: 'updateTime',
+      //   width: 200,
+      // },
       {
-        title: '更新人',
-        dataIndex: 'updateBy',
-        width: 100,
-      },
-      {
-        title: '更新时间',
-        dataIndex: 'updateTime',
-        width: 200,
-      },{
         title: '操作',
         width:100,
         render:(_,record)=>{
