@@ -186,7 +186,11 @@ export default {
     },
     *updateChildDict(_, { call, put }){
       const {payload} = _;
+      const { callback } = payload;
       const response = yield call(childDictUpdate, payload);
+      if (response.status === 200) {
+        if (callback) callback(response);
+      }
     },
     *deleteChildDict(_, { call, put }){
       const {payload} = _;

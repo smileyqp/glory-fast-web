@@ -253,7 +253,7 @@ class DictList extends PureComponent {
                                 console.log(res)
                                 this.setState({editDictVisible:false})
                                 this.resetDictlistModal();
-                                this.refreshTable()
+                                this.refreshChildTable(this.state.selectedRowid)
                             }
                         }
                     })
