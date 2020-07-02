@@ -80,7 +80,7 @@ const {Option} = Select;
         })
     } 
     render(){
-        const {addDrawervisible ,handleCancel,handleSubmit,form,treeData} = this.props;
+        const {visible ,handleCancel,handleSubmit,form,treeData,title} = this.props;
         const { getFieldDecorator } = form;
 
     const iconmodal = (
@@ -95,9 +95,9 @@ const {Option} = Select;
         
     return(
     <Modal
-        title="新增"
+        title={title}
         width={720}
-        visible={addDrawervisible}
+        visible={visible}
         onClose={handleCancel}
         bodyStyle={{ paddingBottom: 80 }}
         onOk={handleSubmit}
@@ -175,23 +175,9 @@ const {Option} = Select;
                 label={'排序'}
                 >
                 {getFieldDecorator('sortNo', {
-                    rules: [{ required: true, message: '请输入其排序号!', whitespace: true }],
+                    rules: [{ required: true, message: '请输入排序号!' }],
                 })(<Input />)}
             </Form.Item>
-
-            {/* <Form.Item {...tailFormItemLayout}>
-            <Row gutter={16}>
-            <Col span={6}>
-                <Button type="primary" htmlType="submit">
-                创建
-                </Button>
-            </Col>
-            <Col span={6}>
-                <Button onClick={handleCancel}>取消</Button>
-            </Col>
-            </Row>
-        </Form.Item> */}
-
         </Form>
     </Modal>
     )

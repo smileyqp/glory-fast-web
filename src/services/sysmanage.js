@@ -66,6 +66,13 @@ export async function permissionListAdd(data) {
   })
 }
 
+export async function permissionListEdit(data) {
+  return request('/api/menu/update',{
+    method:'PUT',
+    data
+  })
+}
+
 export async function queryRoleList(data) {
     return request('/api/role/list',{ 
       method: 'POST',
