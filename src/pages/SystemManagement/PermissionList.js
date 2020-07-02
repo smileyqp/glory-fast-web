@@ -46,13 +46,13 @@ class PermissionList extends PureComponent {
       });
     };
 
-    closeAdddrawer = () => {
-      this.setState({ addDrawervisible: false });
-    };
 
     handleCancel = () => {
       this.setState({ addDrawervisible: false });
     };
+    cancelEdit = () => {
+      this.setState({editVisible:false})
+    }
 
     openAddDrawer = () => {
       this.setState({ addDrawervisible: true });
@@ -92,9 +92,46 @@ class PermissionList extends PureComponent {
       this.setState({expandAll:!expandAll})
     }
 
+    editSubmit = (e) => {
+      e.preventDefault();
+      const { dispatch } = this.props;
+      const { form } = this.props;
+      form.validateFieldsAndScroll((err, values) => {
+        console.log(values)
+        const data = {...values,id:this.state.editid}
+        dispatch({
+          type:'sysmanage/editPermissionList',
+          payload:{
+            ...data,
+            callback:(res)=>{
+              console.log(res)
+              this.setState({editVisible:false})
+              this.refreshTable()
+            }
+          }
+        })
+      })
+    }
+
+    editlist = (record) => {
+      console.log(record)
+      const {form} = this.props;
+      this.setState({editVisible:true})
+      const {name,menuType_text,isLeaf,parentId,url,componentName,component,icon,sortNo} = record;
+      form.setFieldsValue({
+        name,menuType_text,isLeaf,parentId,url,componentName,component,icon,sortNo
+      })
+      this.setState({editid:record.id})
+    }
+
+    deletelist = (record) => {
+
+    }
+
+
 
   render() {
-    const {selectedRows ,addDrawervisible,pagination} = this.state;
+    const {selectedRows ,addDrawervisible,pagination,editVisible} = this.state;
     const {permissionlist,loading} = this.props;
     console.log(permissionlist)
     const treelist = permissionlist&&permissionlist.map((item)=>{
@@ -182,23 +219,38 @@ class PermissionList extends PureComponent {
         width:100,
         render:(_,record)=>{
           return  <Fragment>
-                      <a  >编辑</a>
+                      <a  onClick={()=>this.editlist(record)}>编辑</a>
                       <span className="ant-divider" />
-                      <a >删除</a>
+                      <a onClick={()=>this.deletelist(record)} style={{color:'red'}}>删除</a>
                   </Fragment>
         }
       }
     ]
-    return (
-      <PageHeaderWrapper>
-        <AddPermissionListDrawer
+
+    const addlist = (
+      <AddPermissionListDrawer
           {...this.props}
-            closeAdddrawer={this.closeAdddrawer}
-            addDrawervisible = {addDrawervisible}
+          title={'新增'}
+            visible = {addDrawervisible}
             handleCancel = {this.handleCancel}
             handleSubmit = {this.handleSubmit}
             treeData = {treelist}
         />
+    )
+    const editlist = (
+      <AddPermissionListDrawer
+          {...this.props}
+            title={'修改'}
+            visible = {editVisible}
+            handleCancel = {this.cancelEdit}
+            handleSubmit = {this.editSubmit}
+            treeData = {treelist}
+        />
+    )
+    return (
+      <PageHeaderWrapper>
+        {addlist}
+        {editlist}
         <Card bordered={false}>
           <div className={styles.tableList}>
               <div className={styles.topbuttons}>
