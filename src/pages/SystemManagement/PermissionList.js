@@ -208,7 +208,7 @@ class PermissionList extends PureComponent {
           return  <Fragment>
                       <a  onClick={()=>this.editlist(record)}>编辑</a>
                       <span className="ant-divider" />
-                      <a onClick={()=>this.deletelist(record)}>删除</a>
+                      <a onClick={()=>this.deletelist(record)} style={{color:'red'}}>删除</a>
                   </Fragment>
         }
       }
