@@ -22,8 +22,9 @@ class PermissionList extends PureComponent {
       pageSize:50,
       position:[
       {bottom:'none'}
-      ]
-    }
+      ],
+    },
+    expandAll:false
   }
     componentDidMount(){
         const { dispatch } = this.props;
@@ -78,6 +79,18 @@ class PermissionList extends PureComponent {
       
     }
 
+    expandAll = () => {
+      const {expandAll} = this.state;
+      if(expandAll){
+        this.setState({expandRoll:[]})
+      }else{
+        const data = this.props.permissionlist.map((item)=>{
+          return item.name
+        })
+        this.setState({expandRoll:data})
+      }
+      this.setState({expandAll:!expandAll})
+    }
 
 
   render() {
@@ -189,6 +202,9 @@ class PermissionList extends PureComponent {
         <Card bordered={false}>
           <div className={styles.tableList}>
               <div className={styles.topbuttons}>
+              <Button icon={this.state.expandAll?"fullscreen-exit":"fullscreen" }onClick = {this.expandAll}>
+                  {this.state.expandAll?"关闭全部":"展开全部"}
+                </Button>
                 <Button icon="plus" type="primary" onClick = {this.openAddDrawer}>
                   新建
                 </Button>
@@ -203,6 +219,7 @@ class PermissionList extends PureComponent {
                 columns = {columns}
                 rowKey = {'name'}
                 pagination={pagination}
+                expandedRowKeys = {this.state.expandRoll}
               />
           </div>
         
