@@ -1,5 +1,5 @@
 import React, { PureComponent,Fragment } from 'react';
-import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form} from 'antd';
+import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form,Popconfirm} from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -79,18 +79,18 @@ class PermissionList extends PureComponent {
       
     }
 
-    expandAll = () => {
-      const {expandAll} = this.state;
-      if(expandAll){
-        this.setState({expandRoll:[]})
-      }else{
-        const data = this.props.permissionlist.map((item)=>{
-          return item.name
-        })
-        this.setState({expandRoll:data})
-      }
-      this.setState({expandAll:!expandAll})
-    }
+    // expandAll = () => {
+    //   const {expandAll} = this.state;
+    //   if(expandAll){
+    //     this.setState({expandRoll:[]})
+    //   }else{
+    //     const data = this.props.permissionlist.map((item)=>{
+    //       return item.name
+    //     })
+    //     this.setState({expandRoll:data})
+    //   }
+    //   this.setState({expandAll:!expandAll})
+    // }
 
     editSubmit = (e) => {
       e.preventDefault();
@@ -125,7 +125,19 @@ class PermissionList extends PureComponent {
     }
 
     deletelist = (record) => {
-
+      console.log(record)
+      const {dispatch} = this.props;
+      const data = [record.id]
+      dispatch({
+        type:'sysmanage/deletePermissionList',
+        payload:{
+          data,
+          callback:(res)=>{
+            console.log(res)
+            this.refreshTable()
+          }
+        }
+      })
     }
 
 
@@ -221,7 +233,10 @@ class PermissionList extends PureComponent {
           return  <Fragment>
                       <a  onClick={()=>this.editlist(record)}>编辑</a>
                       <span className="ant-divider" />
-                      <a onClick={()=>this.deletelist(record)} style={{color:'red'}}>删除</a>
+                      <Popconfirm placement="top" title={'确认删除菜单?'} onConfirm={()=>this.deletelist(record)} okText="确认" cancelText="取消">
+                        <a  style={{color:'red'}}>删除</a>
+                      </Popconfirm>
+                      
                   </Fragment>
         }
       }
@@ -254,9 +269,9 @@ class PermissionList extends PureComponent {
         <Card bordered={false}>
           <div className={styles.tableList}>
               <div className={styles.topbuttons}>
-              <Button icon={this.state.expandAll?"fullscreen-exit":"fullscreen" }onClick = {this.expandAll}>
+              {/* <Button icon={this.state.expandAll?"fullscreen-exit":"fullscreen" }onClick = {this.expandAll}>
                   {this.state.expandAll?"关闭全部":"展开全部"}
-                </Button>
+                </Button> */}
                 <Button icon="plus" type="primary" onClick = {this.openAddDrawer}>
                   新建
                 </Button>
@@ -271,7 +286,8 @@ class PermissionList extends PureComponent {
                 columns = {columns}
                 rowKey = {'name'}
                 pagination={pagination}
-                expandedRowKeys = {this.state.expandRoll}
+                defaultExpandAllRows = {true}
+                //expandedRowKeys = {this.state.expandRoll}
               />
           </div>
         

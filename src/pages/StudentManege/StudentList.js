@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Row,Col,List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form ,Select,message , InputNumber,Input, DatePicker, } from 'antd';
+import { Row,Col,List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table, Button, Form ,Select,message , InputNumber,Input, DatePicker,Popconfirm } from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -317,7 +317,9 @@ class StudentList extends PureComponent {
                     return <Fragment>
                         <a onClick={() => { this.editStudent(record) }}>编辑</a>
                         <span className="ant-divider" />
-                        <a onClick={() => { this.deleteStudent(false,record) }} style={{color:'red'}}>删除</a>
+                        <Popconfirm placement="top" title={'确认删除学生?'} onConfirm={()=> this.deleteStudent(false,record)} okText="确认" cancelText="取消">
+                            <a  style={{color:'red'}}>删除</a>
+                        </Popconfirm>
                     </Fragment>
                 }
             }

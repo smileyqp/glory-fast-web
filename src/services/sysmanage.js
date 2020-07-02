@@ -73,6 +73,14 @@ export async function permissionListEdit(data) {
   })
 }
 
+export async function permissionListDelete(data) {
+  let param = data.data
+  return request('/api/menu/delete', {
+    method: 'DELETE',
+    data:param,
+  });
+}
+
 export async function queryRoleList(data) {
     return request('/api/role/list',{ 
       method: 'POST',
