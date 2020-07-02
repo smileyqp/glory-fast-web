@@ -60,27 +60,27 @@ const {Option} = Select;
         </TabPane>
         <TabPane tab="指示性图标" key="2">
         {suggestionIcons.map((item)=>{
-                return <Icon key={item} type={item} />
+                return <Icon key={item} type={item} className = {classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
             })}
         </TabPane>
         <TabPane tab="编辑类图标" key="3">
         {editIcons.map((item)=>{
-                return <Icon key={item} type={item} className={styles.icon}/>
+                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
             })}
         </TabPane>
         <TabPane tab="数据类图标" key="4" >
         {dataIcons.map((item)=>{
-                return <Icon key={item} type={item} className={styles.icon}/>
+                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
             })}
         </TabPane>
         <TabPane tab="网站通用图标" key="5">
         {webIcons.map((item)=>{
-                return <Icon key={item} type={item} className={styles.icon}/>
+                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
             })}
         </TabPane>
         <TabPane tab="品牌和标识" key="6">
         {logoIcons.map((item)=>{
-                return <Icon key={item} type={item} className={styles.icon}/>
+                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
             })}
         </TabPane>
     </Tabs>

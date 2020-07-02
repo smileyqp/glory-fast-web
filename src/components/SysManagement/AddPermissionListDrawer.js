@@ -63,13 +63,21 @@ const {Option} = Select;
         this.setState({iconChooseVisible:true})
     }
     closeIconChoose = () => {
-        console.log(1111111111)
+        const {form} = this.props;
+        form.setFieldsValue({icon:null})
+        this.setState({iconChooseVisible:false,selecteditem:null})
+    }
+    confirmIconChoose = () => {
         this.setState({iconChooseVisible:false})
     }
 
 
     selectIcon = (icon) => {
+        const { form } = this.props;
         this.setState({selecteditem:icon})
+        form.setFieldsValue({
+            icon:icon
+        })
     } 
     render(){
         const {addDrawervisible ,handleCancel,handleSubmit,form,treeData} = this.props;
@@ -78,7 +86,7 @@ const {Option} = Select;
     const iconmodal = (
         <IconModal
         handleCancel = {this.closeIconChoose}
-        handleOk = {this.openIconChoose}
+        handleOk = {this.confirmIconChoose}
         visible = {this.state.iconChooseVisible}
         selectIcon = {this.selectIcon}
         selecteditem = {this.state.selecteditem}

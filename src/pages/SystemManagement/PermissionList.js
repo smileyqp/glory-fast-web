@@ -111,7 +111,7 @@ class PermissionList extends PureComponent {
       {
         title: '菜单名称',
         dataIndex: 'name',
-        width: 100,
+        width: 150,
       },
       {
         title: 'icon',
@@ -195,7 +195,7 @@ class PermissionList extends PureComponent {
                 dataSource = {permissionlist&&permissionlist}
                 loading = {loading}
                 columns = {columns}
-                rowKey = {'title'}
+                rowKey = {'name'}
                 pagination={pagination}
               />
           </div>
