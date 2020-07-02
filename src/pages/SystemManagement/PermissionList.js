@@ -30,9 +30,13 @@ class PermissionList extends PureComponent {
         dispatch({
           type: 'user/fetchCurrent',
         });
-        dispatch({
-          type:'sysmanage/fetchPermissionList'
-        })
+        this.refreshTable()
+    }
+    refreshTable = () => {
+      const {dispatch} = this.props;
+      dispatch({
+        type:'sysmanage/fetchPermissionList'
+      })
     }
 
     handleSelectRows = rows => {
@@ -65,6 +69,8 @@ class PermissionList extends PureComponent {
             ...values,
             callback:(res)=>{
               console.log(res)
+              this.setState({addDrawervisible:false})
+              this.refreshTable()
             }
           }
         })
