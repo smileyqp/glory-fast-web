@@ -1,24 +1,9 @@
 import React, { PureComponent } from 'react';
 import {
   Icon,
-  Drawer,
-  Form,
-  Select,
-  DatePicker,
-  Tooltip,
-  Cascader,
-  AutoComplete,
-  Checkbox,
-  Upload,
-  message,
   Input,
-  Row,
-  Col,
   Button,
-  Radio,
-  Card,
   Modal,
-  TreeSelect,
   Tabs
 } from 'antd';
 import classNames from 'classnames';
@@ -31,61 +16,57 @@ const editIcons = ['edit', 'form', 'copy', 'scissor', 'delete', 'snippets', 'dif
 const dataIcons = ['area-chart', 'pie-chart', 'bar-chart', 'dot-chart', 'line-chart', 'radar-chart', 'heat-map', 'fall', 'rise', 'stock', 'box-plot', 'fund', 'sliders']
 const webIcons = ['lock', 'unlock', 'bars', 'book', 'calendar', 'cloud', 'cloud-download', 'code', 'copy', 'credit-card', 'delete', 'desktop', 'download', 'ellipsis', 'file', 'file-text', 'file-unknown', 'file-pdf', 'file-word', 'file-excel', 'file-jpg', 'file-ppt', 'file-markdown', 'file-add', 'folder', 'folder-open', 'folder-add', 'hdd', 'frown', 'meh', 'smile', 'inbox', 'laptop', 'appstore', 'link', 'mail', 'mobile', 'notification', 'paper-clip', 'picture', 'poweroff', 'reload', 'search', 'setting', 'share-alt', 'shopping-cart', 'tablet', 'tag', 'tags', 'to-top', 'upload', 'user', 'video-camera', 'home', 'loading', 'loading-3-quarters', 'cloud-upload', 'star', 'heart', 'environment', 'eye', 'camera', 'save', 'team', 'solution', 'phone', 'filter', 'exception', 'export', 'customer-service', 'qrcode', 'scan', 'like', 'dislike', 'message', 'pay-circle', 'calculator', 'pushpin', 'bulb', 'select', 'switcher', 'rocket', 'bell', 'disconnect', 'database', 'compass', 'barcode', 'hourglass', 'key', 'flag', 'layout', 'printer', 'sound', 'usb', 'skin', 'tool', 'sync', 'wifi', 'car', 'schedule', 'user-add', 'user-delete', 'usergroup-add', 'usergroup-delete', 'man', 'woman', 'shop', 'gift', 'idcard', 'medicine-box', 'red-envelope', 'coffee', 'copyright', 'trademark', 'safety', 'wallet', 'bank', 'trophy', 'contacts', 'global', 'shake', 'api', 'fork', 'dashboard', 'table', 'profile', 'alert', 'audit', 'branches', 'build', 'border', 'crown', 'experiment', 'fire', 'money-collect', 'property-safety', 'read', 'reconciliation', 'rest', 'security-scan', 'insurance', 'interation', 'safety-certificate', 'project', 'thunderbolt', 'block', 'cluster', 'deployment-unit', 'dollar', 'euro', 'pound', 'file-done', 'file-exclamation', 'file-protect', 'file-search', 'file-sync', 'gateway', 'gold', 'robot', 'shopping']
 const logoIcons = ['android', 'apple', 'windows', 'ie', 'chrome', 'github', 'aliwangwang', 'dingding', 'weibo-square', 'weibo-circle', 'taobao-circle', 'html5', 'weibo', 'twitter', 'wechat', 'youtube', 'alipay-circle', 'taobao', 'skype', 'qq', 'medium-workmark', 'gitlab', 'medium', 'linkedin', 'google-plus', 'dropbox', 'facebook', 'codepen', 'amazon', 'google', 'codepen-circle', 'alipay', 'ant-design', 'aliyun', 'zhihu', 'slack', 'slack-square', 'behance', 'behance-square', 'dribbble', 'dribbble-square', 'instagram', 'yuque', 'alibaba', 'yahoo']
-const RadioGroup = Radio.Group;
  
-const {Option} = Select;
   export default class IconModal extends PureComponent {
     state = {
     }
    
     render(){
-        const {visible ,handleOk,handleCancel,handleSubmit,form,selectIcon,selecteditem} = this.props;
-
-    
+        const {visible ,handleOk,handleCancel,form,selectIcon,selecteditem} = this.props;
         
-    return(
-        <Modal
-        title="图标选择"
-        visible={visible}
-        width='800px'
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
+        return(
+            <Modal
+            title="图标选择"
+            visible={visible}
+            width='800px'
+            onOk={handleOk}
+            onCancel={handleCancel}
+        >
 
-    <Tabs defaultActiveKey="1" >
-        <TabPane tab="方向性图标" key="1" >
-            {directionIcons.map((item)=>{
-                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
-            })}
-        </TabPane>
-        <TabPane tab="指示性图标" key="2">
-        {suggestionIcons.map((item)=>{
-                return <Icon key={item} type={item} className = {classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
-            })}
-        </TabPane>
-        <TabPane tab="编辑类图标" key="3">
-        {editIcons.map((item)=>{
-                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
-            })}
-        </TabPane>
-        <TabPane tab="数据类图标" key="4" >
-        {dataIcons.map((item)=>{
-                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
-            })}
-        </TabPane>
-        <TabPane tab="网站通用图标" key="5">
-        {webIcons.map((item)=>{
-                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
-            })}
-        </TabPane>
-        <TabPane tab="品牌和标识" key="6">
-        {logoIcons.map((item)=>{
-                return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
-            })}
-        </TabPane>
-    </Tabs>
-    </Modal>
-    )
+        <Tabs defaultActiveKey="1" >
+            <TabPane tab="方向性图标" key="1" >
+                {directionIcons.map((item)=>{
+                    return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
+                })}
+            </TabPane>
+            <TabPane tab="指示性图标" key="2">
+            {suggestionIcons.map((item)=>{
+                    return <Icon key={item} type={item} className = {classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
+                })}
+            </TabPane>
+            <TabPane tab="编辑类图标" key="3">
+            {editIcons.map((item)=>{
+                    return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
+                })}
+            </TabPane>
+            <TabPane tab="数据类图标" key="4" >
+            {dataIcons.map((item)=>{
+                    return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
+                })}
+            </TabPane>
+            <TabPane tab="网站通用图标" key="5">
+            {webIcons.map((item)=>{
+                    return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
+                })}
+            </TabPane>
+            <TabPane tab="品牌和标识" key="6">
+            {logoIcons.map((item)=>{
+                    return <Icon key={item} type={item} className={classNames(styles.icon,{[styles.selectedicon]:item===selecteditem})} onClick = {()=>{selectIcon(item)}}/>
+                })}
+            </TabPane>
+        </Tabs>
+        </Modal>
+        )
     }
   }
 

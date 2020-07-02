@@ -180,10 +180,10 @@ class PermissionList extends PureComponent {
       <PageHeaderWrapper>
         <AddPermissionListDrawer
           {...this.props}
-           closeAdddrawer={this.closeAdddrawer}
-           addDrawervisible = {addDrawervisible}
-           handleCancel = {this.handleCancel}
-           handleSubmit = {this.handleSubmit}
+            closeAdddrawer={this.closeAdddrawer}
+            addDrawervisible = {addDrawervisible}
+            handleCancel = {this.handleCancel}
+            handleSubmit = {this.handleSubmit}
             treeData = {treelist}
         />
         <Card bordered={false}>
