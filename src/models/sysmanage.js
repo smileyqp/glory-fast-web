@@ -1,4 +1,4 @@
-import { queryUserList, addUser,disableUser,deleteUser,updateUser,exportUser,uploadInfo,queryPermissionList,permissionListAdd,permissionListEdit,permissionListDelete,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
+import { validateCode,queryUserList, addUser,disableUser,deleteUser,updateUser,exportUser,uploadInfo,queryPermissionList,permissionListAdd,permissionListEdit,permissionListDelete,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -221,11 +221,17 @@ export default {
     },
 
 
-
-    *detchLoginloglist(_, { call, put }){
+    // *detchLoginloglist(_, { call, put }){
+    //   const {payload} = _;
+    //   const response = yield call(queryLoginLog,payload)
+    // },
+    *validatecode(_, { call, put }){
       const {payload} = _;
-      const response = yield call(queryLoginLog,payload)
+      const {callback } = payload; 
+      const response = yield call(validateCode, payload);
+      if (callback) callback(response);
     }
+    
   },
 
   reducers: {

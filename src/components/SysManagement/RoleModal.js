@@ -19,6 +19,7 @@ import {
   Icon
 } from 'antd';
 import classNames from 'classnames';
+import { SearchOutlined } from '@ant-design/icons';
 
 
 const formItemLayout = {
@@ -33,9 +34,19 @@ const formItemLayout = {
   };
 
 export default class RoleModal extends PureComponent {
+  validateCode = (rule, value, callback) => {
+    console.log(111111)
+    const {form,validateCode} = this.props;
+    console.log(form.getFieldsValue().roleCode)
+    validateCode(form.getFieldsValue().roleCode)
+}
+
+
+ 
   render() {
-    const { form ,handleSubmit ,visible ,cancleSubmit ,title} = this.props;
+    const { form ,handleSubmit ,visible ,cancleSubmit ,title,codevalid} = this.props;
     const { getFieldDecorator } = form; 
+    console.log(codevalid===undefined)
     return (
         <Modal
         title={title}
@@ -59,6 +70,9 @@ export default class RoleModal extends PureComponent {
             })(<Input />)}
             </Form.Item>
             <Form.Item
+            hasFeedback
+            validateStatus={codevalid===undefined?null:(codevalid?"success":"error")}
+            help={codevalid===undefined?null:(codevalid?null:"当前编码已被占用,请更换")}
             label={
                 <span>
                 角色编码&nbsp;
@@ -69,8 +83,10 @@ export default class RoleModal extends PureComponent {
             }
             >
             {getFieldDecorator('roleCode', {
-                rules: [{ required: true, message: '请输入角色编码!', whitespace: true }],
-            })(<Input />)}
+                rules: [
+                  { required: true, message: '请输入角色编码!', whitespace: true },
+                ],
+            })(<Input  addonBefore={<span onClick = {this.validateCode}>点击验证是否可用<SearchOutlined /></span>}/>)}
             </Form.Item>
 
             <Form.Item label="角色描述">

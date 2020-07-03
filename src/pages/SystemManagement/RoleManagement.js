@@ -46,7 +46,7 @@ class RoleManagement extends PureComponent {
     },
     selectedRows:[],
     addRoleVisible:false,
-    editRoleVisible:false
+    editRoleVisible:false,
   }
   componentDidMount() {
     const { dispatch } = this.props;
@@ -90,6 +90,26 @@ class RoleManagement extends PureComponent {
   cancelAddRole = () => {
     this.setState({addRoleVisible:false})
     this.resetRoleForm()
+  }
+
+  validateCode = (code) => {
+    const {dispatch} = this.props;
+    console.log(code)
+    dispatch({
+      type:'sysmanage/validatecode',
+      payload:{
+        roleCode:code,
+        callback:(res)=>{
+          console.log(res)
+          if(res.status ===200){
+            this.setState({codevalid:true})
+          }else{
+            this.setState({codevalid:false})
+          }
+        }
+      },
+      
+    })
   }
 
   handleSubmit = (e) => {
@@ -155,6 +175,10 @@ class RoleManagement extends PureComponent {
       remarks: record.remarks
     })
   }
+
+  roleAuthorized = (record) => {
+    this.setState({authorizedVisible:true})
+  } 
   
   cancalEditRole = () => {
     this.setState({editRoleVisible:false})
@@ -238,7 +262,7 @@ class RoleManagement extends PureComponent {
             return <Fragment>
                 <a onClick= {()=>{this.editRole(record)}}>编辑</a>
                 <span className="ant-divider" />
-                <a >授权</a>
+                <a onClick = {()=>{this.roleAuthorized(record)}}>授权</a>
             </Fragment>
         }
       }
@@ -250,6 +274,8 @@ class RoleManagement extends PureComponent {
       visible = {this.state.addRoleVisible}
       cancleSubmit = {this.cancelAddRole}
       handleSubmit = {this.handleSubmit}
+      validateCode = {this.validateCode}
+      codevalid = {this.state.codevalid}
       form = {form}
       title = {'新增角色'}
     />

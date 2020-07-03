@@ -238,14 +238,6 @@ class UserManagement extends PureComponent {
     );
   };
 
-  compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('两次输入密码不一致!');
-    } else {
-      callback();
-    }
-  };
 
   handleSubmit = e => {
     e.preventDefault();

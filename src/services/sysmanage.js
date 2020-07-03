@@ -178,3 +178,11 @@ export async function childDictDelete(data){
       data:param
   })
 }
+
+
+export async function validateCode(data) {
+  return request('/api/role/checkRoleCode',{ 
+    method: 'POST',
+    data
+  })
+}
