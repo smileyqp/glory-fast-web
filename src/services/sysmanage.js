@@ -186,3 +186,17 @@ export async function validateCode(data) {
     data
   })
 }
+
+export async function roleAuthorize(data) {
+  return request('/api/role/grant',{ 
+    method: 'POST',
+    ...data
+  })
+}
+
+export async function fetchroleAuthorize(data) {
+  let param = data.data
+  return request('/api/menu/getMenuListByRole/?roleId='+data.roleId,{ 
+    method: 'GET'
+  })
+}

@@ -8,6 +8,8 @@ import { formatWan } from '@/utils/utils';
 import sysmanage from '@/models/sysmanage';
 import styles from './UserManagement.less';
 import RoleModal from '@/components/SysManagement/RoleModal'
+import RoleAuthorized from '@/components/SysManagement/RoleAuthorized'
+import authorize from '@/components/Authorized/Secured';
 
 const formItemLayout = {
   labelCol: {
@@ -34,6 +36,7 @@ const tailFormItemLayout = {
 
 @connect(({ sysmanage, loading }) => ({
   rolelist:sysmanage.rolemanage.rolelist,
+  permissionlist:sysmanage.permissionlistmanage.permissionlist,
   loading:loading.effects['sysmanage/fetchRoleList'],
 }))
 @Form.create()
@@ -47,12 +50,19 @@ class RoleManagement extends PureComponent {
     selectedRows:[],
     addRoleVisible:false,
     editRoleVisible:false,
+    expandedKeys: [],
+    autoExpandParent: true,
+    checkedKeys: [],
+    selectedKeys: [],
   }
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
     });
+    dispatch({
+      type:'sysmanage/fetchPermissionList'
+    })
     // dispatch({
     //   type:'sysmanage/fetchRoleList'
     // })
@@ -177,8 +187,48 @@ class RoleManagement extends PureComponent {
   }
 
   roleAuthorized = (record) => {
-    this.setState({authorizedVisible:true})
+    const {dispatch} = this.props;
+    dispatch({
+      type:'sysmanage/fetchroleAuthorize',
+      payload:{
+        roleId:record.id,
+        callback:res =>{
+          console.log(res)
+          this.setState({checkedKeys:res.result,authorizedVisible:true,authorizeid:record.id})
+        }
+      }
+      
+    })
+  
   } 
+
+  authorizeSubmit = (data) => {
+    const {dispatch} = this.props;
+    const {checkedKeys,authorizeid} = this.state;
+    dispatch({
+      type:'sysmanage/roleauthorize',
+      payload:{
+        data:{id:authorizeid,menus:checkedKeys},
+        callback:(res)=>{
+          console.log(res)
+          if(res.status === 200){ 
+            message.success('授权成功')
+            this.authorizeCancel()
+           }
+        }
+      }
+    })
+  }
+
+  authorizeCancel = () => {
+    this.setState({
+      authorizedVisible:false, 
+      expandedKeys: [],
+      autoExpandParent: true,
+      checkedKeys: [],
+      selectedKeys: []
+    })
+  }
   
   cancalEditRole = () => {
     this.setState({editRoleVisible:false})
@@ -213,6 +263,28 @@ class RoleManagement extends PureComponent {
     const { form } = this.props;
     form.resetFields()
   }
+
+
+
+  onExpand = expandedKeys => {
+    console.log('onExpand', expandedKeys);
+    // if not set autoExpandParent to false, if children expanded, parent can not collapse.
+    // or, you can remove all expanded children keys.
+    this.setState({
+      expandedKeys,
+      autoExpandParent: false,
+    });
+  };
+
+  onCheck = checkedKeys => {
+    console.log('onCheck', checkedKeys);
+    this.setState({ checkedKeys });
+  };
+
+  onSelect = (selectedKeys, info) => {
+    console.log('onSelect', info);
+    this.setState({ selectedKeys });
+  };
 
   render() {
     const {loading,rolelist,form} = this.props;
@@ -267,6 +339,24 @@ class RoleManagement extends PureComponent {
         }
       }
     ]
+  
+    const roleAuthorizeModal = (
+      <RoleAuthorized
+        visible = {this.state.authorizedVisible}
+        data = {this.props.permissionlist}
+        handleSubmit = {this.authorizeSubmit}
+        cancleSubmit = {this.authorizeCancel}
+
+        expandedKeys = {this.state.expandedKeys}
+        autoExpandParent = {this.state.autoExpandParent}
+        checkedKeys = {this.state.checkedKeys}
+        selectedKeys = {this.state.selectedKeys}
+
+        onExpand = {this.onExpand}
+        onCheck = {this.onCheck}
+        onSelect = {this.onSelect}
+      />
+    )
 
 
   const addRoleModal = (
@@ -294,6 +384,7 @@ class RoleManagement extends PureComponent {
 
   return (
     <PageHeaderWrapper>
+        {roleAuthorizeModal}
         {addRoleModal}
         {editeRoleModal}
         <Card bordered={false}>

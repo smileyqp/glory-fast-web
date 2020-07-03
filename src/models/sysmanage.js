@@ -1,4 +1,4 @@
-import { validateCode,queryUserList, addUser,disableUser,deleteUser,updateUser,exportUser,uploadInfo,queryPermissionList,permissionListAdd,permissionListEdit,permissionListDelete,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList } from '@/services/sysmanage';
+import { validateCode,queryUserList, addUser,disableUser,deleteUser,updateUser,exportUser,uploadInfo,queryPermissionList,permissionListAdd,permissionListEdit,permissionListDelete,queryRoleList,roleAdd,roleEdit,roleDelete,queryDictList,dictAdd,dictUpdate,dictDelete,childDictAdd,childDictUpdate,childDictDelete, queryChildDictList,roleAuthorize,fetchroleAuthorize } from '@/services/sysmanage';
 import { getUserInfo } from '@/utils/authority';
 export default {
   namespace: 'sysmanage',
@@ -230,7 +230,21 @@ export default {
       const {callback } = payload; 
       const response = yield call(validateCode, payload);
       if (callback) callback(response);
+    },
+    *roleauthorize(_, { call, put }){
+      const {payload} = _;
+      const {callback } = payload; 
+      const response = yield call(roleAuthorize, payload);
+      if (callback) callback(response);
+    },
+    *fetchroleAuthorize(_, { call, put }){
+      const {payload} = _;
+      const {callback } = payload; 
+      const response = yield call(fetchroleAuthorize, payload);
+      if (callback) callback(response);
     }
+    
+    
     
   },
 
