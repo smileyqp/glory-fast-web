@@ -1,5 +1,5 @@
 import React, { PureComponent,Fragment } from 'react';
-import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form} from 'antd';
+import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip, Table ,Button ,Form,Popover} from 'antd';
 import numeral from 'numeral';
 import StandardTable from '@/components/StandardTable';
 import { connect } from 'dva';
@@ -90,6 +90,10 @@ class DebugLog extends PureComponent {
         this.refreshTable(values)
       }
 
+      openDetails = (record) => {
+        console.log(record)
+        console.log(record.errorData)
+      }
 
     render() {
         const {debugloglist,loading} = this.props;
@@ -97,6 +101,12 @@ class DebugLog extends PureComponent {
             selectedRows,
             pagination
         } = this.state;
+        // const content = (record) => {
+        //   return( 
+        //     this.render(<div>
+        //     </div>)
+        //   )
+        // }
         const columns = [
             {
                 title: '序号',
@@ -128,7 +138,10 @@ class DebugLog extends PureComponent {
                 title: '操作时间',
                 dataIndex: 'createTime',
                 width: 200,
-            },
+            },{
+              title:'操作',
+              render:(_,record)=><Popover title={'错误数据'} content={<div style={{width:'1000px',height:'500px',overflow:'scroll'}}>{record.errorData}</div>} trigger="click"><a>错误详情</a></Popover>
+            }
             // TODO 内容过长，需要处理
             // {
             //   title: '异常详情',
