@@ -35,7 +35,6 @@ const formItemLayout = {
 
 export default class RoleModal extends PureComponent {
   validateCode = (rule, value, callback) => {
-    console.log(111111)
     const {form,validateCode} = this.props;
     console.log(form.getFieldsValue().roleCode)
     validateCode(form.getFieldsValue().roleCode)
@@ -71,8 +70,8 @@ export default class RoleModal extends PureComponent {
             </Form.Item>
             <Form.Item
             hasFeedback
-            validateStatus={codevalid===undefined?null:(codevalid?"success":"error")}
-            help={codevalid===undefined?null:(codevalid?null:"当前编码已被占用,请更换")}
+            validateStatus={codevalid===null?null:(codevalid?"success":"error")}
+            help={codevalid===null?null:(codevalid?null:"当前编码已被占用,请更换")}
             label={
                 <span>
                 角色编码&nbsp;

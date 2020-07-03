@@ -54,6 +54,7 @@ class RoleManagement extends PureComponent {
     autoExpandParent: true,
     checkedKeys: [],
     selectedKeys: [],
+    codevalid:null
   }
   componentDidMount() {
     const { dispatch } = this.props;
@@ -98,28 +99,34 @@ class RoleManagement extends PureComponent {
     this.setState({addRoleVisible:true})
   }
   cancelAddRole = () => {
-    this.setState({addRoleVisible:false})
+    this.setState({addRoleVisible:false,editRoleCode:null,codevalid:null})
     this.resetRoleForm()
   }
+
 
   validateCode = (code) => {
     const {dispatch} = this.props;
     console.log(code)
-    dispatch({
-      type:'sysmanage/validatecode',
-      payload:{
-        roleCode:code,
-        callback:(res)=>{
-          console.log(res)
-          if(res.status ===200){
-            this.setState({codevalid:true})
-          }else{
-            this.setState({codevalid:false})
+    if(this.state.editRoleCode === code){
+      this.setState({codevalid:true})
+    }else{
+      dispatch({
+        type:'sysmanage/validatecode',
+        payload:{
+          roleCode:code,
+          callback:(res)=>{
+            console.log(res)
+            if(res.status ===200){
+              this.setState({codevalid:true})
+            }else{
+              this.setState({codevalid:false})
+            }
           }
-        }
-      },
-      
-    })
+        },
+        
+      })
+    }
+  
   }
 
   handleSubmit = (e) => {
@@ -177,7 +184,7 @@ class RoleManagement extends PureComponent {
 
   editRole = (record) => {
     const { form } = this.props;
-    this.setState({editRoleVisible:true,editRoleid:record.id})
+    this.setState({editRoleVisible:true,editRoleid:record.id,editRoleCode:record.roleCode})
     form.setFieldsValue({
       roleCode: record.roleCode,
       roleName: record.roleName,
@@ -231,7 +238,7 @@ class RoleManagement extends PureComponent {
   }
   
   cancalEditRole = () => {
-    this.setState({editRoleVisible:false})
+    this.setState({editRoleVisible:false,editRoleCode:null,codevalid:null})
     this.resetRoleForm()
   }
 
@@ -376,6 +383,8 @@ class RoleManagement extends PureComponent {
       visible = {this.state.editRoleVisible}
       cancleSubmit = {this.cancalEditRole}
       handleSubmit = {this.handleEdit}
+      validateCode = {this.validateCode}
+      codevalid = {this.state.codevalid}
       title = {'修改角色'}
       form = {form}
     />
