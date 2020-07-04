@@ -454,8 +454,8 @@ class UserManagement extends PureComponent {
             </div>
             <StandardTable
               bordered
-              scroll={{ x: 1500, y: 600 }}
-              size="middle"
+              scroll={{ x: 1500 }}
+              size="small"
               selectedRows={selectedRows}
               loading={loading} 
               pagination={pagination}
