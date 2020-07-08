@@ -430,12 +430,12 @@ class DictList extends PureComponent {
                         type='parent'
                     />
                 </div>
-            <Divider />
+            {!this.state.childbtnDisabled&&<Divider />}
 
             </Card>
-            <Card bordered={false}>
+            {!this.state.childbtnDisabled&&<Card bordered={false}>
                 <div className={styles.tableList}>
-                    {!this.state.childbtnDisabled&&searchChildCon}
+                    {searchChildCon}
                     {childDictbtn}
                     <DictTable
                         dataSource = {dictlistchild&&dictlistchild.records}
@@ -444,7 +444,7 @@ class DictList extends PureComponent {
                         type='child'
                     />
                 </div>
-            </Card>
+            </Card>}
 
 
          
