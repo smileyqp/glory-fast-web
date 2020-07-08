@@ -121,7 +121,6 @@ export default function request(url, option) {
         if (newOptions.method === 'DELETE' || response.status === 204) {
           return response.data;
         }
-        message.success(response.data.msg);
         return response.data;
       })
       .catch(e => {
