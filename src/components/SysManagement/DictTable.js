@@ -71,7 +71,7 @@ export default class DictTable extends PureComponent {
     return (
         <Table 
           bordered  
-          size="middle"
+          size="small"
           // selectedRows={selectedRows}
           dataSource = {dataSource}
           loading = {loading}
