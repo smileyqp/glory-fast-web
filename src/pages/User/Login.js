@@ -3,8 +3,10 @@ import { connect } from 'dva';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import Link from 'umi/link';
 import { Checkbox, Alert, Modal, Icon } from 'antd';
+import md5 from'md5';
 import Login from '@/components/Login';
 import styles from './Login.less';
+
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
@@ -47,6 +49,7 @@ class LoginPage extends Component {
     const { type } = this.state;
     if (!err) {
       const { dispatch } = this.props;
+      values.password = md5(values.password)
       dispatch({
         type: 'login/login',
         payload: {
