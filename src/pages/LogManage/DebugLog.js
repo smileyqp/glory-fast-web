@@ -116,8 +116,8 @@ class DebugLog extends PureComponent {
               },
             {
               title: '登录名',
-              dataIndex: 'loginName',
               width: 100,
+              render:(data)=>{return data.loginName||data.createBy}
             },
             {
               title: '用户名',

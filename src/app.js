@@ -32,16 +32,16 @@ export function patchRoutes(routes) {
 }
 
 // https://umijs.org/zh/guide/runtime-config.html#render
-export function render(oldRender) {
-  fetch('/api/auth_routes')
-    .then(res => res.json())
-    .then(
-      ret => {
-        authRoutes = ret;
-        oldRender();
-      },
-      () => {
-        oldRender();
-      }
-    );
-}
+// export function render(oldRender) {
+//   fetch('/api/auth_routes')
+//     .then(res => res.json())
+//     .then(
+//       ret => {
+//         authRoutes = ret;
+//         oldRender();
+//       },
+//       () => {
+//         oldRender();
+//       }
+//     );
+// }

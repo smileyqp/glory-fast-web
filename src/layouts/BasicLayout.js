@@ -51,13 +51,19 @@ class BasicLayout extends React.Component {
     } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
+      payload:{
+        callback:(res)=>{
+          if(res){
+            dispatch({
+              type: 'menu/getMenuData',
+              payload: { routes, path, authority },
+            });
+          }
+        }
+      }
     });
     dispatch({
       type: 'setting/getSetting',
-    });
-    dispatch({
-      type: 'menu/getMenuData',
-      payload: { routes, path, authority },
     });
   }
 

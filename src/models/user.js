@@ -17,7 +17,9 @@ export default {
       });
     },
     *fetchCurrent(_, { call, put }) {
+      const {payload:{callback}} = _;
       const response = getUserInfo();
+      if(callback)callback(response)
       yield put({
         type: 'saveCurrentUser',
         payload: response,
