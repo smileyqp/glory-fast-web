@@ -79,7 +79,8 @@ export default class AdduserDrawer extends PureComponent {
       imageUrl,
       photoloading,
       fileData,
-      rolelist
+      rolelist,
+      isAdd
     } = this.props;
     const { getFieldDecorator } = form;
     const prefixSelector = getFieldDecorator('prefix', {
@@ -96,9 +97,41 @@ export default class AdduserDrawer extends PureComponent {
         <div className="ant-upload-text">Upload</div>
       </div>
     );
+
+
+    const passwordContent = (
+      <React.Fragment>
+        <Form.Item label="登陆密码" hasFeedback>
+              {getFieldDecorator('password', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入您的密码!',
+                  },
+                  {
+                    validator: this.validateToNextPassword,
+                  },
+                ],
+              })(<Input.Password />)}
+            </Form.Item>
+            <Form.Item label="确认密码" hasFeedback>
+              {getFieldDecorator('confirm', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请验证您的密码!',
+                  },
+                  {
+                    validator: this.compareToFirstPassword,
+                  },
+                ],
+              })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+            </Form.Item>
+      </React.Fragment>
+    )
     return (
       <Modal
-        title="新增用户"
+        title={isAdd?'添加用户':'修改用户'}
         width={720}
         // onClose={handleCancel}
         visible={addDrawervisible}
@@ -150,32 +183,11 @@ export default class AdduserDrawer extends PureComponent {
                 ],
               })(<Input />)}
             </Form.Item>
-            <Form.Item label="登陆密码" hasFeedback>
-              {getFieldDecorator('password', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入您的密码!',
-                  },
-                  {
-                    validator: this.validateToNextPassword,
-                  },
-                ],
-              })(<Input.Password />)}
-            </Form.Item>
-            <Form.Item label="确认密码" hasFeedback>
-              {getFieldDecorator('confirm', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请验证您的密码!',
-                  },
-                  {
-                    validator: this.compareToFirstPassword,
-                  },
-                ],
-              })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-            </Form.Item>
+            
+            {isAdd&&passwordContent}
+
+
+
             <Form.Item label="请选择用户角色" >
               {getFieldDecorator('roles', {
                 rules: [

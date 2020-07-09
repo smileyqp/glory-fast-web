@@ -24,7 +24,7 @@ import DetailMenu from '@/components/SysManagement/DetailMenu';
 
 const statusMap = {'启用':'green','禁用': 'red'}
 
-export default function UserlistColumn(styles, updatePassword,editUser) {
+export default function UserlistColumn(styles, updatePassword,editUser,rolelist) {
   return [
     {
       title: '序号',
@@ -43,6 +43,16 @@ export default function UserlistColumn(styles, updatePassword,editUser) {
       title: '用户账号',
       dataIndex: 'loginName',
       width: 120,
+    },
+    {
+      title: '角色',
+      dataIndex: 'roles',
+      width: 120,
+      render:(data)=>{
+        return data.map((item,index,arr)=>{
+        return index === arr.length -1?<span key={index}>{getRole(rolelist,item)}</span>:<React.Fragment key={index}><span>{getRole(rolelist,item)}</span><span className="ant-divider" /></React.Fragment>
+        })
+      }
     },
     {
       title: '头像',
@@ -152,4 +162,15 @@ export default function UserlistColumn(styles, updatePassword,editUser) {
       fixed: 'right',
     },
   ];
+}
+
+
+function getRole (arr,indexdata) {
+  var data = null;
+    arr&&arr.forEach((item,key)=>{
+      if(item.id === indexdata){
+        data = item.roleName
+      }
+    })
+    return data
 }

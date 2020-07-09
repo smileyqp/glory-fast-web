@@ -103,7 +103,6 @@ class UserManagement extends PureComponent {
         payload: {
             ...data,
             callback: res => {
-                console.log("------"+res)
                 const pagination = { ...this.state.pagination };
                 pagination.total = res.total;
                 pagination.pageSize = res.pageSize;
@@ -314,6 +313,7 @@ class UserManagement extends PureComponent {
   confirmeditUser = () => {
     const {form,dispatch} = this.props;
     form.validateFieldsAndScroll((err,values)=>{
+      values.photo = 'testphoto';
       const data = {...this.state.editUserRecord,...values}
       console.log(data)
       console.log(values)
@@ -374,6 +374,7 @@ class UserManagement extends PureComponent {
     const updateUserModal = (
       <AdduserDrawer
         {...this.props}
+        isAdd={false}
         beforeUpload={this.beforeUpload}
         handleCancel={this.cancelEdit}
         handleSubmit={this.confirmeditUser}
@@ -408,6 +409,7 @@ class UserManagement extends PureComponent {
           cancleSubmit = {this.updatePasswordCancel}
         />
         <AdduserDrawer
+          isAdd = {true}
           {...this.props}
           beforeUpload={this.beforeUpload}
           handleCancel={this.handleCancel}
@@ -460,7 +462,7 @@ class UserManagement extends PureComponent {
               loading={loading} 
               pagination={pagination}
               dataSource={userlist && userlist.records}
-              columns={UserlistColumn(styles, this.updatePassword,this.editUser)}
+              columns={UserlistColumn(styles, this.updatePassword,this.editUser,this.props.rolelist&&this.props.rolelist.records)}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
               rowKey="id"
