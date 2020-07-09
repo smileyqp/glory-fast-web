@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import md5 from'md5';
 import {
   Menu,
   Drawer,
@@ -62,7 +63,7 @@ export default class UpdatePasswordModal extends PureComponent {
         const {form,handleSubmit} = this.props;
         form.validateFieldsAndScroll((err, values)=>{
             if(!err){
-                handleSubmit({password:values.password})
+                handleSubmit({password:md5(values.password)})
             }
         })
     }
