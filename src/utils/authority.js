@@ -40,3 +40,8 @@ export function getToken(){
   const userinfo = localStorage.getItem('usertoken');
   return userinfo;
 }
+
+
+export function clearLocalstorage(){
+  localStorage.clear()
+}

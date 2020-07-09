@@ -1,7 +1,7 @@
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/api';
-import { setAuthority,setUserInfo,setToken } from '@/utils/authority';
+import { setAuthority,setUserInfo,setToken,clearLocalstorage } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
 
@@ -60,6 +60,7 @@ export default {
           currentAuthority: 'guest',
         },
       });
+      clearLocalstorage()
       reloadAuthorized();
       const { redirect } = getPageQuery();
       // redirect
