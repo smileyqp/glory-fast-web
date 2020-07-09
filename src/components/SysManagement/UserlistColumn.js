@@ -47,7 +47,7 @@ export default function UserlistColumn(styles, updatePassword,editUser,rolelist)
     {
       title: '角色',
       dataIndex: 'roles',
-      width: 120,
+      width: 220,
       render:(data)=>{
         return data.map((item,index,arr)=>{
         return index === arr.length -1?<span key={index}>{getRole(rolelist,item)}</span>:<React.Fragment key={index}><span>{getRole(rolelist,item)}</span><span className="ant-divider" /></React.Fragment>
