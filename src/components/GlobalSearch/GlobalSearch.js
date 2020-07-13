@@ -102,24 +102,26 @@ export default class GlobalSearch extends PureComponent {
       searchColumns
     } = this.props;
     return (
-      <Form onSubmit={this.searchClick} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-        {this.renderItem(searchColumns)}
-        </Row>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ marginBottom: 24 }}>
-            <Button type="primary" htmlType="submit">
-              查询
-            </Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-              重置
-            </Button>
-            <a style={{ marginLeft: 8 }} onClick={toggleForm}>
-              收起 <Icon type="up" />
-            </a>
+      <div className={styles.tableListForm}>
+        <Form onSubmit={this.searchClick} layout="inline">
+          <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          {this.renderItem(searchColumns)}
+          </Row>
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{ marginBottom: 24 }}>
+              <Button type="primary" htmlType="submit">
+                查询
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                重置
+              </Button>
+              <a style={{ marginLeft: 8 }} onClick={toggleForm}>
+                收起 <Icon type="up" />
+              </a>
+            </div>
           </div>
-        </div>
-      </Form>
+        </Form>
+      </div>
     );
   }
   
